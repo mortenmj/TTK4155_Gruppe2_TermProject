@@ -1,0 +1,72 @@
+EDIF2BLIF version IspLever 1.0  Linked Equations File
+Copyright(C), 1992-2010, Lattice Semiconductor Corp.
+All Rights Reserved.
+
+Design address_decoder created Wed Sep 11 12:40:14 2013
+
+
+ P-Terms   Fan-in  Fan-out  Type  Name (attributes)
+---------  ------  -------  ----  -----------------
+   1/1        1        1    Pin   ram_cs 
+   1/1        1        1    Pin   adc_cs 
+   1/1        1        1    Pin   oled_cs 
+   1/1        1        1    Pin   oled_dc 
+   0          0        1    Node  gnd_n_n 
+   1          2        1    Node  adc_cs_1 
+   1          2        1    Node  un1_oled_cs 
+   1          1        1    Node  un1_oled_cs_i 
+   1          1        1    Node  adc_cs_1_i 
+   1          1        1    Node  a11_i 
+   1          1        1    Node  a10_i 
+   1/1        1        1    Node  a11_c 
+   1/1        1        1    Node  a10_c 
+=========
+  12/6          Best P-Term Total: 12
+                       Total Pins: 8
+                      Total Nodes: 9
+            Average P-Term/Output: 0
+
+
+Equations:
+
+ram_cs = (a11_i);
+
+adc_cs = (adc_cs_1_i);
+
+oled_cs = (un1_oled_cs_i);
+
+oled_dc = (gnd_n_n);
+
+gnd_n_n = (0);
+
+adc_cs_1 = (a10_c & a11_i);
+
+un1_oled_cs = (a10_i & a11_i);
+
+un1_oled_cs_i = (!un1_oled_cs);
+
+adc_cs_1_i = (!adc_cs_1);
+
+a11_i = (!a11_c);
+
+a10_i = (!a10_c);
+
+a11_c = (a11);
+
+a10_c = (a10);
+
+
+Reverse-Polarity Equations:
+
+!ram_cs = (!a11_i);
+
+!adc_cs = (!adc_cs_1_i);
+
+!oled_cs = (!un1_oled_cs_i);
+
+!oled_dc = (!gnd_n_n);
+
+!a11_c = (!a11);
+
+!a10_c = (!a10);
+

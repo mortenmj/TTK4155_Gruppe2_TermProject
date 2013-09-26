@@ -1,0 +1,43 @@
+#Build: Synplify Pro for Lattice D-2009.12LC-1, Build 040R, Jan 20 2010
+#install: C:\ISPLEVER_CLASSIC1_4\synpbase
+#OS: Windows_NT
+
+#Hostname: SANNTID02
+
+$ Start of Compile
+#Wed Sep 11 13:14:57 2013
+
+Synopsys VHDL Compiler, version comp500rc, Build 070R, built Apr 20 2010
+Copyright (C) 1994-2010, Synopsys Inc.  All Rights Reserved
+
+@N: CD720 :"C:\ISPLEVER_CLASSIC1_4\synpbase\lib\vhd\std.vhd":123:18:123:21|Setting time resolution to ns
+@N:"C:\users\mortenmj\documents\github\ttk4155_gruppe2_termproject\gal\address_decoder.vhd":6:7:6:21|Top entity is set to address_decoder.
+VHDL syntax check successful!
+@N: CD630 :"C:\users\mortenmj\documents\github\ttk4155_gruppe2_termproject\gal\address_decoder.vhd":6:7:6:21|Synthesizing work.address_decoder.behavioral 
+Post processing for work.address_decoder.behavioral
+@W: CL159 :"C:\users\mortenmj\documents\github\ttk4155_gruppe2_termproject\gal\address_decoder.vhd":11:2:11:3|Input a8 is unused
+@END
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Wed Sep 11 13:14:57 2013
+
+###########################################################]
+Synopsys CPLD Technology Mapper, Version map500lat, Build 127R, Built Apr 21 2010
+Copyright (C) 1994-2010, Synopsys Inc.  All Rights Reserved
+Product Version D-2009.12LC-1
+---------------------------------------
+Resource Usage Report
+
+Simple gate primitives:
+IBUF            3 uses
+OBUF            4 uses
+AND2            4 uses
+INV             6 uses
+
+
+@N: FC100 |Timing Report not generated for this device, please use place and route tools for timing analysis.
+D-2009.12LC-1
+Mapper successful!
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Wed Sep 11 13:14:58 2013
+
+###########################################################]

@@ -1,0 +1,3 @@
+@N: CD630 :"C:\users\mortenmj\documents\github\ttk4155_gruppe2_termproject\gal\address_decoder.vhd":6:7:6:21|Synthesizing work.address_decoder.behavioral 
+Post processing for work.address_decoder.behavioral
+@W: CL159 :"C:\users\mortenmj\documents\github\ttk4155_gruppe2_termproject\gal\address_decoder.vhd":11:2:11:3|Input a8 is unused
