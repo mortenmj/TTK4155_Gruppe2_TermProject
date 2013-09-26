@@ -11,40 +11,102 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#include "usart.h"
+#include "ring_buffer.h"
+#include "adc.h"
+#include "menu.h"
+#include "oled.h"
+#include "uart.h"
+
+/* Using stdio for this is completely retarded */
+#include <stdio.h>
+
+ int uart_putchar_printf(uint16_t data, FILE *stream) {
+	if (data == '\n') {
+		uart_putchar('\r');
+	}
+	uart_putchar(data);
+	return 0;
+}
+
+static FILE uart_stdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
+
+/* Retardation ends */
+
+void sram_test(void)
+{
+	volatile uint16_t *ext_ram = (uint16_t *) 0x1800; // Start address for the SRAM
+	
+	uint8_t i, werrors, rerrors;
+	werrors = 0;
+	rerrors = 0;
+	uint16_t testvalue;
+	printf("Starting SRAM test...\r\n");
+	
+	for (i = 0; i < 0x800; i++) {
+		testvalue = ~(i % 256);
+		ext_ram[i] = testvalue;
+		if (ext_ram[i] != testvalue) {
+			//printf("SRAM error (write phase): ext_ram[%d] = %02X (should be %02X)\r\n", i, ext_ram[i], testvalue);
+			//_delay_ms(30);
+			werrors++;
+		}
+	}
+	
+	for	(i = 0; i < 0x800; i++) {
+		testvalue = ~(i % 256);
+		if (ext_ram[i] != testvalue) {
+			//printf("SRAM error (read phase): ext_ram[%d] = %02X (should be %02X)\r\n", i, ext_ram[i], testvalue);
+			//_delay_ms(30);
+			rerrors++;
+		}
+	}
+	
+	printf("SRAM test completed with %d errors in write phase and %d errors in read phase\r\n", werrors, rerrors);
+	_delay_ms(20);
+}
+
+void extmem_init(void)
+{
+	/* Enable External Memory Interface */
+	MCUCR |= (1 << SRE);
+	
+	/* Mask out JTAG pins PC4-PC7 */
+	SFIOR |= (1 << XMM2);
+}
 
 int main(void)
 {
-	DDRA = 0xFF;
-	usart_init();
-	//sei();
+	menu_t m = menu_create ();
 	
-    while(1)
-    {
-        //TODO:: Please write your application code 
-		PORTA = 0xFF;
-		_delay_ms(200);
-		PORTA = 0x00;
-		_delay_ms(200);
+	cli();
+	uart_init();
+	extmem_init();
+	//adc_init();
+	oled_init();
+	sei();
+	
+	stdout = &uart_stdout;
+	
+	printf ("AVR initialized\n");
+/*
+	oled_set_line (0);
+	oled_print("morten");
 		
-		while ( !(UCSR0A & (1 << UDRE0)));
-		UDR0 = 'c';
-    }
-}
-
-/* TODO: Write received byte to buffer which is read at a later time */
-/*
-ISR (USART0_RXC_vect)
-{
-	char recv;
-	recv = UDR0;
-	UDR0 = recv;
-}
+	oled_set_line (1);
+	oled_print("mjelva");
+	
+	oled_set_line (2);
+	oled_print("er");
+	
+	oled_set_line (3);
+	oled_print("best");
+	
+	oled_set_position (0, 7);
+	oled_print ("hurra");
 */
+	menu_display (&m);
+	while (1)
+	{
 
-/*
-ISR (USART0_TXC_vect)
-{
-
+	}
 }
-*/
