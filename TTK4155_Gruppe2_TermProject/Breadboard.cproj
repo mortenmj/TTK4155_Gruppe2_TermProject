@@ -128,7 +128,7 @@
     <Compile Include="uart.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TTK4155_Gruppe2_TermProject.c">
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
