@@ -95,17 +95,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <Compile Include="adc.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="adc.h">
       <SubType>compile</SubType>
     </Compile>
-<<<<<<< HEAD
->>>>>>> 8332071... Added extmem, yet to fix GAL
-=======
     <Compile Include="font_8x8.h">
       <SubType>compile</SubType>
     </Compile>
@@ -121,7 +116,6 @@
     <Compile Include="oled.h">
       <SubType>compile</SubType>
     </Compile>
->>>>>>> e74b42a... Added OLED module
     <Compile Include="ring_buffer.h">
       <SubType>compile</SubType>
     </Compile>
