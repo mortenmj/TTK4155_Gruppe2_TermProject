@@ -160,18 +160,18 @@ void oled_clear_display (void)
 	oled_set_display_on ();
 }
 
-void oled_putchar (char c)
+void oled_putchar (char c, uint8_t inv)
 {
 	for (uint8_t i = 0; i < FONT_WIDTH; i++)
 	{
-		oled_send_data (pgm_read_byte (&font[c - ' '][i]));
+		inv ? oled_send_data (~pgm_read_byte (&font[c - ' '][i])) : oled_send_data (pgm_read_byte (&font[c - ' '][i]));
 	}
 }
 
-void oled_print (char *c)
+void oled_print (char *c, uint8_t inv)
 {
 	while (*c != '\0')
 	{
-		oled_putchar(*c++);
+		oled_putchar(*c++, inv);
 	}		
 }

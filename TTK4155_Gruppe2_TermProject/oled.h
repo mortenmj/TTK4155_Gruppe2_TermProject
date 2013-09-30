@@ -89,7 +89,7 @@ void oled_clear_display (void);
 void oled_fill_display (void);
 void oled_clear_line (uint8_t line);
 void oled_set_line (uint8_t line);
-void oled_putchar (char c);
-void oled_print (char *c);
+void oled_putchar (char c, uint8_t inv);
+void oled_print (char *c, uint8_t inv);
 
 #endif /* OLED_H_ */

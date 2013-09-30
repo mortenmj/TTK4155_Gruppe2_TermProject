@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 menu_t menu_create (void)
-{
+{ 
 	menu_t sub1 = { "Submenu 1", NULL, 0, NULL, NULL};
 	menu_t sub2 = { "Submenu 2", NULL, 0, NULL, NULL};
 	menu_t sub3 = { "Submenu 3", NULL, 0, NULL, NULL};
@@ -28,13 +28,13 @@ menu_t menu_create (void)
 void menu_display (menu_t *m)
 {
 	oled_set_line (0);
-	oled_print(m->title);
+	oled_print(m->title,0);
 	
 	for (uint8_t i = 0; i < m->num_submenus; i++)
 	{
 		oled_set_line (i+1);
-		oled_print("  ");		
-		oled_print(m->children[i]->title);
+		oled_print("  ", 0);		
+		oled_print(m->children[i]->title, 0);
 	}
 }
 
