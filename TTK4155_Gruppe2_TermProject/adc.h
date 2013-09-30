@@ -11,6 +11,8 @@
 #include "ring_buffer.h"
 
 #define BUFFER_SIZE 10
+#define ADC_MAX_VAL 255
+#define ADC_MIN_VAL 0
 
 enum adc_channels {X, Y, S1, S2, N_CHANNELS};
 	
