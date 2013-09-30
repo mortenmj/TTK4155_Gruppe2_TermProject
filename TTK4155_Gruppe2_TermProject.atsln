@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TTK4155_Gruppe2_TermProject", "TTK4155_Gruppe2_TermProject\TTK4155_Gruppe2_TermProject.cproj", "{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TTK4155_Gruppe2_TermProject", "TTK4155_Gruppe2_TermProject\Breadboard.cproj", "{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
