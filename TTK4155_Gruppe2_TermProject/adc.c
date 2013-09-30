@@ -77,7 +77,6 @@ ISR (TIMER1_COMPA_vect)
  
  {
 	 adc_start_conversion(adc.cur_buffer);
-
 }
 
 ISR (INT0_vect)
