@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TTK4155_Gruppe2_TermProject", "TTK4155_Gruppe2_TermProject\Breadboard.cproj", "{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "P1000", "P1000\P1000.cproj", "{7465C97C-D347-4D63-B324-CAB6B3EC76A4}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Xplained", "Xplained\Xplained.cproj", "{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Breadboard", "Breadboard\Breadboard.cproj", "{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,6 +13,14 @@ Global
 		Release|AVR = Release|AVR
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Debug|AVR.ActiveCfg = Debug|AVR
+		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Debug|AVR.Build.0 = Debug|AVR
+		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Release|AVR.ActiveCfg = Release|AVR
+		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Release|AVR.Build.0 = Release|AVR
+		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Debug|AVR.ActiveCfg = Debug|AVR
+		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Debug|AVR.Build.0 = Debug|AVR
+		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Release|AVR.ActiveCfg = Release|AVR
+		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Release|AVR.Build.0 = Release|AVR
 		{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}.Debug|AVR.ActiveCfg = Debug|AVR
 		{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}.Debug|AVR.Build.0 = Debug|AVR
 		{74B7BEB3-1ED6-4928-8932-20DFCA8208D1}.Release|AVR.ActiveCfg = Release|AVR
