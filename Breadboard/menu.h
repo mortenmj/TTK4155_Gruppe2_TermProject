@@ -25,9 +25,24 @@ typedef struct menu_item
 	struct menu_item *children[MAX_SUBMENUS];
 } menu_t;
 
-menu_t menu_create (void);
+
+typedef enum
+{
+	IDLE,
+	EXCITED,
+	N_STATES
+} state_t;
+
+typedef struct state_item
+{
+	state_t state;
+	direction_t direction;
+} State_t;
+
+void menu_init (void);
 void menu_destroy (void);
-void menu_display (menu_t *m);
-menu_t* menu_update (menu_t *m, direction_t joystick, uint8_t button);
+void menu_display (void);
+void menu_update (void);
+void menu_update_fsm(direction_t joystick);
 
 #endif /* MENU_H_ */

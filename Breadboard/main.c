@@ -76,12 +76,11 @@ void extmem_init(void)
 
 int main(void)
 {
-	menu_t m = menu_create ();
-	
+	menu_init();	
 	cli();
 	uart_init();
 	extmem_init();
-	//adc_init();
+	adc_init();
 	oled_init();
 	sei();
 	
@@ -104,9 +103,18 @@ int main(void)
 	oled_set_position (0, 7);
 	oled_print ("hurra");
 */
-	menu_display (&m);
+	menu_display ();
+	
+	uint8_t *joystick_values;
+	direction_t joystick_direction;
+	
 	while (1)
 	{
-
+		joystick_values = adc_get_values();
+		joystick_direction = getdirection(joystick_values);
+		menu_update_fsm(joystick_direction);
+		menu_display();
 	}
 }
+
+
