@@ -13,9 +13,9 @@
 #include "MCP2515define.h"
 #include "can.h"
 
-xCanStatus xCan;
+can_status_t can;
 
-void vCanInit ( void )
+void can_init ( void )
 {
 	mcp2515_spi_port_init ();
 		
@@ -34,23 +34,23 @@ void vCanInit ( void )
 }
 
 
-void vCanRead ( unsigned char ucAddr, unsigned char *pucInChar )
+void can_read ( unsigned char addr, unsigned char *c )
 {
-	mcp2515_read ( (uint8_t) ucAddr, (uint8_t *) pucInChar );
+	mcp2515_read ( (uint8_t) addr, (uint8_t *) c );
 }
 
-void vCanReceivePacket ( xCanFrame *pxInFrame )
+void can_receive ( can_frame_t *in_frame )
 {
-	mcp2515_read_rx_buf(MCP2515_RX_BUF_0, (mcp2515_can_frame_t *) pxInFrame);
+	mcp2515_read_rx_buf(MCP2515_RX_BUF_0, (mcp2515_can_frame_t *) in_frame);
 }
 
-void vCanSendPacket ( xCanFrame *pxOutFrame )
+void can_transmit ( can_frame_t *out_frame )
 {
-	mcp2515_load_tx_buf(MCP2515_TX_BUF_0, (mcp2515_can_frame_t *) pxOutFrame);
+	mcp2515_load_tx_buf(MCP2515_TX_BUF_0, (mcp2515_can_frame_t *) out_frame);
 	mcp2515_rts (MCP2515_TX_BUF_0);
 }
 
-void vCanWrite ( unsigned char ucAddr, unsigned char ucOutChar )
+void can_write ( unsigned char addr, unsigned char c )
 {
-	mcp2515_write ( (uint8_t) ucAddr, (uint8_t) ucOutChar );
+	mcp2515_write ( (uint8_t) addr, (uint8_t) c );
 }

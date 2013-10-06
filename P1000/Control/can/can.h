@@ -15,7 +15,7 @@
 typedef struct CanStatus {
 	/* Interrupt register */
 	uint8_t interrupt;
-} xCanStatus;
+} can_status_t;
 
 /*
 *  CAN frame
@@ -29,12 +29,12 @@ typedef struct CanFrame {
 	
 	/* Length of data */
 	uint8_t dlc;
-} xCanFrame ;
+} can_frame_t ;
 
-void vCanInit ( void );
-void vCanRead ( unsigned char ucAddr, unsigned char *pucInChar );
-void vCanReceivePacket ( xCanFrame *pxInFrame );
-void vCanSendPacket ( xCanFrame *pxOutFrame );
-void vCanWrite ( unsigned char ucAddr, unsigned char ucOutChar );
+void can_init ( void );
+void can_read ( unsigned char addr, unsigned char *c );
+void can_receive ( can_frame_t *in_frame );
+void can_transmit ( can_frame_t *out_frame );
+void can_write ( unsigned char addr, unsigned char c );
 
 #endif /* CAN_H_ */
