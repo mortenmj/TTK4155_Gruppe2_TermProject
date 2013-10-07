@@ -14,10 +14,10 @@ uint8_t getpercentage(uint8_t value)
 }
 
 
-direction_t getdirection(adc_t values)
+direction_t getdirection(uint8_t *values)
 {
-	uint8_t x_perc = getpercentage(values.avg[X]);
-	uint8_t y_perc = getpercentage(values.avg[Y]);
+	uint8_t x_perc = getpercentage(values[X]);
+	uint8_t y_perc = getpercentage(values[Y]);
 	
 	if (abs(x_perc) > abs(y_perc))
 	{

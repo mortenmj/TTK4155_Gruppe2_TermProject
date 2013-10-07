@@ -17,7 +17,7 @@ typedef enum {UP, DOWN, LEFT, RIGHT, CENTER} direction_t;
 
 uint8_t getpercentage(uint8_t value);
 
-direction_t getdirection(adc_t values);
+direction_t getdirection(uint8_t *values);
 
 
 #endif /* JOYSTICK_H_ */
