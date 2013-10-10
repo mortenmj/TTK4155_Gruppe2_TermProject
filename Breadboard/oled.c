@@ -152,12 +152,10 @@ void oled_clear_line (uint8_t line)
 
 void oled_clear_display (void)
 {
-	oled_set_display_off ();
 	for (uint8_t line = 0; line < PAGES; line++)
 	{
 		oled_clear_line (line);
 	}
-	oled_set_display_on ();
 }
 
 void oled_putchar (char c, uint8_t inv)
