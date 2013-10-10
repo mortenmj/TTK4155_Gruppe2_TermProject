@@ -18,20 +18,20 @@ can_status_t can;
 void can_init ( void )
 {
 	mcp2515_spi_port_init ();
-	//mcp2515_set_baudrate(250000, 1);
+	mcp2515_set_baudrate(250000, 1);
 	
 	/* Enable pin change interrupt on PB4 */
 /*
 	DDRB |= PCINT4;
 	PCMSK0 |= (1 << PCINT4);
-	PCICR |= (1 << PCIE0);
+	GICR |= (1 << PCIE0);
 */
-
+	
 	/* Enable interrupts on MCP2515 */
-	//mcp2515_write ( MCP2515_CANINTE, 0xFF );
+	mcp2515_write ( MCP2515_CANINTE, 0xFF );
 
 	/* Set loopback mode */
-	//mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_MASK, MCP2515_MODE_LOOPBACK );
+	mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_MASK, MCP2515_MODE_LOOPBACK );
 }
 
 

@@ -54,7 +54,7 @@
 
 #define mcpDDR							DDRB
 #define mcpPORT							PORTB
-#define mcpSS							( ( unsigned char ) ( 1 << PB0 ) )
+#define mcpSS							( ( unsigned char ) ( 1 << PB4 ) )
 
 /*! \fn uint8_t mcp2515_spi_port_init(void)
  *  \brief	Provide the initiation of the SPI port to be use for the MCP2515 transmission.
@@ -90,7 +90,9 @@ void mcp2515_spi_port_init(void)
  */
 void mcp2515_spi_transfer(uint8_t dataOut, uint8_t *dataIn)
 {
+	mcp2515_spi_select();
 	*dataIn = spi_transfer ( dataOut );
+	mcp2515_spi_unselect();
 }
 
 /*! \fn uint8_t MCP2515canIDRead(uint32_t *canID)
@@ -149,20 +151,16 @@ static void id_write(uint32_t canID)
 
 void mcp2515_reset(void)
 {
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_RESET, NULL);
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
-}
+ }
 
 void mcp2515_read(uint8_t regAddr, uint8_t *dataAddr)
 {
     assert(dataAddr != 0);
 
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_READ, NULL);
     mcp2515_spi_transfer(regAddr, NULL);
     mcp2515_spi_transfer(0, dataAddr);
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_read_bust(uint8_t regAddr, uint8_t *dataAddr, uint8_t size)
@@ -171,16 +169,11 @@ void mcp2515_read_bust(uint8_t regAddr, uint8_t *dataAddr, uint8_t size)
 
     assert((dataAddr != NULL) && (size != 0));
 
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_READ, NULL);
     mcp2515_spi_transfer(regAddr, NULL);
 
     for (i=0; i <= size; i++)
         mcp2515_spi_transfer(0, dataAddr++);
-
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
-
-
 }
 
 void mcp2515_read_rx_buf(uint8_t nBuf, mcp2515_can_frame_t *canData)
@@ -192,11 +185,9 @@ void mcp2515_read_rx_buf(uint8_t nBuf, mcp2515_can_frame_t *canData)
     switch (nBuf)
     {
         case MCP2515_RX_BUF_0:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_READ_BUF_RXB0SIDH, NULL);
         break;
         case MCP2515_RX_BUF_1:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_READ_BUF_RXB1SIDH, NULL);
         break;
         default:
@@ -211,16 +202,13 @@ void mcp2515_read_rx_buf(uint8_t nBuf, mcp2515_can_frame_t *canData)
     {
         mcp2515_spi_transfer(0, &canData->data[i]);
     }
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_write(uint8_t regAddr, uint8_t data)
 {
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_WRITE, NULL);
     mcp2515_spi_transfer(regAddr, NULL);
     mcp2515_spi_transfer(data, NULL);
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_write_bust(uint8_t regAddr, uint8_t *dataAddr, uint8_t size)
@@ -229,14 +217,11 @@ void mcp2515_write_bust(uint8_t regAddr, uint8_t *dataAddr, uint8_t size)
 
     assert(dataAddr != NULL);
 
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_WRITE, NULL);
     mcp2515_spi_transfer(regAddr, NULL);
 
     for (i=0; i < size; i++)
         mcp2515_spi_transfer(dataAddr[i], NULL);
-
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_load_tx_buf(uint8_t nBuf, mcp2515_can_frame_t *canData)
@@ -248,15 +233,12 @@ void mcp2515_load_tx_buf(uint8_t nBuf, mcp2515_can_frame_t *canData)
     switch (nBuf)
     {
     case MCP2515_TX_BUF_0:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_LOAD_BUF_TXB0SIDH, NULL);
         break;
     case MCP2515_TX_BUF_1:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_LOAD_BUF_TXB1SIDH, NULL);
         break;
     case MCP2515_TX_BUF_2:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_LOAD_BUF_TXB2SIDH, NULL);
         break;
     default:
@@ -270,15 +252,12 @@ void mcp2515_load_tx_buf(uint8_t nBuf, mcp2515_can_frame_t *canData)
     {
         mcp2515_spi_transfer(canData->data[i], NULL);
     }
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_rts(uint8_t nBuf)
 {
     //uint8_t ubRetVal = SPI_OK;
     uint8_t dataIn;
-
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
 
     switch (nBuf)
     {
@@ -295,18 +274,14 @@ void mcp2515_rts(uint8_t nBuf)
         assert(0);
         //break;
     }
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_read_rxtx_status(uint8_t* canRxTxStatus)
 {
     assert(canRxTxStatus != NULL);
 
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_READ_RXTX_STATUS, NULL);
     mcp2515_spi_transfer(0, canRxTxStatus);
-
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_rx_status(uint8_t* canRxStatus)
@@ -314,23 +289,17 @@ void mcp2515_rx_status(uint8_t* canRxStatus)
 
     assert(canRxStatus != NULL);
 
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_READ_RXTX_STATUS, NULL);
     mcp2515_spi_transfer(0, canRxStatus);
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
 
 void mcp2515_bit_modify(uint8_t regAddr, uint8_t bitMask, uint8_t val)
 {
-    mcp2515_spi_select();//Select the MCP2515 on the SPI bus
     mcp2515_spi_transfer(MCP2515_BIT_MODIFY, NULL);
     mcp2515_spi_transfer(regAddr, NULL);
     mcp2515_spi_transfer(bitMask, NULL);
     mcp2515_spi_transfer(val, NULL);
-    mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
 }
-
-
 
 void mcp2515_id_multi_read(uint8_t regAddr, uint32_t *canID)
 {
@@ -348,11 +317,9 @@ void mcp2515_id_multi_read(uint8_t regAddr, uint32_t *canID)
     case MCP2515_TXB0SIDH:
     case MCP2515_TXB1SIDH:
     case MCP2515_TXB2SIDH:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_READ, NULL);
         mcp2515_spi_transfer(regAddr, NULL);
         id_read(canID);
-        mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
         break;
     default:
         assert(0);
@@ -375,11 +342,9 @@ void mcp2515_id_multi_write(uint8_t regAddr, uint32_t canID)
     case MCP2515_TXB0SIDH:
     case MCP2515_TXB1SIDH:
     case MCP2515_TXB2SIDH:
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_WRITE, NULL);
         mcp2515_spi_transfer(regAddr, NULL);
         id_write(canID);
-        mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
         break;
     default:
         assert(0);
@@ -423,19 +388,10 @@ void mcp2515_set_baudrate(uint32_t CANBaudRate, uint8_t syncSJW)
         ubnTQ = ubnTQ - ubnTQtempo;
         ubCNF2 |= ubnTQ - 2;// -2 bcause 1TQ for Sync segment and 1TQ offset in register.
 	
-
-        mcp2515_spi_select();//Select the MCP2515 on the SPI bus
         mcp2515_spi_transfer(MCP2515_WRITE, NULL);
-
 		mcp2515_spi_transfer(MCP2515_CNF3, NULL);
-		mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
-
-/*
         mcp2515_spi_transfer(ubCNF3, NULL);
         mcp2515_spi_transfer(ubCNF2, NULL);
         mcp2515_spi_transfer(ubCNF1, NULL);
-		*/
-        //mcp2515_spi_unselect();//Unselect the MCP2515 on the SPI bus
-		
     }
 }

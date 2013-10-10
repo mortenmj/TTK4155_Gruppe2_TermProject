@@ -16,17 +16,14 @@
 #include "menu.h"
 #include "oled.h"
 #include "uart.h"
+#include "spi.h"
+#include "can.h"
+
+#include "MCP2515.h"
+#include "MCP2515define.h"
 
 /* Using stdio for this is completely retarded */
 #include <stdio.h>
-
- int uart_putchar_printf(uint16_t data, FILE *stream) {
-	if (data == '\n') {
-		uart_putchar('\r');
-	}
-	uart_putchar(data);
-	return 0;
-}
 
 static FILE uart_stdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
@@ -76,45 +73,28 @@ void extmem_init(void)
 
 int main(void)
 {
-	menu_init();	
-	cli();
-	uart_init();
-	extmem_init();
-	adc_init();
-	oled_init();
-	sei();
+	//can_frame_t in_frame;	
+	//can_frame_t out_frame = {1, { 'm', 'o', 'r', 't', 'e', 'n', }, 6};
+	uint8_t cnf1, cnf2, cnf3;
 	
+	uart_init ();
 	stdout = &uart_stdout;
+	printf ("Initializing...\n");
 	
-	printf ("AVR initialized\n");
-/*
-	oled_set_line (0);
-	oled_print("morten");
+	spi_init ();
+	can_init ();
+	sei();
 		
-	oled_set_line (1);
-	oled_print("mjelva");
-	
-	oled_set_line (2);
-	oled_print("er");
-	
-	oled_set_line (3);
-	oled_print("best");
-	
-	oled_set_position (0, 7);
-	oled_print ("hurra");
-*/
-	menu_display ();
-	
-	uint8_t *joystick_values;
-	direction_t joystick_direction;
-	
+	printf ("Initialized\n");
+
 	while (1)
 	{
-		joystick_values = adc_get_values();
-		joystick_direction = getdirection(joystick_values);
-		menu_update_fsm(joystick_direction);
-		menu_display();
+	    mcp2515_read (MCP2515_CNF1, &cnf1);
+	    mcp2515_read (MCP2515_CNF2, &cnf2);
+	    mcp2515_read (MCP2515_CNF3, &cnf3);
+		
+		printf("cnf1: %d, cnf2: %d, cnf3: %d", cnf1, cnf2, cnf2);
+		
+	    _delay_ms (500);
 	}
 }
-
-
