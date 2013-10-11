@@ -7,6 +7,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Xplained", "Xplained\Xplain
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Breadboard", "Breadboard\Breadboard.cproj", "{A2A8516B-8885-4E7F-B132-409A48D3A2C2}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "B1 Xplained", "B1 Xplained\B1 Xplained.cproj", "{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -25,6 +27,10 @@ Global
 		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Debug|AVR.Build.0 = Debug|AVR
 		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Release|AVR.ActiveCfg = Release|AVR
 		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Release|AVR.Build.0 = Release|AVR
+		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Debug|AVR.ActiveCfg = Debug|AVR
+		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Debug|AVR.Build.0 = Debug|AVR
+		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Release|AVR.ActiveCfg = Release|AVR
+		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
