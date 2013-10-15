@@ -10,7 +10,7 @@
  * can.h
  *
  * Created: 01.10.2013 19:26:47
- *  Author: mortenmj
+ * Author: mortenmj
  */ 
 
 #ifndef CAN_H_
@@ -72,7 +72,7 @@ void can_init ( void );
  * @param[out] c Char to write register value to
  *
  */
-void can_read ( unsigned char addr, unsigned char *c );
+void can_read ( unsigned char addr, unsigned char *val );
 
 /**
  * @brief Receive a packet from the CAN bus
@@ -80,7 +80,7 @@ void can_read ( unsigned char addr, unsigned char *c );
  * @param[out] in_frame Packet to write to
  *
  */
-void can_receive ( can_frame_t *in_frame );
+void can_receive ( can_frame_t *frame );
 
 /**
  * @brief Transmit a packet on the CAN bus
@@ -88,7 +88,7 @@ void can_receive ( can_frame_t *in_frame );
  * @param[in] out_frame Packet to read from
  *
  */
-void can_transmit ( can_frame_t *out_frame );
+void can_transmit ( can_frame_t *frame );
 
 /**
  * @brief Writes a register on the CAN controller
@@ -97,7 +97,7 @@ void can_transmit ( can_frame_t *out_frame );
  * @param c Char to write to the controller register
  *
  */
-void can_write ( unsigned char addr, unsigned char c );
+void can_write ( unsigned char addr, unsigned char val );
 
 /** @} */
 

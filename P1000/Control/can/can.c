@@ -42,23 +42,23 @@ void can_init ( void )
 }
 
 
-void can_read ( unsigned char addr, unsigned char *c )
+void can_read ( unsigned char addr, unsigned char *val )
 {
-	mcp2515_read ( (uint8_t) addr, (uint8_t *) c );
+	mcp2515_read ( (uint8_t) addr, (uint8_t *) val );
 }
 
-void can_receive ( can_frame_t *in_frame )
+void can_receive ( can_frame_t *frame )
 {
-	mcp2515_read_rx_buf(MCP2515_RX_BUF_0, (mcp2515_can_frame_t *) in_frame);
+	mcp2515_read_rx_buf(MCP2515_RX_BUF_0, (mcp2515_can_frame_t *) frame);
 }
 
-void can_transmit ( can_frame_t *out_frame )
+void can_transmit ( can_frame_t *frame )
 {
-	mcp2515_load_tx_buf(MCP2515_TX_BUF_0, (mcp2515_can_frame_t *) out_frame);
+	mcp2515_load_tx_buf(MCP2515_TX_BUF_0, (mcp2515_can_frame_t *) frame);
 	mcp2515_rts (MCP2515_TX_BUF_0);
 }
 
-void can_write ( unsigned char addr, unsigned char c )
+void can_write ( unsigned char addr, unsigned char val )
 {
-	mcp2515_write ( (uint8_t) addr, (uint8_t) c );
+	mcp2515_write ( (uint8_t) addr, (uint8_t) val );
 }
