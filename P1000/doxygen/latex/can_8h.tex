@@ -1,0 +1,129 @@
+\hypertarget{can_8h}{\section{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/can.h File Reference}
+\label{can_8h}\index{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/can.\-h@{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/can.\-h}}
+}
+
+
+High-\/level C\-A\-N A\-P\-I.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_can_state}{Can\-State}
+\begin{DoxyCompactList}\small\item\em C\-A\-N interface. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_can_frame}{Can\-Frame}
+\begin{DoxyCompactList}\small\item\em C\-A\-N frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_can_state}{Can\-State} \hyperlink{can_8h_a9c929a51dc60dc74c97e7f3c4bb76300}{can\-\_\-t}
+\begin{DoxyCompactList}\small\item\em C\-A\-N interface. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct_can_frame}{Can\-Frame} \hyperlink{can_8h_a78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t}
+\begin{DoxyCompactList}\small\item\em C\-A\-N frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{can_8h_ac7781a37ca14c5bf42c4fe9de1f4daa8}{void \hyperlink{can_8h_ac7781a37ca14c5bf42c4fe9de1f4daa8}{can\-\_\-init} (void)}\label{can_8h_ac7781a37ca14c5bf42c4fe9de1f4daa8}
+
+\begin{DoxyCompactList}\small\item\em Initializes C\-A\-N device. \end{DoxyCompactList}\item 
+void \hyperlink{can_8h_aefe935a0dcb92642f499bae30083da68}{can\-\_\-read} (unsigned char addr, unsigned char $\ast$c)
+\begin{DoxyCompactList}\small\item\em Reads a register on the C\-A\-N controller. \end{DoxyCompactList}\item 
+void \hyperlink{can_8h_a7779eb7e14b9a4a45aa7f312d45f0a15}{can\-\_\-receive} (\hyperlink{can_8h_a78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t} $\ast$in\-\_\-frame)
+\begin{DoxyCompactList}\small\item\em Receive a packet from the C\-A\-N bus. \end{DoxyCompactList}\item 
+void \hyperlink{can_8h_a6d30dfb1d22ff138c13f92835635afe1}{can\-\_\-transmit} (\hyperlink{can_8h_a78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t} $\ast$out\-\_\-frame)
+\begin{DoxyCompactList}\small\item\em Transmit a packet on the C\-A\-N bus. \end{DoxyCompactList}\item 
+void \hyperlink{can_8h_a7bf4e3acbfd8485bce87732676dfd2af}{can\-\_\-write} (unsigned char addr, unsigned char c)
+\begin{DoxyCompactList}\small\item\em Writes a register on the C\-A\-N controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+High-\/level C\-A\-N A\-P\-I. 
+
+\subsection{Typedef Documentation}
+\hypertarget{can_8h_a78ee122f82484a1d73d82b66b1000d64}{\index{can.\-h@{can.\-h}!can\-\_\-frame\-\_\-t@{can\-\_\-frame\-\_\-t}}
+\index{can\-\_\-frame\-\_\-t@{can\-\_\-frame\-\_\-t}!can.h@{can.\-h}}
+\subsubsection[{can\-\_\-frame\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Can\-Frame}  {\bf can\-\_\-frame\-\_\-t}}}\label{can_8h_a78ee122f82484a1d73d82b66b1000d64}
+
+
+C\-A\-N frame. 
+
+Struct that describes a frame to be sent over C\-A\-N-\/bus. \hypertarget{can_8h_a9c929a51dc60dc74c97e7f3c4bb76300}{\index{can.\-h@{can.\-h}!can\-\_\-t@{can\-\_\-t}}
+\index{can\-\_\-t@{can\-\_\-t}!can.h@{can.\-h}}
+\subsubsection[{can\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Can\-State}  {\bf can\-\_\-t}}}\label{can_8h_a9c929a51dc60dc74c97e7f3c4bb76300}
+
+
+C\-A\-N interface. 
+
+Struct to describe the state of a C\-A\-N interface. 
+
+\subsection{Function Documentation}
+\hypertarget{can_8h_aefe935a0dcb92642f499bae30083da68}{\index{can.\-h@{can.\-h}!can\-\_\-read@{can\-\_\-read}}
+\index{can\-\_\-read@{can\-\_\-read}!can.h@{can.\-h}}
+\subsubsection[{can\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-read (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{addr, }
+\item[{unsigned char $\ast$}]{c}
+\end{DoxyParamCaption}
+)}}\label{can_8h_aefe935a0dcb92642f499bae30083da68}
+
+
+Reads a register on the C\-A\-N controller. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em addr} & The register address to read \\
+\hline
+\mbox{\tt out}  & {\em c} & Char to write register value to \\
+\hline
+\end{DoxyParams}
+\hypertarget{can_8h_a7779eb7e14b9a4a45aa7f312d45f0a15}{\index{can.\-h@{can.\-h}!can\-\_\-receive@{can\-\_\-receive}}
+\index{can\-\_\-receive@{can\-\_\-receive}!can.h@{can.\-h}}
+\subsubsection[{can\-\_\-receive}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-receive (
+\begin{DoxyParamCaption}
+\item[{{\bf can\-\_\-frame\-\_\-t} $\ast$}]{in\-\_\-frame}
+\end{DoxyParamCaption}
+)}}\label{can_8h_a7779eb7e14b9a4a45aa7f312d45f0a15}
+
+
+Receive a packet from the C\-A\-N bus. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em in\-\_\-frame} & Packet to write to \\
+\hline
+\end{DoxyParams}
+\hypertarget{can_8h_a6d30dfb1d22ff138c13f92835635afe1}{\index{can.\-h@{can.\-h}!can\-\_\-transmit@{can\-\_\-transmit}}
+\index{can\-\_\-transmit@{can\-\_\-transmit}!can.h@{can.\-h}}
+\subsubsection[{can\-\_\-transmit}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-transmit (
+\begin{DoxyParamCaption}
+\item[{{\bf can\-\_\-frame\-\_\-t} $\ast$}]{out\-\_\-frame}
+\end{DoxyParamCaption}
+)}}\label{can_8h_a6d30dfb1d22ff138c13f92835635afe1}
+
+
+Transmit a packet on the C\-A\-N bus. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em out\-\_\-frame} & Packet to read from \\
+\hline
+\end{DoxyParams}
+\hypertarget{can_8h_a7bf4e3acbfd8485bce87732676dfd2af}{\index{can.\-h@{can.\-h}!can\-\_\-write@{can\-\_\-write}}
+\index{can\-\_\-write@{can\-\_\-write}!can.h@{can.\-h}}
+\subsubsection[{can\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-write (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{addr, }
+\item[{unsigned char}]{c}
+\end{DoxyParamCaption}
+)}}\label{can_8h_a7bf4e3acbfd8485bce87732676dfd2af}
+
+
+Writes a register on the C\-A\-N controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & The register address to write \\
+\hline
+{\em c} & Char to write to the controller register \\
+\hline
+\end{DoxyParams}

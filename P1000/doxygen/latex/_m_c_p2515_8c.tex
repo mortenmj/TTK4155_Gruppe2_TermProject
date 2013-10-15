@@ -1,0 +1,387 @@
+\hypertarget{_m_c_p2515_8c}{\section{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/\-M\-C\-P2515.c File Reference}
+\label{_m_c_p2515_8c}\index{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/\-M\-C\-P2515.\-c@{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/\-M\-C\-P2515.\-c}}
+}
+
+
+A\-P\-I for Microchip M\-C\-P2515 C\-A\-N controller.  
+
+
+{\ttfamily \#include \char`\"{}Free\-R\-T\-O\-S\-Config.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}M\-C\-P2515define.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}M\-C\-P2515.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}spi.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{_m_c_p2515_8c_a428eecacd8e2d9633e59a782345eee62}{\#define {\bfseries mcp\-D\-D\-R}~D\-D\-R\-B}\label{_m_c_p2515_8c_a428eecacd8e2d9633e59a782345eee62}
+
+\item 
+\hypertarget{_m_c_p2515_8c_a4cc5525ade40fd9c1a04ab1a02894622}{\#define {\bfseries mcp\-P\-O\-R\-T}~P\-O\-R\-T\-B}\label{_m_c_p2515_8c_a4cc5525ade40fd9c1a04ab1a02894622}
+
+\item 
+\hypertarget{_m_c_p2515_8c_af9a0ed337ac71ee1a27f40e12320f2ce}{\#define {\bfseries mcp\-S\-S}~( ( unsigned char ) ( 1 $<$$<$ P\-B0 ) )}\label{_m_c_p2515_8c_af9a0ed337ac71ee1a27f40e12320f2ce}
+
+\item 
+\#define \hyperlink{_m_c_p2515_8c_a81e80f1bf43ccffee8f8cf00bf05cf06}{mcp2515\-\_\-spi\-\_\-select}(void)
+\begin{DoxyCompactList}\small\item\em Provide the selection of the M\-C\-P2515 on the S\-P\-I bus to be use for the transmission. \end{DoxyCompactList}\item 
+\#define \hyperlink{_m_c_p2515_8c_a9b23bbb9efb374f0179f9812948bd167}{mcp2515\-\_\-spi\-\_\-unselect}(void)
+\begin{DoxyCompactList}\small\item\em Provide the remove of the M\-C\-P2515 on the S\-P\-I bus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{_m_c_p2515_8c_a6fce736258719d20a4e2223ab93c7920}{void \hyperlink{_m_c_p2515_8c_a6fce736258719d20a4e2223ab93c7920}{mcp2515\-\_\-spi\-\_\-port\-\_\-init} (void)}\label{_m_c_p2515_8c_a6fce736258719d20a4e2223ab93c7920}
+
+\begin{DoxyCompactList}\small\item\em Provide the initiation of the S\-P\-I port to be use for the M\-C\-P2515 transmission. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_adcfffbb4476a409aae0bb08efcc98df0}{mcp2515\-\_\-spi\-\_\-transfer} (uint8\-\_\-t data\-Out, uint8\-\_\-t $\ast$data\-In)
+\begin{DoxyCompactList}\small\item\em Provide the tranmission service on the S\-P\-I port to M\-C\-P2515. \end{DoxyCompactList}\item 
+\hypertarget{_m_c_p2515_8c_abde36303e5f752c309044011379d667c}{void \hyperlink{_m_c_p2515_8c_abde36303e5f752c309044011379d667c}{mcp2515\-\_\-reset} (void)}\label{_m_c_p2515_8c_abde36303e5f752c309044011379d667c}
+
+\begin{DoxyCompactList}\small\item\em Send the R\-E\-S\-E\-T command over S\-P\-I bus. It has the same effect as lowing the R\-E\-S\-E\-T pin of M\-C\-P2515. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a600aaf900702cf7c83d56c8d1e86f338}{mcp2515\-\_\-read} (uint8\-\_\-t reg\-Addr, uint8\-\_\-t $\ast$data\-Addr)
+\begin{DoxyCompactList}\small\item\em Send the Read command over S\-P\-I bus. It can read any register byte accordingly of the address provided. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a3537c6f64581a6e875d06b6f3d9e33c5}{mcp2515\-\_\-read\-\_\-bust} (uint8\-\_\-t reg\-Addr, uint8\-\_\-t $\ast$data\-Addr, uint8\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em Send the R\-E\-A\-D command over S\-P\-I bus. It can read any register byte accordingly of the address provided. It provides a bust read so please be careful on the read data that not overlap other M\-C\-P2515 registers's data. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_aacba263bddd0a4a0311899da0a23b00f}{mcp2515\-\_\-read\-\_\-rx\-\_\-buf} (uint8\-\_\-t n\-Buf, \hyperlink{_m_c_p2515_8h_abc9b5c913233ee3db4d03651fdb2922f}{mcp2515\-\_\-can\-\_\-frame\-\_\-t} $\ast$can\-Data)
+\begin{DoxyCompactList}\small\item\em Send the Read R\-X Buffer command over S\-P\-I bus. This reads the whole C\-A\-N frame. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a0eb5d51b44bc9b93f065895fc89ed710}{mcp2515\-\_\-write} (uint8\-\_\-t reg\-Addr, uint8\-\_\-t data)
+\begin{DoxyCompactList}\small\item\em Send the W\-R\-I\-T\-E command over S\-P\-I bus. It can write any register byte accordingly of the address provided. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_aec754964c687a70fe3e85fa03f87de75}{mcp2515\-\_\-write\-\_\-bust} (uint8\-\_\-t reg\-Addr, uint8\-\_\-t $\ast$data\-Addr, uint8\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em Send the W\-R\-I\-T\-E command over S\-P\-I bus. It can write any register byte accordingly of the address provided. It provides a bust write so please be careful on the write data that not overlap other M\-C\-P2515 registers's data. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a811139f68cd8d68ff46acfed8486eafb}{mcp2515\-\_\-load\-\_\-tx\-\_\-buf} (uint8\-\_\-t n\-Buf, \hyperlink{_m_c_p2515_8h_abc9b5c913233ee3db4d03651fdb2922f}{mcp2515\-\_\-can\-\_\-frame\-\_\-t} $\ast$can\-Data)
+\begin{DoxyCompactList}\small\item\em Send the Load T\-X Buffer command over S\-P\-I bus. This loads the whole C\-A\-N frame to the buffer. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_ae4e77d73aeb063fe68e48380851f1d96}{mcp2515\-\_\-rts} (uint8\-\_\-t n\-Buf)
+\begin{DoxyCompactList}\small\item\em Send the Request-\/\-To-\/\-Send (R\-T\-S) command over S\-P\-I bus. This sets a R\-T\-S to the T\-X buffer. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a9208fe24c198fa4da906fd77fe0d7762}{mcp2515\-\_\-read\-\_\-rxtx\-\_\-status} (uint8\-\_\-t $\ast$can\-Rx\-Tx\-Status)
+\begin{DoxyCompactList}\small\item\em Send the Read Status command over S\-P\-I bus. This requests the C\-A\-N controller to give the R\-X/\-T\-X buffer status. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a3182f71056703bfa7a6e5ea0ffe8fa4e}{mcp2515\-\_\-rx\-\_\-status} (uint8\-\_\-t $\ast$can\-Rx\-Status)
+\begin{DoxyCompactList}\small\item\em Send the R\-X Status command over S\-P\-I bus. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a4964aef9c4f08864426eeed6c2e2d698}{mcp2515\-\_\-bit\-\_\-modify} (uint8\-\_\-t reg\-Addr, uint8\-\_\-t bit\-Mask, uint8\-\_\-t val)
+\begin{DoxyCompactList}\small\item\em Send the Bit Modify command over S\-P\-I bus. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a5576c5a321b779bfbf0248583180f509}{mcp2515\-\_\-id\-\_\-multi\-\_\-read} (uint8\-\_\-t reg\-Addr, uint32\-\_\-t $\ast$can\-I\-D)
+\begin{DoxyCompactList}\small\item\em Read any Std or Ext I\-D from the begin address of the register X\-X\-Xn\-S\-I\-D\-H. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_ae8de1ee1742eeb41d5401d10e8324c80}{mcp2515\-\_\-id\-\_\-multi\-\_\-write} (uint8\-\_\-t reg\-Addr, uint32\-\_\-t can\-I\-D)
+\begin{DoxyCompactList}\small\item\em Write any Std or Ext I\-D from the begin address of the register X\-X\-Xn\-S\-I\-D\-H. \end{DoxyCompactList}\item 
+void \hyperlink{_m_c_p2515_8c_a12022548d26f6bb9959ca8ca3d5343d4}{mcp2515\-\_\-set\-\_\-baudrate} (uint32\-\_\-t C\-A\-N\-Baud\-Rate, uint8\-\_\-t sync\-S\-J\-W)
+\begin{DoxyCompactList}\small\item\em Set the speed of the C\-A\-N bus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A\-P\-I for Microchip M\-C\-P2515 C\-A\-N controller. This C\-A\-N controller use the S\-P\-I link. For that reason, S\-P\-I initiation and data control should custom by the user.
+
+\begin{DoxyAuthor}{Author}
+Sy Sech V\-O\-N\-G Frédéric Nadeau 
+\end{DoxyAuthor}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{_m_c_p2515_8c_a81e80f1bf43ccffee8f8cf00bf05cf06}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-spi\-\_\-select@{mcp2515\-\_\-spi\-\_\-select}}
+\index{mcp2515\-\_\-spi\-\_\-select@{mcp2515\-\_\-spi\-\_\-select}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-spi\-\_\-select}]{\setlength{\rightskip}{0pt plus 5cm}void mcp2515\-\_\-spi\-\_\-select(
+\begin{DoxyParamCaption}
+\item[{}]{void}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a81e80f1bf43ccffee8f8cf00bf05cf06}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{                                                                       \(\backslash\)
+        mcpPORT &= ~mcpSS;                              \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Provide the selection of the M\-C\-P2515 on the S\-P\-I bus to be use for the transmission. 
+
+\hypertarget{_m_c_p2515_8c_a9b23bbb9efb374f0179f9812948bd167}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-spi\-\_\-unselect@{mcp2515\-\_\-spi\-\_\-unselect}}
+\index{mcp2515\-\_\-spi\-\_\-unselect@{mcp2515\-\_\-spi\-\_\-unselect}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-spi\-\_\-unselect}]{\setlength{\rightskip}{0pt plus 5cm}void mcp2515\-\_\-spi\-\_\-unselect(
+\begin{DoxyParamCaption}
+\item[{}]{void}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a9b23bbb9efb374f0179f9812948bd167}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{                                                                       \(\backslash\)
+        mcpPORT |= mcpSS;                               \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Provide the remove of the M\-C\-P2515 on the S\-P\-I bus. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \textbackslash{}return} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Function Documentation}
+\hypertarget{_m_c_p2515_8c_a4964aef9c4f08864426eeed6c2e2d698}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-bit\-\_\-modify@{mcp2515\-\_\-bit\-\_\-modify}}
+\index{mcp2515\-\_\-bit\-\_\-modify@{mcp2515\-\_\-bit\-\_\-modify}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-bit\-\_\-modify}]{\setlength{\rightskip}{0pt plus 5cm}void mcp2515\-\_\-bit\-\_\-modify (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint8\-\_\-t}]{bit\-Mask, }
+\item[{uint8\-\_\-t}]{val}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a4964aef9c4f08864426eeed6c2e2d698}
+
+
+Send the Bit Modify command over S\-P\-I bus. 
+
+This changes individual bit at the given register address. Not all registers can be changed that way. Please see the M\-C\-P2515.\-pdf p.\-61 and p.\-64 for more information. 
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the register address. \\
+\hline
+{\em bit\-Mask} & is the bit mask. \\
+\hline
+{\em val} & is the value to be set. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a5576c5a321b779bfbf0248583180f509}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-id\-\_\-multi\-\_\-read@{mcp2515\-\_\-id\-\_\-multi\-\_\-read}}
+\index{mcp2515\-\_\-id\-\_\-multi\-\_\-read@{mcp2515\-\_\-id\-\_\-multi\-\_\-read}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-id\-\_\-multi\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-id\-\_\-multi\-\_\-read (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint32\-\_\-t $\ast$}]{can\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a5576c5a321b779bfbf0248583180f509}
+
+
+Read any Std or Ext I\-D from the begin address of the register X\-X\-Xn\-S\-I\-D\-H. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the begin address of any C\-A\-N I\-D register with X\-X\-Xn\-S\-I\-D\-H. e.\-i.\-: R\-X\-F3\-S\-I\-D\-H, R\-X\-M0\-S\-I\-D\-H, T\-X\-B1\-S\-I\-D\-H, etc. \\
+\hline
+{\em can\-I\-D} & is the address of the value Std or Ext I\-D with 29th bit = 0 for Std I\-D or 29th bit = 1 for Ext I\-D. It returns the C\-A\-N I\-D locate in $\ast$can\-I\-D provided. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_ae8de1ee1742eeb41d5401d10e8324c80}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-id\-\_\-multi\-\_\-write@{mcp2515\-\_\-id\-\_\-multi\-\_\-write}}
+\index{mcp2515\-\_\-id\-\_\-multi\-\_\-write@{mcp2515\-\_\-id\-\_\-multi\-\_\-write}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-id\-\_\-multi\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}void mcp2515\-\_\-id\-\_\-multi\-\_\-write (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint32\-\_\-t}]{can\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_ae8de1ee1742eeb41d5401d10e8324c80}
+
+
+Write any Std or Ext I\-D from the begin address of the register X\-X\-Xn\-S\-I\-D\-H. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the begin address of any C\-A\-N I\-D register with X\-X\-Xn\-S\-I\-D\-H. e.\-i.\-: R\-X\-F3\-S\-I\-D\-H, R\-X\-M0\-S\-I\-D\-H, T\-X\-B1\-S\-I\-D\-H, etc. \\
+\hline
+{\em can\-I\-D} & is the value Std or Ext I\-D with 29th bit = 0 for Std I\-D or 29th bit = 1 for Ext I\-D. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a811139f68cd8d68ff46acfed8486eafb}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-load\-\_\-tx\-\_\-buf@{mcp2515\-\_\-load\-\_\-tx\-\_\-buf}}
+\index{mcp2515\-\_\-load\-\_\-tx\-\_\-buf@{mcp2515\-\_\-load\-\_\-tx\-\_\-buf}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-load\-\_\-tx\-\_\-buf}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-load\-\_\-tx\-\_\-buf (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{n\-Buf, }
+\item[{{\bf mcp2515\-\_\-can\-\_\-frame\-\_\-t} $\ast$}]{can\-Data}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a811139f68cd8d68ff46acfed8486eafb}
+
+
+Send the Load T\-X Buffer command over S\-P\-I bus. This loads the whole C\-A\-N frame to the buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\-Buf} & is buffer of \#\-M\-C\-P2515\-\_\-\-T\-X\-\_\-\-B\-U\-F\-\_\-0/1/2 (buffer T\-X 0,1 or 2). \\
+\hline
+{\em can\-Data} & is the begin address of mcp2515\-\_\-can\-\_\-frame\-\_\-t type. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a600aaf900702cf7c83d56c8d1e86f338}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-read@{mcp2515\-\_\-read}}
+\index{mcp2515\-\_\-read@{mcp2515\-\_\-read}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-read (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint8\-\_\-t $\ast$}]{data\-Addr}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a600aaf900702cf7c83d56c8d1e86f338}
+
+
+Send the Read command over S\-P\-I bus. It can read any register byte accordingly of the address provided. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the register address of the M\-C\-P2515. \\
+\hline
+{\em data\-Addr} & is the address of the data to be writed on. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a3537c6f64581a6e875d06b6f3d9e33c5}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-read\-\_\-bust@{mcp2515\-\_\-read\-\_\-bust}}
+\index{mcp2515\-\_\-read\-\_\-bust@{mcp2515\-\_\-read\-\_\-bust}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-read\-\_\-bust}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-read\-\_\-bust (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint8\-\_\-t $\ast$}]{data\-Addr, }
+\item[{uint8\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a3537c6f64581a6e875d06b6f3d9e33c5}
+
+
+Send the R\-E\-A\-D command over S\-P\-I bus. It can read any register byte accordingly of the address provided. It provides a bust read so please be careful on the read data that not overlap other M\-C\-P2515 registers's data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the register address of the M\-C\-P2515. \\
+\hline
+{\em data\-Addr} & is the address of the data to be saved. \\
+\hline
+{\em size} & is the data byte size to be read (n bytes). \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_aacba263bddd0a4a0311899da0a23b00f}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-read\-\_\-rx\-\_\-buf@{mcp2515\-\_\-read\-\_\-rx\-\_\-buf}}
+\index{mcp2515\-\_\-read\-\_\-rx\-\_\-buf@{mcp2515\-\_\-read\-\_\-rx\-\_\-buf}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-read\-\_\-rx\-\_\-buf}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-read\-\_\-rx\-\_\-buf (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{n\-Buf, }
+\item[{{\bf mcp2515\-\_\-can\-\_\-frame\-\_\-t} $\ast$}]{can\-Data}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_aacba263bddd0a4a0311899da0a23b00f}
+
+
+Send the Read R\-X Buffer command over S\-P\-I bus. This reads the whole C\-A\-N frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\-Buf} & buffer of \#\-M\-C\-P2515\-\_\-\-R\-X\-\_\-\-B\-U\-F\-\_\-0 (buffer R\-X 0) or \#\-M\-C\-P2515\-\_\-\-R\-X\-\_\-\-B\-U\-F\-\_\-1 (buffer R\-X 1). \\
+\hline
+{\em can\-Data} & is the address of mcp2515\-\_\-can\-\_\-frame\-\_\-t type. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a9208fe24c198fa4da906fd77fe0d7762}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-read\-\_\-rxtx\-\_\-status@{mcp2515\-\_\-read\-\_\-rxtx\-\_\-status}}
+\index{mcp2515\-\_\-read\-\_\-rxtx\-\_\-status@{mcp2515\-\_\-read\-\_\-rxtx\-\_\-status}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-read\-\_\-rxtx\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-read\-\_\-rxtx\-\_\-status (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t $\ast$}]{can\-Rx\-Tx\-Status}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a9208fe24c198fa4da906fd77fe0d7762}
+
+
+Send the Read Status command over S\-P\-I bus. This requests the C\-A\-N controller to give the R\-X/\-T\-X buffer status. 
+
+The return value points by can\-Rx\-Tx\-Status will be as below\-: M\-S\-B$<$-\/$|$7$|$6$|$5$|$4$|$3$|$2$|$1$|$0$|$$<$-\/\-L\-S\-B bit7\-: C\-A\-N\-I\-N\-T\-F.\-T\-X2\-I\-F bit3\-: C\-A\-N\-I\-N\-T\-F.\-T\-X0\-I\-F bit6\-: T\-X\-B2\-C\-N\-T\-R\-L.\-T\-X\-R\-E\-Q bit2\-: T\-X\-B0\-C\-N\-T\-R\-L.\-T\-X\-R\-E\-Q bit5\-: C\-A\-N\-I\-N\-T\-F.\-T\-X1\-I\-F bit1\-: C\-A\-N\-I\-N\-T\-F\-L.\-R\-X1\-I\-F bit4\-: T\-X\-B1\-C\-N\-T\-R\-L.\-T\-X\-R\-E\-Q bit0\-: C\-A\-N\-I\-N\-T\-F.\-R\-X0\-I\-F 
+\begin{DoxyParams}{Parameters}
+{\em can\-Rx\-Tx\-Status} & is the address of the status value to be saved. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_ae4e77d73aeb063fe68e48380851f1d96}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-rts@{mcp2515\-\_\-rts}}
+\index{mcp2515\-\_\-rts@{mcp2515\-\_\-rts}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-rts}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-rts (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{n\-Buf}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_ae4e77d73aeb063fe68e48380851f1d96}
+
+
+Send the Request-\/\-To-\/\-Send (R\-T\-S) command over S\-P\-I bus. This sets a R\-T\-S to the T\-X buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\-Buf} & is buffer of \#\-M\-C\-P2515\-\_\-\-T\-X\-\_\-\-B\-U\-F\-\_\-0/1/2 (buffer 0,1 or 2). \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a3182f71056703bfa7a6e5ea0ffe8fa4e}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-rx\-\_\-status@{mcp2515\-\_\-rx\-\_\-status}}
+\index{mcp2515\-\_\-rx\-\_\-status@{mcp2515\-\_\-rx\-\_\-status}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-rx\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-rx\-\_\-status (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t $\ast$}]{can\-Rx\-Status}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a3182f71056703bfa7a6e5ea0ffe8fa4e}
+
+
+Send the R\-X Status command over S\-P\-I bus. 
+
+This requests the C\-A\-N controller to give the R\-X buffer status. It gives more information than M\-C\-P2515can\-Read\-Rx\-Tx\-Status(). Please see the M\-C\-P2515.\-pdf p.\-67 for more information. 
+\begin{DoxyParams}{Parameters}
+{\em can\-Rx\-Status} & is the address of the status value to be saved. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a12022548d26f6bb9959ca8ca3d5343d4}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-set\-\_\-baudrate@{mcp2515\-\_\-set\-\_\-baudrate}}
+\index{mcp2515\-\_\-set\-\_\-baudrate@{mcp2515\-\_\-set\-\_\-baudrate}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-set\-\_\-baudrate}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-set\-\_\-baudrate (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{C\-A\-N\-Baud\-Rate, }
+\item[{uint8\-\_\-t}]{sync\-S\-J\-W}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a12022548d26f6bb9959ca8ca3d5343d4}
+
+
+Set the speed of the C\-A\-N bus. 
+
+Some portions of the segment are fixed in C\-A\-N bus bit\-: Sync\-Seg = 1\-T\-Q. Always. Prop\-Seg = variable. P\-S1 = variable. P\-S2 = variable. S\-J\-W = variable. User define. $\ast$\-Note\-: C\-A\-N bus bit M\-I\-N = 7\-T\-Q ; M\-A\-X = 25\-T\-Q. It tries to have at 75\% sampling point in a C\-A\-N bit time. If the C\-A\-N\-Baudrate = 0, it will leave the default configuration of the M\-C\-P2515. 
+\begin{DoxyParams}{Parameters}
+{\em C\-A\-N\-Baudrate} & is the baudrate that you would like to run on the C\-A\-N bus. \\
+\hline
+{\em S\-J\-W} & is the Synchronization Jump Width for C\-A\-N bus sync. correction (1 to 4\-T\-Q). \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_adcfffbb4476a409aae0bb08efcc98df0}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-spi\-\_\-transfer@{mcp2515\-\_\-spi\-\_\-transfer}}
+\index{mcp2515\-\_\-spi\-\_\-transfer@{mcp2515\-\_\-spi\-\_\-transfer}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-spi\-\_\-transfer}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-spi\-\_\-transfer (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{data\-Out, }
+\item[{uint8\-\_\-t $\ast$}]{data\-In}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_adcfffbb4476a409aae0bb08efcc98df0}
+
+
+Provide the tranmission service on the S\-P\-I port to M\-C\-P2515. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\-Out} & Data to be send. \\
+\hline
+{\em data\-In} & Pointer to 8 bits data space. Read value will be saved at specified address. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_a0eb5d51b44bc9b93f065895fc89ed710}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-write@{mcp2515\-\_\-write}}
+\index{mcp2515\-\_\-write@{mcp2515\-\_\-write}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-write (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint8\-\_\-t}]{data}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_a0eb5d51b44bc9b93f065895fc89ed710}
+
+
+Send the W\-R\-I\-T\-E command over S\-P\-I bus. It can write any register byte accordingly of the address provided. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the register address of the M\-C\-P2515. \\
+\hline
+{\em data} & is the data to be send. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_m_c_p2515_8c_aec754964c687a70fe3e85fa03f87de75}{\index{M\-C\-P2515.\-c@{M\-C\-P2515.\-c}!mcp2515\-\_\-write\-\_\-bust@{mcp2515\-\_\-write\-\_\-bust}}
+\index{mcp2515\-\_\-write\-\_\-bust@{mcp2515\-\_\-write\-\_\-bust}!MCP2515.c@{M\-C\-P2515.\-c}}
+\subsubsection[{mcp2515\-\_\-write\-\_\-bust}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t mcp2515\-\_\-write\-\_\-bust (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{reg\-Addr, }
+\item[{uint8\-\_\-t $\ast$}]{data\-Addr, }
+\item[{uint8\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{_m_c_p2515_8c_aec754964c687a70fe3e85fa03f87de75}
+
+
+Send the W\-R\-I\-T\-E command over S\-P\-I bus. It can write any register byte accordingly of the address provided. It provides a bust write so please be careful on the write data that not overlap other M\-C\-P2515 registers's data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\-Addr} & is the register address of the M\-C\-P2515. \\
+\hline
+{\em data\-Addr} & is the begin address of the data byte to be send. \\
+\hline
+{\em size} & is the data byte size to be send (n bytes). \\
+\hline
+\end{DoxyParams}
