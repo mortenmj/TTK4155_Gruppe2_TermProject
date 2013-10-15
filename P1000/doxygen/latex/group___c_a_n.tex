@@ -1,0 +1,136 @@
+\hypertarget{group___c_a_n}{\section{C\-A\-N A\-P\-I}
+\label{group___c_a_n}\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}}
+}
+
+
+Provides functions for communicating with the C\-A\-N controller.  
+
+
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{can_8c}{can.\-c}
+\begin{DoxyCompactList}\small\item\em C\-A\-N A\-P\-I implementation. \end{DoxyCompactList}\item 
+file \hyperlink{can_8h}{can.\-h}
+\begin{DoxyCompactList}\small\item\em High-\/level C\-A\-N A\-P\-I. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_can_state}{Can\-State}
+\begin{DoxyCompactList}\small\item\em C\-A\-N interface. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_can_frame}{Can\-Frame}
+\begin{DoxyCompactList}\small\item\em C\-A\-N frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_can_state}{Can\-State} \hyperlink{group___c_a_n_ga9c929a51dc60dc74c97e7f3c4bb76300}{can\-\_\-t}
+\begin{DoxyCompactList}\small\item\em C\-A\-N interface. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct_can_frame}{Can\-Frame} \hyperlink{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t}
+\begin{DoxyCompactList}\small\item\em C\-A\-N frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___c_a_n_gac7781a37ca14c5bf42c4fe9de1f4daa8}{void \hyperlink{group___c_a_n_gac7781a37ca14c5bf42c4fe9de1f4daa8}{can\-\_\-init} (void)}\label{group___c_a_n_gac7781a37ca14c5bf42c4fe9de1f4daa8}
+
+\begin{DoxyCompactList}\small\item\em Initializes C\-A\-N device. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_gad7a2e329d358b34cb55d01a8dcfa46f3}{can\-\_\-read} (unsigned char addr, unsigned char $\ast$val)
+\begin{DoxyCompactList}\small\item\em Reads a register on the C\-A\-N controller. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_gaca9b739b48885d2c581ab0271eed1e00}{can\-\_\-receive} (\hyperlink{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t} $\ast$frame)
+\begin{DoxyCompactList}\small\item\em Receive a packet from the C\-A\-N bus. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_ga253ec448799ca5ac8097eb124af53593}{can\-\_\-transmit} (\hyperlink{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t} $\ast$frame)
+\begin{DoxyCompactList}\small\item\em Transmit a packet on the C\-A\-N bus. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_ga3f2fa933a534a6cf388b0857cb267cb2}{can\-\_\-write} (unsigned char addr, unsigned char val)
+\begin{DoxyCompactList}\small\item\em Writes a register on the C\-A\-N controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides functions for communicating with the C\-A\-N controller. 
+
+\subsection{Typedef Documentation}
+\hypertarget{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}{\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}!can\-\_\-frame\-\_\-t@{can\-\_\-frame\-\_\-t}}
+\index{can\-\_\-frame\-\_\-t@{can\-\_\-frame\-\_\-t}!CAN API@{C\-A\-N A\-P\-I}}
+\subsubsection[{can\-\_\-frame\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Can\-Frame}  {\bf can\-\_\-frame\-\_\-t}}}\label{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}
+
+
+C\-A\-N frame. 
+
+Struct that describes a frame to be sent over C\-A\-N-\/bus. \hypertarget{group___c_a_n_ga9c929a51dc60dc74c97e7f3c4bb76300}{\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}!can\-\_\-t@{can\-\_\-t}}
+\index{can\-\_\-t@{can\-\_\-t}!CAN API@{C\-A\-N A\-P\-I}}
+\subsubsection[{can\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Can\-State}  {\bf can\-\_\-t}}}\label{group___c_a_n_ga9c929a51dc60dc74c97e7f3c4bb76300}
+
+
+C\-A\-N interface. 
+
+Struct to describe the state of a C\-A\-N interface. 
+
+\subsection{Function Documentation}
+\hypertarget{group___c_a_n_gad7a2e329d358b34cb55d01a8dcfa46f3}{\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}!can\-\_\-read@{can\-\_\-read}}
+\index{can\-\_\-read@{can\-\_\-read}!CAN API@{C\-A\-N A\-P\-I}}
+\subsubsection[{can\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-read (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{addr, }
+\item[{unsigned char $\ast$}]{val}
+\end{DoxyParamCaption}
+)}}\label{group___c_a_n_gad7a2e329d358b34cb55d01a8dcfa46f3}
+
+
+Reads a register on the C\-A\-N controller. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em addr} & The register address to read \\
+\hline
+\mbox{\tt out}  & {\em c} & Char to write register value to \\
+\hline
+\end{DoxyParams}
+\hypertarget{group___c_a_n_gaca9b739b48885d2c581ab0271eed1e00}{\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}!can\-\_\-receive@{can\-\_\-receive}}
+\index{can\-\_\-receive@{can\-\_\-receive}!CAN API@{C\-A\-N A\-P\-I}}
+\subsubsection[{can\-\_\-receive}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-receive (
+\begin{DoxyParamCaption}
+\item[{{\bf can\-\_\-frame\-\_\-t} $\ast$}]{frame}
+\end{DoxyParamCaption}
+)}}\label{group___c_a_n_gaca9b739b48885d2c581ab0271eed1e00}
+
+
+Receive a packet from the C\-A\-N bus. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em in\-\_\-frame} & Packet to write to \\
+\hline
+\end{DoxyParams}
+\hypertarget{group___c_a_n_ga253ec448799ca5ac8097eb124af53593}{\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}!can\-\_\-transmit@{can\-\_\-transmit}}
+\index{can\-\_\-transmit@{can\-\_\-transmit}!CAN API@{C\-A\-N A\-P\-I}}
+\subsubsection[{can\-\_\-transmit}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-transmit (
+\begin{DoxyParamCaption}
+\item[{{\bf can\-\_\-frame\-\_\-t} $\ast$}]{frame}
+\end{DoxyParamCaption}
+)}}\label{group___c_a_n_ga253ec448799ca5ac8097eb124af53593}
+
+
+Transmit a packet on the C\-A\-N bus. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em out\-\_\-frame} & Packet to read from \\
+\hline
+\end{DoxyParams}
+\hypertarget{group___c_a_n_ga3f2fa933a534a6cf388b0857cb267cb2}{\index{C\-A\-N A\-P\-I@{C\-A\-N A\-P\-I}!can\-\_\-write@{can\-\_\-write}}
+\index{can\-\_\-write@{can\-\_\-write}!CAN API@{C\-A\-N A\-P\-I}}
+\subsubsection[{can\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}void can\-\_\-write (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{addr, }
+\item[{unsigned char}]{val}
+\end{DoxyParamCaption}
+)}}\label{group___c_a_n_ga3f2fa933a534a6cf388b0857cb267cb2}
+
+
+Writes a register on the C\-A\-N controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & The register address to write \\
+\hline
+{\em c} & Char to write to the controller register \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,38 @@
+\hypertarget{can_8c}{\section{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/can.c File Reference}
+\label{can_8c}\index{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/can.\-c@{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Control/can/can.\-c}}
+}
+
+
+C\-A\-N A\-P\-I implementation.  
+
+
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}Free\-R\-T\-O\-S.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}M\-C\-P2515.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}M\-C\-P2515define.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}can.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___c_a_n_gac7781a37ca14c5bf42c4fe9de1f4daa8}{void \hyperlink{group___c_a_n_gac7781a37ca14c5bf42c4fe9de1f4daa8}{can\-\_\-init} (void)}\label{group___c_a_n_gac7781a37ca14c5bf42c4fe9de1f4daa8}
+
+\begin{DoxyCompactList}\small\item\em Initializes C\-A\-N device. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_gad7a2e329d358b34cb55d01a8dcfa46f3}{can\-\_\-read} (unsigned char addr, unsigned char $\ast$val)
+\begin{DoxyCompactList}\small\item\em Reads a register on the C\-A\-N controller. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_gaca9b739b48885d2c581ab0271eed1e00}{can\-\_\-receive} (\hyperlink{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t} $\ast$frame)
+\begin{DoxyCompactList}\small\item\em Receive a packet from the C\-A\-N bus. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_ga253ec448799ca5ac8097eb124af53593}{can\-\_\-transmit} (\hyperlink{group___c_a_n_ga78ee122f82484a1d73d82b66b1000d64}{can\-\_\-frame\-\_\-t} $\ast$frame)
+\begin{DoxyCompactList}\small\item\em Transmit a packet on the C\-A\-N bus. \end{DoxyCompactList}\item 
+void \hyperlink{group___c_a_n_ga3f2fa933a534a6cf388b0857cb267cb2}{can\-\_\-write} (unsigned char addr, unsigned char val)
+\begin{DoxyCompactList}\small\item\em Writes a register on the C\-A\-N controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{can_8c_a7fffcd65fe4de60683b0df043d2a9de3}{\hyperlink{group___c_a_n_ga9c929a51dc60dc74c97e7f3c4bb76300}{can\-\_\-t} {\bfseries can}}\label{can_8c_a7fffcd65fe4de60683b0df043d2a9de3}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+C\-A\-N A\-P\-I implementation. 
