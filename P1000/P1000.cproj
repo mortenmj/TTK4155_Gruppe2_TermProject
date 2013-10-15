@@ -416,6 +416,9 @@
     <Compile Include="Display\m2tklib\m2utlu8d.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Display\u8glib\m2icon5.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Display\u8glib\u8g.h">
       <SubType>compile</SubType>
     </Compile>
@@ -452,7 +455,7 @@
     <Compile Include="Display\u8glib\u8g_font.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Display\u8glib\u8g_font_data.c">
+    <Compile Include="Display\u8glib\u8g_font_5x8.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Display\u8glib\u8g_line.c">
