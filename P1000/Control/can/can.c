@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @ingroup CAN
+ *
+ * @brief CAN API implementation
+ */
+
 /*
  * can.c
  *
@@ -13,7 +21,7 @@
 #include "MCP2515define.h"
 #include "can.h"
 
-can_status_t can;
+can_t can;
 
 void can_init ( void )
 {
