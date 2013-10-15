@@ -38,26 +38,26 @@ void spi_init (void);
  * @param data_out The data to write
  *
  */
-uint8_t spi_transfer (uint8_t data_out);
+uint8_t spi_transfer (uint8_t data);
 
 /**
  * @brief Writes multiple bytes on the SPI interface
  *
- * @param[in] data_out The data to write
+ * @param[in] data The data to write
  * @param len Number of bytes to write
  *
  */
-void spi_write_block (uint8_t *data_out, uint8_t len);
+void spi_write_block (uint8_t *data, uint8_t len);
 
 /**
  * @brief Reads and writes multiple bytes on the SPI interface
  *
- * @param[in] data_out The data to write
- * @param[out] data_in The received data
+ * @param[in] data The data to write
+ * @param[out] dest Destination for the received data
  * @param len Number of bytes to read/write
  *
  */
-void spi_readwrite_block (uint8_t *data_out, uint8_t *data_in, uint8_t len);
+void spi_readwrite_block (uint8_t *data, uint8_t *dest, uint8_t len);
 
 /** @} */
 

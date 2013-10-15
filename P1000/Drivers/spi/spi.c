@@ -51,25 +51,25 @@ void spi_init (void)
 	portEXIT_CRITICAL();
 }
 
-uint8_t spi_transfer (uint8_t data_out)
+uint8_t spi_transfer (uint8_t data)
 {
-	SPDR = data_out;
+	SPDR = data;
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;
 }
 
-void spi_write_block (uint8_t *data_out, uint8_t len)
+void spi_write_block (uint8_t *data, uint8_t len)
 {
 	for (int i = 0; i < len; i++)
 	{
-		spi_transfer ( data_out[i] );
+		spi_transfer ( data[i] );
 	}
 }
 
-void spi_readwrite_block (uint8_t *data_out, uint8_t *data_in, uint8_t len)
+void spi_readwrite_block (uint8_t *data, uint8_t *dest, uint8_t len)
 {
 	for (int i = 0; i < len; i++)
 	{
-		data_in[i] = spi_transfer ( data_out[i] );
+		dest[i] = spi_transfer ( data[i] );
 	}
 }
