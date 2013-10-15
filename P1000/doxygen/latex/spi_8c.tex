@@ -1,0 +1,56 @@
+\hypertarget{spi_8c}{\section{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/spi/spi.c File Reference}
+\label{spi_8c}\index{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/spi/spi.\-c@{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/spi/spi.\-c}}
+}
+
+
+S\-P\-I A\-P\-I.  
+
+
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$avr/interrupt.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}Free\-R\-T\-O\-S.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}queue.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}spi.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}serial.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$util/delay.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{spi_8c_a70d0f9878c6afc2f07647044522a7421}{\#define {\bfseries spi\-E\-N\-A\-B\-L\-E}~( ( unsigned char ) ( 1 $<$$<$ S\-P\-E ) )}\label{spi_8c_a70d0f9878c6afc2f07647044522a7421}
+
+\item 
+\hypertarget{spi_8c_a2fff4a03ed1bbcf3a64ed431b58ee21a}{\#define {\bfseries spi\-I\-N\-T\-\_\-\-E\-N\-A\-B\-L\-E}~( ( unsigned char ) ( 1 $<$$<$ S\-P\-I\-E ) )}\label{spi_8c_a2fff4a03ed1bbcf3a64ed431b58ee21a}
+
+\item 
+\hypertarget{spi_8c_a26eeba90328c5e5175853901dc302c8c}{\#define {\bfseries spi\-M\-A\-S\-T\-E\-R\-\_\-\-M\-O\-D\-E}~( ( unsigned char ) ( 1 $<$$<$ M\-S\-T\-R ) )}\label{spi_8c_a26eeba90328c5e5175853901dc302c8c}
+
+\item 
+\hypertarget{spi_8c_afcb5de6086bc1e63760aeba22f9ad23f}{\#define {\bfseries spi\-S\-L\-C\-K}~( ( unsigned char ) ( 1 $<$$<$ P\-B1 ) )}\label{spi_8c_afcb5de6086bc1e63760aeba22f9ad23f}
+
+\item 
+\hypertarget{spi_8c_a51a7be6612aca8e54dd47414304be808}{\#define {\bfseries spi\-M\-O\-S\-I}~( ( unsigned char ) ( 1 $<$$<$ P\-B2 ) )}\label{spi_8c_a51a7be6612aca8e54dd47414304be808}
+
+\item 
+\hypertarget{spi_8c_a006c31667a75e8be28aefd5905e04891}{\#define {\bfseries spi\-M\-I\-S\-O}~( ( unsigned char ) ( 1 $<$$<$ P\-B3 ) )}\label{spi_8c_a006c31667a75e8be28aefd5905e04891}
+
+\item 
+\hypertarget{spi_8c_ada349d8b2f7b5710d69c0eb6bf5cb85a}{\#define {\bfseries spi\-I\-N\-T}~( ( unsigned char ) ( 1 $<$$<$ P\-B4 ) )}\label{spi_8c_ada349d8b2f7b5710d69c0eb6bf5cb85a}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___s_p_i_gae909944aa85ae98323073c628be541aa}{void \hyperlink{group___s_p_i_gae909944aa85ae98323073c628be541aa}{spi\-\_\-init} (void)}\label{group___s_p_i_gae909944aa85ae98323073c628be541aa}
+
+\begin{DoxyCompactList}\small\item\em Initializes S\-P\-I interface. \end{DoxyCompactList}\item 
+uint8\-\_\-t \hyperlink{group___s_p_i_gaf1cb8cd50ad17c3847c2204d7b51a1dd}{spi\-\_\-transfer} (uint8\-\_\-t data\-\_\-out)
+\begin{DoxyCompactList}\small\item\em Writes a byte on the S\-P\-I interface. \end{DoxyCompactList}\item 
+void \hyperlink{group___s_p_i_gac560dc0230174b945dc468c1cfd1d779}{spi\-\_\-write\-\_\-block} (uint8\-\_\-t $\ast$data\-\_\-out, uint8\-\_\-t len)
+\begin{DoxyCompactList}\small\item\em Writes multiple bytes on the S\-P\-I interface. \end{DoxyCompactList}\item 
+void \hyperlink{group___s_p_i_ga8cfadb337b7eb5584858d6bae33d489c}{spi\-\_\-readwrite\-\_\-block} (uint8\-\_\-t $\ast$data\-\_\-out, uint8\-\_\-t $\ast$data\-\_\-in, uint8\-\_\-t len)
+\begin{DoxyCompactList}\small\item\em Reads and writes multiple bytes on the S\-P\-I interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+S\-P\-I A\-P\-I. 

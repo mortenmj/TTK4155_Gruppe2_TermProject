@@ -1,0 +1,90 @@
+\hypertarget{group___s_p_i}{\section{S\-P\-I A\-P\-I}
+\label{group___s_p_i}\index{S\-P\-I A\-P\-I@{S\-P\-I A\-P\-I}}
+}
+
+
+Provides functions for communicating over the S\-P\-I interface.  
+
+
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{spi_8c}{spi.\-c}
+\begin{DoxyCompactList}\small\item\em S\-P\-I A\-P\-I. \end{DoxyCompactList}\item 
+file \hyperlink{spi_8h}{spi.\-h}
+\begin{DoxyCompactList}\small\item\em S\-P\-I A\-P\-I. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___s_p_i_gae909944aa85ae98323073c628be541aa}{void \hyperlink{group___s_p_i_gae909944aa85ae98323073c628be541aa}{spi\-\_\-init} (void)}\label{group___s_p_i_gae909944aa85ae98323073c628be541aa}
+
+\begin{DoxyCompactList}\small\item\em Initializes S\-P\-I interface. \end{DoxyCompactList}\item 
+uint8\-\_\-t \hyperlink{group___s_p_i_gaf1cb8cd50ad17c3847c2204d7b51a1dd}{spi\-\_\-transfer} (uint8\-\_\-t data\-\_\-out)
+\begin{DoxyCompactList}\small\item\em Writes a byte on the S\-P\-I interface. \end{DoxyCompactList}\item 
+void \hyperlink{group___s_p_i_gac560dc0230174b945dc468c1cfd1d779}{spi\-\_\-write\-\_\-block} (uint8\-\_\-t $\ast$data\-\_\-out, uint8\-\_\-t len)
+\begin{DoxyCompactList}\small\item\em Writes multiple bytes on the S\-P\-I interface. \end{DoxyCompactList}\item 
+void \hyperlink{group___s_p_i_ga8cfadb337b7eb5584858d6bae33d489c}{spi\-\_\-readwrite\-\_\-block} (uint8\-\_\-t $\ast$data\-\_\-out, uint8\-\_\-t $\ast$data\-\_\-in, uint8\-\_\-t len)
+\begin{DoxyCompactList}\small\item\em Reads and writes multiple bytes on the S\-P\-I interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides functions for communicating over the S\-P\-I interface. 
+
+\subsection{Function Documentation}
+\hypertarget{group___s_p_i_ga8cfadb337b7eb5584858d6bae33d489c}{\index{S\-P\-I A\-P\-I@{S\-P\-I A\-P\-I}!spi\-\_\-readwrite\-\_\-block@{spi\-\_\-readwrite\-\_\-block}}
+\index{spi\-\_\-readwrite\-\_\-block@{spi\-\_\-readwrite\-\_\-block}!SPI API@{S\-P\-I A\-P\-I}}
+\subsubsection[{spi\-\_\-readwrite\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}void spi\-\_\-readwrite\-\_\-block (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t $\ast$}]{data\-\_\-out, }
+\item[{uint8\-\_\-t $\ast$}]{data\-\_\-in, }
+\item[{uint8\-\_\-t}]{len}
+\end{DoxyParamCaption}
+)}}\label{group___s_p_i_ga8cfadb337b7eb5584858d6bae33d489c}
+
+
+Reads and writes multiple bytes on the S\-P\-I interface. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data\-\_\-out} & The data to write \\
+\hline
+\mbox{\tt out}  & {\em data\-\_\-in} & The received data \\
+\hline
+ & {\em len} & Number of bytes to read/write \\
+\hline
+\end{DoxyParams}
+\hypertarget{group___s_p_i_gaf1cb8cd50ad17c3847c2204d7b51a1dd}{\index{S\-P\-I A\-P\-I@{S\-P\-I A\-P\-I}!spi\-\_\-transfer@{spi\-\_\-transfer}}
+\index{spi\-\_\-transfer@{spi\-\_\-transfer}!SPI API@{S\-P\-I A\-P\-I}}
+\subsubsection[{spi\-\_\-transfer}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t spi\-\_\-transfer (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{data\-\_\-out}
+\end{DoxyParamCaption}
+)}}\label{group___s_p_i_gaf1cb8cd50ad17c3847c2204d7b51a1dd}
+
+
+Writes a byte on the S\-P\-I interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\-\_\-out} & The data to write \\
+\hline
+\end{DoxyParams}
+\hypertarget{group___s_p_i_gac560dc0230174b945dc468c1cfd1d779}{\index{S\-P\-I A\-P\-I@{S\-P\-I A\-P\-I}!spi\-\_\-write\-\_\-block@{spi\-\_\-write\-\_\-block}}
+\index{spi\-\_\-write\-\_\-block@{spi\-\_\-write\-\_\-block}!SPI API@{S\-P\-I A\-P\-I}}
+\subsubsection[{spi\-\_\-write\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}void spi\-\_\-write\-\_\-block (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t $\ast$}]{data\-\_\-out, }
+\item[{uint8\-\_\-t}]{len}
+\end{DoxyParamCaption}
+)}}\label{group___s_p_i_gac560dc0230174b945dc468c1cfd1d779}
+
+
+Writes multiple bytes on the S\-P\-I interface. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data\-\_\-out} & The data to write \\
+\hline
+ & {\em len} & Number of bytes to write \\
+\hline
+\end{DoxyParams}
