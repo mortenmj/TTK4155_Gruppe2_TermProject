@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @ingroup SPI
+ *
+ * @brief SPI API
+ */
+
 /*
  * spi.c
  *
