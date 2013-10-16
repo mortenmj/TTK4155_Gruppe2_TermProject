@@ -9,6 +9,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Breadboard", "Breadboard\Br
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "B1 Xplained", "B1 Xplained\B1 Xplained.cproj", "{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Node2", "Node2\Node2.cproj", "{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -16,21 +18,21 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Debug|AVR.ActiveCfg = Debug|AVR
-		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Debug|AVR.Build.0 = Debug|AVR
 		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Release|AVR.ActiveCfg = Release|AVR
 		{7465C97C-D347-4D63-B324-CAB6B3EC76A4}.Release|AVR.Build.0 = Release|AVR
 		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Debug|AVR.ActiveCfg = Debug|AVR
-		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Debug|AVR.Build.0 = Debug|AVR
 		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Release|AVR.ActiveCfg = Release|AVR
 		{0644AA1C-2F2B-49CA-BC16-497ABE4EB43C}.Release|AVR.Build.0 = Release|AVR
 		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Debug|AVR.ActiveCfg = Debug|AVR
-		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Debug|AVR.Build.0 = Debug|AVR
 		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Release|AVR.ActiveCfg = Release|AVR
 		{A2A8516B-8885-4E7F-B132-409A48D3A2C2}.Release|AVR.Build.0 = Release|AVR
 		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Debug|AVR.ActiveCfg = Debug|AVR
-		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Debug|AVR.Build.0 = Debug|AVR
 		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Release|AVR.ActiveCfg = Release|AVR
 		{07424EBA-6CF4-4AC4-BCB1-6319043BFECD}.Release|AVR.Build.0 = Release|AVR
+		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Debug|AVR.ActiveCfg = Debug|AVR
+		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Debug|AVR.Build.0 = Debug|AVR
+		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Release|AVR.ActiveCfg = Release|AVR
+		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

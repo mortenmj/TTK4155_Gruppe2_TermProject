@@ -66,8 +66,6 @@ void extmem_init(void)
 	SFIOR |= (1 << XMM2);
 }
 
-
-
 int main(void)
 {
 	uart_init ();

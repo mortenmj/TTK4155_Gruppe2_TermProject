@@ -20,7 +20,8 @@ uint8_t out_buffer[BUFFER_SIZE];
 struct ring_buffer ring_buffer_in;
 struct ring_buffer ring_buffer_out;
 
-void uart_init (void) {
+void uart_init (void)
+ {
 	/* Set baud rate */
 	UBRR0H = (BAUD_PRESCALE >> 8);
 	UBRR0L = BAUD_PRESCALE;	
@@ -29,14 +30,14 @@ void uart_init (void) {
 	UCSR0B |= (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
 	
 	/* Frame format: 8 bit data, 1 stop bit, no parity */
-	UCSR0C |= (1 << URSEL0) | (1 << UCSZ01) | (1 << UCSZ00);
+	UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00);
 	
 	ring_buffer_in = ring_buffer_init(in_buffer, BUFFER_SIZE);
 	ring_buffer_out = ring_buffer_init(out_buffer, BUFFER_SIZE);
 }
 
-
-void uart_putchar (char data) {
+void uart_putchar (char data)
+ {
 	cli();
 	if (ring_buffer_is_empty (&ring_buffer_out)) {
 		/* Since the buffer is empty, we must enable the data ready interrupt */
@@ -48,11 +49,13 @@ void uart_putchar (char data) {
 	sei();
 }
 
-char uart_getchar (void) {
+char uart_getchar (void)
+ {
 	return ring_buffer_get(&ring_buffer_in);
 }
 
-bool uart_char_waiting (void) {
+bool uart_char_waiting (void)
+ {
 	return !ring_buffer_is_empty(&ring_buffer_in);
 }
 
