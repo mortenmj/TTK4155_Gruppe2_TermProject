@@ -11,16 +11,11 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#include "ring_buffer.h"
 #include "adc.h"
 #include "menu.h"
 #include "oled.h"
 #include "uart.h"
-#include "spi.h"
 #include "can.h"
-
-#include "MCP2515.h"
-#include "MCP2515define.h"
 
 /* Using stdio for this is completely retarded */
 #include <stdio.h>
@@ -71,30 +66,62 @@ void extmem_init(void)
 	SFIOR |= (1 << XMM2);
 }
 
+
+
 int main(void)
 {
-	//can_frame_t in_frame;	
-	//can_frame_t out_frame = {1, { 'm', 'o', 'r', 't', 'e', 'n', }, 6};
-	uint8_t cnf1, cnf2, cnf3;
-	
 	uart_init ();
 	stdout = &uart_stdout;
 	printf ("Initializing...\n");
-	
-	spi_init ();
-	can_init ();
+
+	can_init (0x10);
+	uint8_t count = 0;
 	sei();
 		
 	printf ("Initialized\n");
 
-	while (1)
-	{
-	    mcp2515_read (MCP2515_CNF1, &cnf1);
-	    mcp2515_read (MCP2515_CNF2, &cnf2);
-	    mcp2515_read (MCP2515_CNF3, &cnf3);
+	while(1) {
+		can_frame_t frame;
+		frame.identifier = 0x00;
+		frame.size = count%8;
+		for(uint8_t i = 0; i < frame.size; i++) {
+			frame.data[i] = ~(128-i)+count;
+		}
+		uint8_t s = can_send_frame(&frame);
+		printf("Sent data %d %s\r",count, (s?"SUCCESS":"FAIL"));
 		
-		printf("cnf1: %d, cnf2: %d, cnf3: %d", cnf1, cnf2, cnf2);
+		can_frame_t recieved;
 		
-	    _delay_ms (500);
+		_delay_ms(100);
+		uint8_t status = mcp2515_read_status();
+		printf("  Status = 0x%x\r", status);
+		s = can_recieve_frame(&recieved);
+		printf("  Receieved data: L1: %d L2: %d %s\r", frame.size, recieved.size, (s?"SUCCESS":"FAIL"));
+		
+		_delay_ms(100);
+		if(frame.size == recieved.size) {
+			printf("  Identical length\r");
+			uint8_t passed = 1;
+			for(uint8_t i = 0; i < recieved.size; i++) {
+				if(frame.data[i] != recieved.data[i]) {
+					passed = 0;
+					continue;
+				}
+			}
+			if(passed) {
+				printf("    AND identical data\r");
+			}
+			else {
+				printf("    FAIL! NOT identical data\r");
+				
+			}
+		} else {
+			printf("  FAIL! NOT identical length\r");
+		}
+		status = mcp2515_read_status();
+		printf("  Status = 0x%x\r", status);
+		_delay_ms(500);
+		
+		count++;
 	}
 }

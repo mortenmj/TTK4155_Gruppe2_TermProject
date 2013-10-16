@@ -1,7 +1,7 @@
 /*
  * can.h
  *
- * Created: 01.10.2013 19:26:47
+ * Created: 16.10.2013 10:51:28
  *  Author: mortenmj
  */ 
 
@@ -9,32 +9,21 @@
 #ifndef CAN_H_
 #define CAN_H_
 
-/*
-* CAN status
-*/
-typedef struct CanStatus {
-	/* Interrupt register */
-	uint8_t interrupt;
-} can_status_t;
 
-/*
-*  CAN frame
-*/
-typedef struct CanFrame {
-	/* Message ID */
-	uint32_t id;
-	
-	/* Message data, up to 8 bytes */
+#include <avr/io.h>
+#include "mcp2515.h"
+
+typedef struct {
+	uint16_t identifier;
+	uint8_t size;
 	uint8_t data[8];
-	
-	/* Length of data */
-	uint8_t dlc;
-} can_frame_t ;
+	} can_frame_t;
 
-void can_init ( void );
-void can_read ( unsigned char addr, unsigned char *c );
-void can_write ( unsigned char addr, unsigned char c );
-void can_receive ( can_frame_t *frame );
-void can_transmit ( can_frame_t *frame );
+
+void can_init(uint16_t listenAddress);
+uint8_t can_send_frame(can_frame_t* frame);
+
+uint8_t can_recieve_frame(can_frame_t* frame);
+
 
 #endif /* CAN_H_ */

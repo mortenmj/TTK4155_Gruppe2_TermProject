@@ -10,47 +10,41 @@
 #include <stdint.h>
 #include <avr/io.h>
 
+/* SPI port */
+#define spiDDR							DDRB
+#define spiPORT							PORTB
+
 /* Constants for writing to SPCR. */
 #define spiENABLE						( ( unsigned char ) ( 1 << SPE ) )
 #define spiMASTER_MODE					( ( unsigned char ) ( 1 << MSTR ) )
+#define spiPRESCALE						( ( unsigned char ) ( 1 << SPR1 | 1 << SPR0 ) )
 
 /* SPI pins */
-#define spiSLCK							( ( unsigned char ) ( 1 << PB7 ) )
+#define spiSS							( ( unsigned char ) ( 1 << PB4 ) )
 #define spiMOSI							( ( unsigned char ) ( 1 << PB5 ) )
 #define spiMISO							( ( unsigned char ) ( 1 << PB6 ) )
+#define spiSLCK							( ( unsigned char ) ( 1 << PB7 ) )
 											
 /*-----------------------------------------------------------*/
 
 void spi_init (void)
 {
 	/* SS, SLCK & MOSI as output */
-	DDRB |= ( spiSLCK | spiMOSI );
+
+	spiDDR |= ( spiSS | spiMOSI | spiSLCK);
 	
-	/* MISO and PCINT4 input */
-	DDRB &= ~( spiMISO );
-	
-	SPCR |= ( spiENABLE | spiMASTER_MODE );
+	SPCR |= ( spiENABLE | spiMASTER_MODE | spiPRESCALE );
 }
 
-uint8_t spi_transfer (uint8_t data_out)
+uint8_t spi_read(void)
 {
-	SPDR = data_out;
+	SPDR = 0x00;
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;
 }
 
-void spi_write_block (uint8_t *data_out, uint8_t len)
+void spi_write( uint8_t data )
 {
-	for (int i = 0; i < len; i++)
-	{
-		spi_transfer ( data_out[i] );
-	}
-}
-
-void spi_readwrite_block (uint8_t *data_out, uint8_t *data_in, uint8_t len)
-{
-	for (int i = 0; i < len; i++)
-	{
-		data_in[i] = spi_transfer ( data_out[i] );
-	}
+	SPDR = data;
+	while(!(SPSR & (1<<SPIF)));
 }
