@@ -20,11 +20,10 @@ typedef enum
 	adcPORT7		
 } eADCPort;
 
-void vAdcInit ( unsigned portBASE_TYPE uxQueueLength );
-signed portBASE_TYPE xAdcGetValue ( signed char *pcAdcVal, portTickType xBlockTime );
-portBASE_TYPE xAdcGetPort ( void );
-void vAdcStartConversion ( void );
-portBASE_TYPE xAdcTakeSemaphore ( void );
-void vAdcClose ( void );
+void adc_init ( unsigned char queue_length );
+signed char adc_get_value ( signed char *val, portTickType block_time );
+void adc_start_conversion ( void );
+unsigned char adc_take_semaphore ( void );
+void adc_close ( void );
 
 #endif /* ADC_H_ */

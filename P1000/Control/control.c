@@ -41,10 +41,10 @@ void vControl ( void *pvParameters )
 	xLastWakeTime = xTaskGetTickCount ();
 	
 	/* CAN init */
-	//vCanInit ();
+	//can_init ();
 	
 	/* ADC init */
-	//vAdcInit ( ctrlNUM_ADC_VALUES );
+	//adc_init ( ctrlNUM_ADC_VALUES );
 	
 	/* Radio init */
 	Radio_Init ();
@@ -65,12 +65,12 @@ void vControl ( void *pvParameters )
 		vTaskDelayUntil ( &xLastWakeTime, ctrlTASK_FREQUENCY );
 /*
 		
-		if ( xAdcTakeSemaphore () == pdTRUE )
+		if ( adc_take_semaphore () == pdTRUE )
 		{
-			xAdcGetValue ( &valx, 0 );
-			xAdcGetValue ( &valy, 0 );
+			adc_get_value ( &valx, 0 );
+			adc_get_value ( &valy, 0 );
 			
-			vAdcStartConversion ();
+			adc_start_conversion ();
 		}
 */
 		//Radio_Set_Tx_Addr(station_addr);

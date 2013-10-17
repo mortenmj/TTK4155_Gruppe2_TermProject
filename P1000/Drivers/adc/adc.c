@@ -25,10 +25,10 @@
 #define adc_INT_ENABLE					( ( unsigned char ) (1 << ADIE) )
 #define adc_START_CONVERSION			( ( unsigned char ) (1 << ADSC) )
 
-static xQueueHandle xAdcValues;
-xSemaphoreHandle xAdcSemaphore;
+static xQueueHandle adc_values;
+xSemaphoreHandle adc_sem;
 
-#define vInterruptOn()												\
+#define ENABLE_INTERRUPT()												\
 {																	\
 	unsigned char ucByte;											\
 																	\
@@ -38,7 +38,7 @@ xSemaphoreHandle xAdcSemaphore;
 }
 /*-----------------------------------------------------------*/
 
-#define vInterruptOff()												\
+#define DISABLE_INTERRUPT()												\
 {																	\
 	unsigned char ucInByte;											\
 																	\
@@ -48,48 +48,12 @@ xSemaphoreHandle xAdcSemaphore;
 }
 /*-----------------------------------------------------------*/
 
-void vAdcInit ( unsigned portBASE_TYPE uxQueueLength )
-{
-	
-	portENTER_CRITICAL();
-	{
-		xAdcValues = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
-		vSemaphoreCreateBinary ( xAdcSemaphore );
-		
-		/* Take the semaphore so that the queue isn't accessed before it is populated */
-		xSemaphoreTake ( xAdcSemaphore, 0 );
-		
-		/* Set prescaler at 128 for 125kHz operation */
-		ADCSRA |= adc_125KHZ;
-		
-		/* Set reference voltage to AVCC and left shift result */
-		ADMUX = ( adc_AVCC | adc_ADLAR );
-	
-		/* Enable ADC */
-		ADCSRA |= adc_ENABLE;
-			
-		vInterruptOn();
-		vAdcStartConversion ();
-	}
-	portEXIT_CRITICAL();
-}
-
-signed portBASE_TYPE xAdcGetValue ( signed char *pcAdcVal, portTickType xBlockTime )
-{
-	if ( xQueueReceive ( xAdcValues, pcAdcVal, xBlockTime ) != pdPASS )
-	{
-		return pdFAIL;
-	}
-	
-	return pdPASS;
-}
-
-portBASE_TYPE xAdcGetPort ( void )
+static unsigned char adc_get_port ( void )
 {
 	return ADMUX & 0x1F;
 }
 
-void vAdcSetPort ( portBASE_TYPE port )
+static void adc_set_port ( unsigned char port )
 {
 	unsigned char ucByte;
 	
@@ -100,23 +64,59 @@ void vAdcSetPort ( portBASE_TYPE port )
 	ADMUX = ucByte;
 }
 
-void vAdcStartConversion ( void )
+void adc_init ( unsigned char queue_length )
+{
+	
+	portENTER_CRITICAL();
+	{
+		adc_values = xQueueCreate( queue_length, ( unsigned char ) sizeof( signed char ) );
+		vSemaphoreCreateBinary ( adc_sem );
+		
+		/* Take the semaphore so that the queue isn't accessed before it is populated */
+		xSemaphoreTake ( adc_sem, 0 );
+		
+		/* Set prescaler at 128 for 125kHz operation */
+		ADCSRA |= adc_125KHZ;
+		
+		/* Set reference voltage to AVCC and left shift result */
+		ADMUX = ( adc_AVCC | adc_ADLAR );
+	
+		/* Enable ADC */
+		ADCSRA |= adc_ENABLE;
+			
+		ENABLE_INTERRUPT();
+		adc_start_conversion ();
+	}
+	portEXIT_CRITICAL();
+}
+
+signed char adc_get_value ( signed char *val, portTickType block_time )
+{
+	if ( xQueueReceive ( adc_values, val, block_time ) != pdPASS )
+	{
+		return pdFAIL;
+	}
+	
+	return pdPASS;
+}
+
+void adc_start_conversion ( void )
 {
 	ADCSRA |= adc_START_CONVERSION;
 }
 
-portBASE_TYPE xAdcTakeSemaphore ( void )
+unsigned char adc_take_semaphore ( void )
 {
-	return xSemaphoreTake ( xAdcSemaphore, 0 );
+	return xSemaphoreTake ( adc_sem, 0 );
 }
 
-void vAdcClose ( void )
+void adc_close ( void )
 {
 unsigned char ucByte;
 	
 	portENTER_CRITICAL();
 	{
-		vInterruptOff();
+		DISABLE_INTERRUPT();
 		ucByte = ADCSRA;
 		ucByte &= ~adc_ENABLE;
 		ADCSRA = ucByte;
@@ -126,14 +126,14 @@ unsigned char ucByte;
 
 ISR (ADC_vect)
 {
-portCHAR cVal;
-signed portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-const portBASE_TYPE port = xAdcGetPort ();
+portCHAR data;
+signed char xHigherPriorityTaskWoken = pdFALSE;
+const char port = adc_get_port ();
 	
 	/* Get the value and post it on the queue of ADC values.
 	If the post causes a task to wake force a context switch as the woken task may have a higher priority than the task we have interrupted. */
-	cVal = ADCH;
-	xQueueSendFromISR( xAdcValues, &cVal, &xHigherPriorityTaskWoken );
+	data = ADCH;
+	xQueueSendFromISR( adc_values, &data, &xHigherPriorityTaskWoken );
 	
 	if( xHigherPriorityTaskWoken != pdFALSE )
 	{
@@ -143,16 +143,16 @@ const portBASE_TYPE port = xAdcGetPort ();
 	/* If the current result is from port 0, the next should be from port 1 and vice versa */
 	if (port == adcPORT0) 
 	{
-		vAdcSetPort ( adcPORT1 );
+		adc_set_port ( adcPORT1 );
 		
 		/* After one conversion, we immediately start the second. */
-		vAdcStartConversion ();
+		adc_start_conversion ();
 	} else
 	{
-		vAdcSetPort ( adcPORT0 );
+		adc_set_port ( adcPORT0 );
 		
 		/* After the second conversion, we give the semaphore */
-		xSemaphoreGiveFromISR ( xAdcSemaphore, &xHigherPriorityTaskWoken );
+		xSemaphoreGiveFromISR ( adc_sem, &xHigherPriorityTaskWoken );
 	}
 	
 	if( xHigherPriorityTaskWoken != pdFALSE )
