@@ -7,10 +7,6 @@
   <GenerateAsPartOfBuild>false</GenerateAsPartOfBuild>
   <ConfigFilePath>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\doxyfile</ConfigFilePath>
   <OutputDirPath>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\doxygen</OutputDirPath>
-  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Control\can\MCP2515.c</Excluded>
-  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Control\can\MCP2515.h</Excluded>
-  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Control\can\MCP2515define.h</Excluded>
-  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Control\can\README</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Display\m2tklib\m2.c</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Display\m2tklib\m2.h</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Display\m2tklib\m2align.c</Excluded>

@@ -1,0 +1,118 @@
+\hypertarget{adc_8c}{\section{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/adc/adc.c File Reference}
+\label{adc_8c}\index{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/adc/adc.\-c@{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/adc/adc.\-c}}
+}
+
+
+C\-A\-N A\-P\-I implementation.  
+
+
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$avr/interrupt.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}Free\-R\-T\-O\-S.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}queue.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}semphr.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}serial.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}adc.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{adc_8c_a4c5ac116c317abf2767d2b94b5710fd0}{\#define {\bfseries adc\-\_\-\-A\-V\-C\-C}~( ( unsigned char ) (1 $<$$<$ R\-E\-F\-S0) )}\label{adc_8c_a4c5ac116c317abf2767d2b94b5710fd0}
+
+\item 
+\hypertarget{adc_8c_abd9b588c9a7c1707805c256669138860}{\#define {\bfseries adc\-\_\-\-A\-D\-L\-A\-R}~( ( unsigned char ) (1 $<$$<$ A\-D\-L\-A\-R) )}\label{adc_8c_abd9b588c9a7c1707805c256669138860}
+
+\item 
+\hypertarget{adc_8c_a17f51cffb263434abbb70f36c7cbfabe}{\#define {\bfseries adc\-\_\-125\-K\-H\-Z}~( ( unsigned char ) (1 $<$$<$ A\-D\-P\-S2) $|$ (1 $<$$<$ A\-D\-P\-S1) $|$ (1 $<$$<$ A\-D\-P\-S0) )}\label{adc_8c_a17f51cffb263434abbb70f36c7cbfabe}
+
+\item 
+\hypertarget{adc_8c_a9ad9f7145c6b75b3c11484414a61e8c1}{\#define {\bfseries adc\-\_\-\-E\-N\-A\-B\-L\-E}~( ( unsigned char ) (1 $<$$<$ A\-D\-E\-N) )}\label{adc_8c_a9ad9f7145c6b75b3c11484414a61e8c1}
+
+\item 
+\hypertarget{adc_8c_ad55864d705f8360cc79ed395df280828}{\#define {\bfseries adc\-\_\-\-I\-N\-T\-\_\-\-E\-N\-A\-B\-L\-E}~( ( unsigned char ) (1 $<$$<$ A\-D\-I\-E) )}\label{adc_8c_ad55864d705f8360cc79ed395df280828}
+
+\item 
+\hypertarget{adc_8c_ae96b3759492f91f32381c8421e756bd2}{\#define {\bfseries adc\-\_\-\-S\-T\-A\-R\-T\-\_\-\-C\-O\-N\-V\-E\-R\-S\-I\-O\-N}~( ( unsigned char ) (1 $<$$<$ A\-D\-S\-C) )}\label{adc_8c_ae96b3759492f91f32381c8421e756bd2}
+
+\item 
+\#define {\bfseries E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}()
+\item 
+\#define {\bfseries D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}()
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___a_d_c_ga61c70049c5b909e363cb9ca0eb65bde3}{void {\bfseries adc\-\_\-init} (unsigned char queue\-\_\-length)}\label{group___a_d_c_ga61c70049c5b909e363cb9ca0eb65bde3}
+
+\item 
+signed char \hyperlink{group___a_d_c_ga9b8e145352773638696cc0da4b266ac4}{adc\-\_\-get\-\_\-value} (signed char $\ast$val, port\-Tick\-Type block\-\_\-time)
+\begin{DoxyCompactList}\small\item\em Retrieve a value from the A\-D\-C conversion queue. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_d_c_gacec96a02bae816e24b67875114d526f5}{adc\-\_\-start\-\_\-conversion} (void)
+\begin{DoxyCompactList}\small\item\em Start a new round of conversions. \end{DoxyCompactList}\item 
+\hypertarget{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}{unsigned char \hyperlink{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}{adc\-\_\-take\-\_\-semaphore} (void)}\label{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}
+
+\begin{DoxyCompactList}\small\item\em Takes the semaphore that locks the A\-D\-C converted values queue. \end{DoxyCompactList}\item 
+\hypertarget{group___a_d_c_ga854a565c5d3b3c1e0607c8b7c79d9fd1}{void {\bfseries adc\-\_\-close} (void)}\label{group___a_d_c_ga854a565c5d3b3c1e0607c8b7c79d9fd1}
+
+\item 
+\hypertarget{adc_8c_a05c2e5b588ced1cd7312f5b0edc5b295}{{\bfseries I\-S\-R} (A\-D\-C\-\_\-vect)}\label{adc_8c_a05c2e5b588ced1cd7312f5b0edc5b295}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{adc_8c_adf9b421d306399ea625fccfc45bc6a39}{x\-Semaphore\-Handle {\bfseries adc\-\_\-sem}}\label{adc_8c_adf9b421d306399ea625fccfc45bc6a39}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+C\-A\-N A\-P\-I implementation. 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{adc_8c_a07adac5c5eb0d63bed4b79a50bcb676b}{\index{adc.\-c@{adc.\-c}!D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T@{D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}}
+\index{D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T@{D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}!adc.c@{adc.\-c}}
+\subsubsection[{D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-S\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{adc_8c_a07adac5c5eb0d63bed4b79a50bcb676b}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{                                                                                                                                       
+      \(\backslash\)
+        unsigned \textcolor{keywordtype}{char} ucInByte;                                                                                 
+      \(\backslash\)
+                                                                                                                                        
+      \(\backslash\)
+        ucInByte = ADCSRA;                                                                                              
+      \(\backslash\)
+        ucInByte &= ~adc\_INT\_ENABLE;                                                                    
+      \(\backslash\)
+        ADCSRA = ucInByte;                                                                                              
+      \(\backslash\)
+\}
+\end{DoxyCode}
+\hypertarget{adc_8c_a6b267a18dae3dc4d7a2a0b8fdb38e701}{\index{adc.\-c@{adc.\-c}!E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T@{E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}}
+\index{E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T@{E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}!adc.c@{adc.\-c}}
+\subsubsection[{E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-N\-A\-B\-L\-E\-\_\-\-I\-N\-T\-E\-R\-R\-U\-P\-T(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{adc_8c_a6b267a18dae3dc4d7a2a0b8fdb38e701}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{                                                                                                                                       
+      \(\backslash\)
+        unsigned \textcolor{keywordtype}{char} ucByte;                                                                                   
+      \(\backslash\)
+                                                                                                                                        
+      \(\backslash\)
+        ucByte = ADCSRA;                                                                                                
+      \(\backslash\)
+        ucByte |= adc\_INT\_ENABLE;                                                                               
+      \(\backslash\)
+        ADCSRA = ucByte;                                                                                                
+      \(\backslash\)
+\}
+\end{DoxyCode}

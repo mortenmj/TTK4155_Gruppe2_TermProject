@@ -1,0 +1,43 @@
+\hypertarget{adc_8h}{\section{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/adc/adc.h File Reference}
+\label{adc_8h}\index{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/adc/adc.\-h@{C\-:/\-Users/mortenmj/\-Documents/\-Git\-Hub/\-Byggern/\-P1000/\-Drivers/adc/adc.\-h}}
+}
+
+
+High-\/level A\-D\-C A\-P\-I.  
+
+
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries e\-A\-D\-C\-Port} \{ \\*
+{\bfseries adc\-P\-O\-R\-T0}, 
+{\bfseries adc\-P\-O\-R\-T1}, 
+{\bfseries adc\-P\-O\-R\-T2}, 
+{\bfseries adc\-P\-O\-R\-T3}, 
+\\*
+{\bfseries adc\-P\-O\-R\-T4}, 
+{\bfseries adc\-P\-O\-R\-T5}, 
+{\bfseries adc\-P\-O\-R\-T6}, 
+{\bfseries adc\-P\-O\-R\-T7}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___a_d_c_ga61c70049c5b909e363cb9ca0eb65bde3}{void {\bfseries adc\-\_\-init} (unsigned char queue\-\_\-length)}\label{group___a_d_c_ga61c70049c5b909e363cb9ca0eb65bde3}
+
+\item 
+signed char \hyperlink{group___a_d_c_ga9b8e145352773638696cc0da4b266ac4}{adc\-\_\-get\-\_\-value} (signed char $\ast$val, port\-Tick\-Type block\-\_\-time)
+\begin{DoxyCompactList}\small\item\em Retrieve a value from the A\-D\-C conversion queue. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_d_c_gacec96a02bae816e24b67875114d526f5}{adc\-\_\-start\-\_\-conversion} (void)
+\begin{DoxyCompactList}\small\item\em Start a new round of conversions. \end{DoxyCompactList}\item 
+\hypertarget{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}{unsigned char \hyperlink{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}{adc\-\_\-take\-\_\-semaphore} (void)}\label{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}
+
+\begin{DoxyCompactList}\small\item\em Takes the semaphore that locks the A\-D\-C converted values queue. \end{DoxyCompactList}\item 
+\hypertarget{group___a_d_c_ga854a565c5d3b3c1e0607c8b7c79d9fd1}{void {\bfseries adc\-\_\-close} (void)}\label{group___a_d_c_ga854a565c5d3b3c1e0607c8b7c79d9fd1}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+High-\/level A\-D\-C A\-P\-I. 

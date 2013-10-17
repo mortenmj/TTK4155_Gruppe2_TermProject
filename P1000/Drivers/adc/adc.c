@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @ingroup CAN
+ *
+ * @brief CAN API implementation
+ */
+
 /*
  * adc.c
  *

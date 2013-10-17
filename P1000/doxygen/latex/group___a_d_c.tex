@@ -1,0 +1,81 @@
+\hypertarget{group___a_d_c}{\section{A\-D\-C A\-P\-I}
+\label{group___a_d_c}\index{A\-D\-C A\-P\-I@{A\-D\-C A\-P\-I}}
+}
+
+
+Provides functions for the A\-D\-C.  
+
+
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{adc_8h}{adc.\-h}
+\begin{DoxyCompactList}\small\item\em High-\/level A\-D\-C A\-P\-I. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries e\-A\-D\-C\-Port} \{ \\*
+{\bfseries adc\-P\-O\-R\-T0}, 
+{\bfseries adc\-P\-O\-R\-T1}, 
+{\bfseries adc\-P\-O\-R\-T2}, 
+{\bfseries adc\-P\-O\-R\-T3}, 
+\\*
+{\bfseries adc\-P\-O\-R\-T4}, 
+{\bfseries adc\-P\-O\-R\-T5}, 
+{\bfseries adc\-P\-O\-R\-T6}, 
+{\bfseries adc\-P\-O\-R\-T7}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group___a_d_c_ga61c70049c5b909e363cb9ca0eb65bde3}{void {\bfseries adc\-\_\-init} (unsigned char queue\-\_\-length)}\label{group___a_d_c_ga61c70049c5b909e363cb9ca0eb65bde3}
+
+\item 
+signed char \hyperlink{group___a_d_c_ga9b8e145352773638696cc0da4b266ac4}{adc\-\_\-get\-\_\-value} (signed char $\ast$val, port\-Tick\-Type block\-\_\-time)
+\begin{DoxyCompactList}\small\item\em Retrieve a value from the A\-D\-C conversion queue. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_d_c_gacec96a02bae816e24b67875114d526f5}{adc\-\_\-start\-\_\-conversion} (void)
+\begin{DoxyCompactList}\small\item\em Start a new round of conversions. \end{DoxyCompactList}\item 
+\hypertarget{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}{unsigned char \hyperlink{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}{adc\-\_\-take\-\_\-semaphore} (void)}\label{group___a_d_c_gaf12611a6086c53a57a225df0163bce98}
+
+\begin{DoxyCompactList}\small\item\em Takes the semaphore that locks the A\-D\-C converted values queue. \end{DoxyCompactList}\item 
+\hypertarget{group___a_d_c_ga854a565c5d3b3c1e0607c8b7c79d9fd1}{void {\bfseries adc\-\_\-close} (void)}\label{group___a_d_c_ga854a565c5d3b3c1e0607c8b7c79d9fd1}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides functions for the A\-D\-C. 
+
+\subsection{Function Documentation}
+\hypertarget{group___a_d_c_ga9b8e145352773638696cc0da4b266ac4}{\index{A\-D\-C A\-P\-I@{A\-D\-C A\-P\-I}!adc\-\_\-get\-\_\-value@{adc\-\_\-get\-\_\-value}}
+\index{adc\-\_\-get\-\_\-value@{adc\-\_\-get\-\_\-value}!ADC API@{A\-D\-C A\-P\-I}}
+\subsubsection[{adc\-\_\-get\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}signed char adc\-\_\-get\-\_\-value (
+\begin{DoxyParamCaption}
+\item[{signed char $\ast$}]{val, }
+\item[{port\-Tick\-Type}]{block\-\_\-time}
+\end{DoxyParamCaption}
+)}}\label{group___a_d_c_ga9b8e145352773638696cc0da4b266ac4}
+
+
+Retrieve a value from the A\-D\-C conversion queue. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em val} & Address where the A\-D\-C value is written \\
+\hline
+ & {\em block\-\_\-time} & How long to block when attempting to read the queue \\
+\hline
+\end{DoxyParams}
+\hypertarget{group___a_d_c_gacec96a02bae816e24b67875114d526f5}{\index{A\-D\-C A\-P\-I@{A\-D\-C A\-P\-I}!adc\-\_\-start\-\_\-conversion@{adc\-\_\-start\-\_\-conversion}}
+\index{adc\-\_\-start\-\_\-conversion@{adc\-\_\-start\-\_\-conversion}!ADC API@{A\-D\-C A\-P\-I}}
+\subsubsection[{adc\-\_\-start\-\_\-conversion}]{\setlength{\rightskip}{0pt plus 5cm}void adc\-\_\-start\-\_\-conversion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{group___a_d_c_gacec96a02bae816e24b67875114d526f5}
+
+
+Start a new round of conversions. 
+
+The A\-D\-C interrupt will iterate through all available A\-D\-C channels and queue the results. Once the process is complete, the interrupt will give a semaphore which can be claimed with adc\-\_\-take\-\_\-semaphore () so that the queued values may be retrieved with adc\-\_\-get\-\_\-value (). 
