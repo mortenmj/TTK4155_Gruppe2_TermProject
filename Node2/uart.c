@@ -23,14 +23,14 @@ struct ring_buffer ring_buffer_out;
 void uart_init (void)
  {
 	/* Set baud rate */
-	UBRR0H = (BAUD_PRESCALE >> 8);
-	UBRR0L = BAUD_PRESCALE;	
+	UBRR1H = (BAUD_PRESCALE >> 8);
+	UBRR1L = BAUD_PRESCALE;	
 	
 	/* Enable rx & tx */
-	UCSR0B |= (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
+	UCSR1B |= (1 << RXEN1) | (1 << TXEN1) | (1 << RXCIE1);
 	
 	/* Frame format: 8 bit data, 1 stop bit, no parity */
-	UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00);
+	UCSR1C |= (1 << UCSZ11) | (1 << UCSZ10);
 	
 	ring_buffer_in = ring_buffer_init(in_buffer, BUFFER_SIZE);
 	ring_buffer_out = ring_buffer_init(out_buffer, BUFFER_SIZE);
@@ -41,7 +41,7 @@ void uart_putchar (char data)
 	cli();
 	if (ring_buffer_is_empty (&ring_buffer_out)) {
 		/* Since the buffer is empty, we must enable the data ready interrupt */
-		UCSR0B |= (1 << UDRIE0);
+		UCSR1B |= (1 << UDRIE1);
 	}
 	
 	ring_buffer_put (&ring_buffer_out, data);
@@ -60,19 +60,19 @@ bool uart_char_waiting (void)
 }
 
 /* TODO: Write received byte to buffer which is read at a later time */
-ISR (USART0_RXC_vect)
+ISR (USART1_RXC_vect)
 {
 	ring_buffer_put(&ring_buffer_in, UDR0);
 }
 
 
-ISR (USART0_UDRE_vect)
+ISR (USART1_UDRE_vect)
 {
 	/* Check if there is data in the buffer and send it */
 	if (!ring_buffer_is_empty(&ring_buffer_out)) {
-		UDR0 = ring_buffer_get(&ring_buffer_out);
+		UDR1 = ring_buffer_get(&ring_buffer_out);
 	} else {
 		/* No more data, turn off data ready interrupt */
-		UCSR0B &= ~(1 << UDRIE0);
+		UCSR1B &= ~(1 << UDRIE1);
 	}
 }

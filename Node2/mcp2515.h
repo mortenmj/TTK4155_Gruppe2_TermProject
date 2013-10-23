@@ -11,7 +11,7 @@
 
 #include <avr/io.h>
 
-#define MCP_SS_PIN 4
+#define MCP_SS_PIN 0
 #define MCP_SS_DDR DDRB
 #define MCP_SS_PORT PORTB
 

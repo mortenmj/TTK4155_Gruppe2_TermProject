@@ -20,10 +20,10 @@
 #define spiPRESCALE						( ( unsigned char ) ( 1 << SPR1 | 1 << SPR0 ) )
 
 /* SPI pins */
-#define spiSS							( ( unsigned char ) ( 1 << PB4 ) )
-#define spiMOSI							( ( unsigned char ) ( 1 << PB5 ) )
-#define spiMISO							( ( unsigned char ) ( 1 << PB6 ) )
-#define spiSLCK							( ( unsigned char ) ( 1 << PB7 ) )
+#define spiSS							( ( unsigned char ) ( 1 << PB0 ) )
+#define spiMOSI							( ( unsigned char ) ( 1 << PB2 ) )
+#define spiMISO							( ( unsigned char ) ( 1 << PB3 ) )
+#define spiSLCK							( ( unsigned char ) ( 1 << PB1 ) )
 											
 /*-----------------------------------------------------------*/
 

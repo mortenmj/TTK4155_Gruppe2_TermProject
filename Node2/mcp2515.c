@@ -15,7 +15,7 @@
 #define mcpPORT							PORTB
 
 /* MCP pins */
-#define mcpSS							( ( unsigned char ) ( 1 << PB4 ) )
+#define mcpSS							( ( unsigned char ) ( 1 << PB0 ) )
 
 #define MCP_SELECT() (mcpPORT &= ~(1 << MCP_SS_PIN))
 #define MCP_DESELECT() (mcpPORT |= (1 << MCP_SS_PIN))
