@@ -9,6 +9,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdio.h>
 
 #include "ring_buffer.h"
 
@@ -34,6 +35,8 @@ void uart_init (void)
 	
 	ring_buffer_in = ring_buffer_init(in_buffer, BUFFER_SIZE);
 	ring_buffer_out = ring_buffer_init(out_buffer, BUFFER_SIZE);
+	
+	printf ("UART...OK\n");
 }
 
 void uart_putchar (char data)

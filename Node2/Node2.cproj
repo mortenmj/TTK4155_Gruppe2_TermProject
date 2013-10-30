@@ -17,6 +17,10 @@
     <RootNamespace>Node2</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <AsfVersion>3.5.1</AsfVersion>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue />
+    <eraseonlaunchrule>0</eraseonlaunchrule>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -73,10 +77,13 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="mcp2515.c">
+    <Compile Include="MCP2515.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="mcp2515.h">
+    <Compile Include="MCP2515.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCP2515define.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ring_buffer.h">

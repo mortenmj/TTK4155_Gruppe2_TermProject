@@ -1,29 +1,92 @@
+/**
+ * @file
+ *
+ * @ingroup CAN
+ *
+ * @brief High-level CAN API
+ */
+
 /*
  * can.h
  *
- * Created: 16.10.2013 10:51:28
- *  Author: mortenmj
+ * Created: 01.10.2013 19:26:47
+ * Author: mortenmj
  */ 
-
 
 #ifndef CAN_H_
 #define CAN_H_
 
+/**
+ * @defgroup CAN CAN API
+ *
+ * @ingroup Control
+ *
+ * @brief Provides functions for communicating with the CAN controller
+ *
+ * @{
+ */
 
-#include <avr/io.h>
-#include "mcp2515.h"
-
-typedef struct {
-	uint16_t identifier;
-	uint8_t size;
+/**
+ *  @brief CAN frame
+ *
+ * Struct that describes a frame to be sent over CAN-bus.
+ */
+typedef struct CanFrame {
+	/**
+	 * @brief Message ID
+	 */
+	uint32_t id;
+	
+	/**
+	 * @brief Message data, up to 8 bytes
+	 */
 	uint8_t data[8];
-	} can_frame_t;
+	
+	/** 
+	 * @brief Length of data
+	 */
+	uint8_t dlc;
+} can_frame_t ;
 
+/**
+ * @brief Initializes CAN device
+ */
+void can_init ( void );
 
-void can_init(uint16_t listenAddress);
-uint8_t can_send_frame(can_frame_t* frame);
+/**
+ * @brief Reads a register on the CAN controller
+ *
+ * @param addr The register address to read
+ * @param[out] c Char to write register value to
+ *
+ */
+void can_read ( unsigned char addr, unsigned char *val );
 
-uint8_t can_recieve_frame(can_frame_t* frame);
+/**
+ * @brief Receive a packet from the CAN bus
+ *
+ * @param[out] in_frame Packet to write to
+ *
+ */
+uint8_t can_receive ( can_frame_t *frame );
 
+/**
+ * @brief Transmit a packet on the CAN bus
+ *
+ * @param[in] out_frame Packet to read from
+ *
+ */
+uint8_t can_transmit ( can_frame_t *frame );
+
+/**
+ * @brief Writes a register on the CAN controller
+ *
+ * @param addr The register address to write
+ * @param c Char to write to the controller register
+ *
+ */
+void can_write ( unsigned char addr, unsigned char val );
+
+/** @} */
 
 #endif /* CAN_H_ */

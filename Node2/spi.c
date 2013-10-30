@@ -8,6 +8,7 @@
 #include "spi.h"
 
 #include <stdint.h>
+#include <stdio.h>
 #include <avr/io.h>
 
 /* SPI port */
@@ -34,17 +35,29 @@ void spi_init (void)
 	spiDDR |= ( spiSS | spiMOSI | spiSLCK);
 	
 	SPCR |= ( spiENABLE | spiMASTER_MODE | spiPRESCALE );
+	
+	printf ("SPI...OK\n");
 }
 
-uint8_t spi_read(void)
+uint8_t spi_transfer (uint8_t data)
 {
-	SPDR = 0x00;
+	SPDR = data;
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;
 }
 
-void spi_write( uint8_t data )
+void spi_write_block (uint8_t *data, uint8_t len)
 {
-	SPDR = data;
-	while(!(SPSR & (1<<SPIF)));
+	for (int i = 0; i < len; i++)
+	{
+		spi_transfer ( data[i] );
+	}
+}
+
+void spi_readwrite_block (uint8_t *data, uint8_t *dest, uint8_t len)
+{
+	for (int i = 0; i < len; i++)
+	{
+		dest[i] = spi_transfer ( data[i] );
+	}
 }
