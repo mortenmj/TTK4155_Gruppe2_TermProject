@@ -28,8 +28,15 @@
 void can_init ( void )
 {
 	mcp2515_spi_port_init ();
+	mcp2515_reset ();
+	
+	unsigned char canstat = 0;
+	while (canstat != MCP2515_MODE_CONFIG)
+	{
+		mcp2515_read (MCP2515_CANSTAT, &canstat);
+	}		
 		
-	mcp2515_set_baudrate(250000, 1);
+	//mcp2515_set_baudrate(250000, 1);
 	
 	/* Enable pin change interrupt on PB4 */
 /*
@@ -41,7 +48,11 @@ void can_init ( void )
 //	mcp2515_write ( MCP2515_CANINTE, 0xFF );
 
 	/* Set loopback mode */
-	mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_MASK, MCP2515_MODE_LOOPBACK );
+	mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_MASK, MCP2515_MODE_NORMAL );
+	while (canstat != MCP2515_MODE_NORMAL)
+	{
+		mcp2515_read (MCP2515_CANSTAT, &canstat);
+	}
 	
 	printf ("CAN...OK\n");
 }
@@ -54,10 +65,8 @@ void can_read ( unsigned char addr, unsigned char *val )
 
 uint8_t can_receive ( can_frame_t *frame )
 {
-	printf("receive\n");
 	uint8_t status;
 	
-
 	while(1)
 	{
 		mcp2515_read_rxtx_status (&status);
@@ -66,7 +75,7 @@ uint8_t can_receive ( can_frame_t *frame )
 			break;
 		}
 		printf("waiting\n");
-		_delay_ms(100);
+		_delay_ms(500);
 	}
 
 	uint8_t buffer = 0;

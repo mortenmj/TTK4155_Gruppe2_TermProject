@@ -20,59 +20,52 @@ static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRI
 int main(void)
 {	
 	uart_init ();
-	can_init (0x10);
+	spi_init();
+	can_init ();
 	
-	uint8_t count = 0;
 	sei();
 		
 	stdout = &uart_stdout;
 	
-	_delay_ms (2);
+	_delay_ms (200);
 	
 	printf ("Initialized\n");
+
+	char msgtype[4];
+	char joy_x[4];
+	char joy_y[4];
+	char joy_btn[4];
+	char ls[4];
+	char rs[4];
+	char lb[4];
+	char rb[4];
+	
+	can_frame_t frame;
+
+	while(1)
+	{
+		can_receive (&frame);
+		utoa (frame.data[0], msgtype, 10);
+		utoa (frame.data[1], joy_x, 10);
+		utoa (frame.data[2], joy_y, 10);
+		utoa (frame.data[3], joy_btn, 10);
+		utoa (frame.data[4], ls, 10);
+		utoa (frame.data[5], rs, 10);
+		utoa (frame.data[6], lb, 10);
+		utoa (frame.data[7], rb, 10);
 		
-	while(1) {
-		can_frame_t frame;
-		frame.identifier = 0x00;
-		frame.size = count%8;
-		for(uint8_t i = 0; i < frame.size; i++) {
-			frame.data[i] = ~(128-i)+count;
-		}
-		uint8_t s = can_send_frame(&frame);
-		printf("Sent data %d %s\r",count, (s?"SUCCESS":"FAIL"));
-	 
-		can_frame_t recieved;
-	 
-		_delay_ms(100);
-		uint8_t status = mcp2515_read_status();
-		printf("  Status = 0x%x\r", status);
-		s = can_recieve_frame(&recieved);
-		printf("  Receieved data: L1: %d L2: %d %s\r", frame.size, recieved.size, (s?"SUCCESS":"FAIL"));
-	 
-		_delay_ms(100);
-		if(frame.size == recieved.size) {
-			printf("  Identical length\r");
-			uint8_t passed = 1;
-			for(uint8_t i = 0; i < recieved.size; i++) {
-				if(frame.data[i] != recieved.data[i]) {
-					passed = 0;
-					continue;
-				}
-			}
-			if(passed) {
-				printf("    AND identical data\r");
-			}
-			else {
-				printf("    FAIL! NOT identical data\r");
-			 
-			}
-		} else {
-			printf("  FAIL! NOT identical length\r");
-		}
-		status = mcp2515_read_status();
-		printf("  Status = 0x%x\r", status);
+		printf("message type: %s\n", msgtype);
+		printf("joystick: ");
+		printf("x=%s\t", joy_x);
+		printf("y=%s\n", joy_y);
+		
+		printf("touch: ");
+		printf("ls=%s\t", ls);
+		printf("rs=%s\t", rs);
+		printf("lb=%s\t", lb);
+		printf("rb=%s\n", rb);
+		printf("\n\n");
+		
 		_delay_ms(500);
-	 
-		count++;
 	}
 }
