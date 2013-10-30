@@ -11,7 +11,7 @@
  *
  * Created: 01.10.2013 19:26:47
  * Author: mortenmj
- */ 
+ */
 
 #ifndef CAN_H_
 #define CAN_H_
@@ -25,18 +25,6 @@
  *
  * @{
  */
-
-/**
- * @brief CAN interface
- *
- * Struct to describe the state of a CAN interface.
- */
-typedef struct CanState {
-	/** 
-	 * @brief Interrupt register
-	 */
-	uint8_t interrupt;
-} can_t;
 
 /**
  *  @brief CAN frame

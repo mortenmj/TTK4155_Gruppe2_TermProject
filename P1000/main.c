@@ -82,8 +82,8 @@ int main( void )
 	vSerialPutString ( NULL, (signed char *) "init\n", 5 );
 	
 	/* Create tasks */
-	xTaskCreate ( vDisplay, (signed char * ) "Display", configDISPLAY_STACK_SIZE, NULL, mainDISPLAY_TASK_PRIORITY, NULL );
-	xTaskCreate ( vControl, (signed char * ) "Control", configCONTROL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL );
+	//xTaskCreate ( vDisplay, (signed char * ) "Display", configDISPLAY_STACK_SIZE, NULL, mainDISPLAY_TASK_PRIORITY, NULL );
+	xTaskCreate ( vControl, (signed char * ) "Control", configCONTROL_STACK_SIZE, NULL, mainCONTROL_TASK_PRIORITY, NULL );
 
 	/* Start scheduler */
 	vTaskStartScheduler();
