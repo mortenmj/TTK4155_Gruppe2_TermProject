@@ -73,6 +73,10 @@ int main(void)
 	}
 }
 
+ISR(INT0_vect)
+{
+	//signal detected
+}
 
 ISR (TIMER1_OVF_vect)
 {
