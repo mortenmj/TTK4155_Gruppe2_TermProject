@@ -4,7 +4,8 @@
  * Created: 30.10.2013 15:40:31
  *  Author: magnealv
  */ 
-/*
+#include "servo.h"
+
 void servo_init(){
 	
 	// OC1A set to output
@@ -21,7 +22,7 @@ void servo_init(){
 	//Enabling TimerInterrupt
 	TIMSK= (1 << TOIE1);
 	
-	OCR1A = (dutycycle)/100.0)*255.0;
+	OCR1A = 255;
 	
 	sei();
 	
@@ -29,5 +30,3 @@ void servo_init(){
 	TCCR1B |= (1<<CS11);
 
 }
-
-*/

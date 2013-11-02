@@ -14,8 +14,11 @@
 
 #include "uart.h"
 #include "can.h"
+#include "servo.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
+
+uint8_t joystick_input;
 
 int main(void)
 {	
@@ -68,4 +71,11 @@ int main(void)
 		
 		_delay_ms(500);
 	}
+}
+
+
+ISR (TIMER1_OVF_vect)
+{
+	// error: expected ')' before numeric constant
+	//OCR1A = ((PWM_MAX-PWM_MIN)/CTRL_MAX_VAL)*joystick_input + SERVO_MIN;
 }

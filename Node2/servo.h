@@ -9,6 +9,9 @@
 #ifndef SERVO_H_
 #define SERVO_H_
 
+#include <stdio.h>
+#include <avr/io.h>
+
 #define SERVO_MIN 900
 #define SERVO_MAX 2100
 #define PERIOD 20 000
