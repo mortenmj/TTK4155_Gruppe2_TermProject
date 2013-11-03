@@ -20,8 +20,10 @@
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
-uint8_t joystick_input;
+uint16_t joystick_input;
 uint8_t temp;
+can_frame_t frame;
+char joy_x[4];
 
 int main(void)
 {	
@@ -39,7 +41,6 @@ int main(void)
 	printf ("Initialized\n");
 
 	char msgtype[4];
-	char joy_x[4];
 	char joy_y[4];
 	char joy_btn[4];
 	char ls[4];
@@ -47,11 +48,10 @@ int main(void)
 	char lb[4];
 	char rb[4];
 	
-	can_frame_t frame;
-
 	while(1)
 	{
 		can_receive (&frame);
+/*
 		utoa (frame.data[0], msgtype, 10);
 		utoa (frame.data[1], joy_x, 10);
 		utoa (frame.data[2], joy_y, 10);
@@ -73,13 +73,8 @@ int main(void)
 		printf("rb=%s\n", rb);
 		printf("\n\n");
 		
-		_delay_ms(500);
-
-		joystick_input ++;
-		
-		if (joystick_input > 254){
-			joystick_input = 0;
-		}	
+		_delay_ms (500);
+*/
 	}
 }
 
@@ -88,7 +83,7 @@ ISR(INT0_vect)
 	//signal detected
 }
 
-ISR (TIMER3_OVF_vect)
+ISR (TIMER1_OVF_vect)
 {
-	OCR3A = ((PWM_MAX-PWM_MIN)/CTRL_MAX_VAL)*joystick_input + PWM_MIN;
+	OCR1B = servo_val (frame.data[1]);
 }

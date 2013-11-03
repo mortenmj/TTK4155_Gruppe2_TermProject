@@ -19,8 +19,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <util/delay.h>
-
 #include "MCP2515.h"
 #include "MCP2515define.h"
 #include "can.h"
@@ -73,8 +71,6 @@ uint8_t can_receive ( can_frame_t *frame )
 		{
 			break;
 		}
-		printf("waiting\n");
-		_delay_ms(500);
 	}
 
 	uint8_t buffer = 0;
