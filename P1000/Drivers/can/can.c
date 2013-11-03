@@ -28,9 +28,15 @@ void can_init ( void )
 {
 	portENTER_CRITICAL();
 	{		
-		mcp2515_spi_port_init ();
+		unsigned char canstat = 0;
 		
-		mcp2515_set_baudrate(250000, 1);
+		mcp2515_spi_port_init ();
+		mcp2515_reset ();
+		
+		do
+		{
+			mcp2515_read (MCP2515_CANSTAT, &canstat);
+		} while ((canstat & 0xE0) != MCP2515_MODE_CONFIG);
 	
 		/* Enable pin change interrupt on PB4 */
 		/*
@@ -42,8 +48,12 @@ void can_init ( void )
 		/* Enable interrupts on MCP2515 */
 		//mcp2515_write ( MCP2515_CANINTE, 0xFF );
 
-		/* Set loopback mode */
+		/* Set normal mode */
 		mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_MASK, MCP2515_MODE_NORMAL );
+		do
+		{
+			mcp2515_read (MCP2515_CANSTAT, &canstat);
+		} while ((canstat & 0xE0) != MCP2515_MODE_NORMAL);
 	}		
 	portEXIT_CRITICAL();
 }
