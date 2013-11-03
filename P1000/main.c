@@ -67,13 +67,6 @@ void vApplicationTickHook ( void );
 
 int main( void )
 {	
-	/* Connect PD4 & PD6 to LED0 & LED1 */
-	DDRD |= (1 << PD4) | (1 << PD5) | (1 << PD6);
-	
-	PORTD |= (1 << PD4);
-	PORTD |= (1 << PD5);
-	PORTD |= (1 << PD6);
-	
 	/* SPI init */
 	spi_init ();
 	
