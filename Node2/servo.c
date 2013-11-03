@@ -3,30 +3,30 @@
  *
  * Created: 30.10.2013 15:40:31
  *  Author: magnealv
- */ 
+ */
+
 #include "servo.h"
+
+#include <avr/interrupt.h>
 
 void servo_init(){
 	
-	// OC1A set to output
-	DDRB |= (1<<PB5);
+	// OC3A set to output
+	DDRE |= (1<<PE3);
 	
-	// non-inverting mode for OC1A
-	TCCR1A |= (1<<COM1A1) | (1<<WGM11);
+	// non-inverting mode for OC3A
+	TCCR3A |= (1<<COM3A1) | (1<<WGM11);
 	
 	// Mode 14
-	TCCR1B |= (1<<WGM13) | (1<<WGM12) | (1<<WGM11);
+	TCCR3B |= (1<<WGM33) | (1<<WGM32) | (1<<WGM31);
+		
+	//prescaler 8
+	TCCR3B |= (1<<CS31);	
 	
-	ICR1 = 20000;
+	ICR3 = 20000;
 	
 	//Enabling TimerInterrupt
-	TIMSK= (1 << TOIE1);
+	ETIMSK= (1 << TOIE3);
 	
-	OCR1A = 255;
-	
-	sei();
-	
-	//prescaler 8
-	TCCR1B |= (1<<CS11);
-
+	OCR3A = CTRL_MAX_VAL/2;
 }

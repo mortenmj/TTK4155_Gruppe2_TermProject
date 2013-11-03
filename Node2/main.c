@@ -8,23 +8,27 @@
 #include "config.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
 
 #include "uart.h"
 #include "can.h"
+#include "spi.h"
 #include "servo.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
 uint8_t joystick_input;
+uint8_t temp;
 
 int main(void)
 {	
 	uart_init ();
 	spi_init();
 	can_init ();
+	servo_init();
 	
 	sei();
 		
@@ -56,7 +60,7 @@ int main(void)
 		utoa (frame.data[5], rs, 10);
 		utoa (frame.data[6], lb, 10);
 		utoa (frame.data[7], rb, 10);
-		
+				
 		printf("message type: %s\n", msgtype);
 		printf("joystick: ");
 		printf("x=%s\t", joy_x);
@@ -70,6 +74,12 @@ int main(void)
 		printf("\n\n");
 		
 		_delay_ms(500);
+
+		joystick_input ++;
+		
+		if (joystick_input > 254){
+			joystick_input = 0;
+		}	
 	}
 }
 
@@ -78,8 +88,7 @@ ISR(INT0_vect)
 	//signal detected
 }
 
-ISR (TIMER1_OVF_vect)
+ISR (TIMER3_OVF_vect)
 {
-	// error: expected ')' before numeric constant
-	//OCR1A = ((PWM_MAX-PWM_MIN)/CTRL_MAX_VAL)*joystick_input + SERVO_MIN;
+	OCR3A = ((PWM_MAX-PWM_MIN)/CTRL_MAX_VAL)*joystick_input + PWM_MIN;
 }
