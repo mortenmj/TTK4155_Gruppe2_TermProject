@@ -12,14 +12,12 @@
 #include <stdio.h>
 #include <avr/io.h>
 
-#define SERVO_MIN 900
-#define SERVO_MAX 2100
-#define PERIOD 20000
+#define CTRL_MIN_VAL 0
 #define CTRL_MAX_VAL 255
+#define SERVO_MIN 920
+#define SERVO_MAX 2200
 
-#define PWM_MIN CTRL_MAX_VAL*(SERVO_MIN/PERIOD)
-#define PWM_MAX CTRL_MAX_VAL*(SERVO_MAX/PERIOD)
-
-void servo_init();
+void servo_init (void);
+uint16_t servo_val (uint8_t joy_val);
 
 #endif /* SERVO_H_ */
