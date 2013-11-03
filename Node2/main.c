@@ -7,6 +7,7 @@
 
 #include "config.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <avr/interrupt.h>
@@ -17,20 +18,20 @@
 #include "can.h"
 #include "spi.h"
 #include "servo.h"
+#include "ir_sensor.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
-uint16_t joystick_input;
-uint8_t temp;
 can_frame_t frame;
-char joy_x[4];
+ir_state_t ir;
 
 int main(void)
 {	
 	uart_init ();
-	spi_init();
+	spi_init ();
 	can_init ();
-	servo_init();
+	servo_init ();
+	ir_sensor_init ();
 	
 	sei();
 		
@@ -41,6 +42,7 @@ int main(void)
 	printf ("Initialized\n");
 
 	char msgtype[4];
+	char joy_x[4];
 	char joy_y[4];
 	char joy_btn[4];
 	char ls[4];
@@ -50,7 +52,8 @@ int main(void)
 	
 	while(1)
 	{
-		can_receive (&frame);
+//		can_receive (&frame);
+
 /*
 		utoa (frame.data[0], msgtype, 10);
 		utoa (frame.data[1], joy_x, 10);
@@ -59,7 +62,8 @@ int main(void)
 		utoa (frame.data[4], ls, 10);
 		utoa (frame.data[5], rs, 10);
 		utoa (frame.data[6], lb, 10);
-		utoa (frame.data[7], rb, 10);
+		utoa (frame.data[7], rb, 10);*/
+/*
 				
 		printf("message type: %s\n", msgtype);
 		printf("joystick: ");
@@ -71,19 +75,40 @@ int main(void)
 		printf("rs=%s\t", rs);
 		printf("lb=%s\t", lb);
 		printf("rb=%s\n", rb);
-		printf("\n\n");
+		printf("\n\n");*/
 		
-		_delay_ms (500);
-*/
+		if (ir.low && ir.changed)
+		{
+			ir.changed = false;
+			printf("game over\n");
+			// game over
+		}
+		else if (!ir.low && ir.changed)
+		{
+			ir.changed = false;
+			printf("new game\n");
+			// new game
+		}			
+		
+		_delay_ms (100);
 	}
-}
-
-ISR(INT0_vect)
-{
-	//signal detected
 }
 
 ISR (TIMER1_OVF_vect)
 {
 	OCR1B = servo_val (frame.data[1]);
+}
+
+ISR (ADC_vect)
+{
+	if ((ADCH < IR_TRESHOLD) && !ir.low)
+	{
+		ir.changed = true;
+		ir.low = true;
+	}
+	else if ((ADCH >= IR_TRESHOLD) && ir.low)
+	{
+		ir.changed = true;
+		ir.low = false;
+	}		
 }

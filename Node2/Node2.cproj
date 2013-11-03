@@ -74,10 +74,10 @@
     <Compile Include="config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="IRsensor.c">
+    <Compile Include="ir_sensor.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="IRsensor.h">
+    <Compile Include="ir_sensor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
