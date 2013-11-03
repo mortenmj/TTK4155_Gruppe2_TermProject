@@ -47,6 +47,9 @@ void can_init ( void )
 
 		/* Enable interrupts on MCP2515 */
 		//mcp2515_write ( MCP2515_CANINTE, 0xFF );
+		
+		/* Set one-shot mode */
+		mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_ONESHOT, MCP2515_MODE_ONESHOT );
 
 		/* Set normal mode */
 		mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_MASK, MCP2515_MODE_NORMAL );
@@ -66,13 +69,74 @@ void can_read ( unsigned char addr, unsigned char *val )
 
 void can_receive ( can_frame_t *frame )
 {
-	mcp2515_read_rx_buf(MCP2515_RX_BUF_0, (mcp2515_can_frame_t *) frame);
+	uint8_t status;
+	
+	while(1)
+	{
+		mcp2515_read_rxtx_status (&status);
+		if (status & 3)
+		{
+			break;
+		}
+	}
+
+	uint8_t buffer = 0;
+	if (status & (1 << 0))
+	{
+		buffer = MCP2515_RX_BUF_0;
+	}
+	else if (status & (1 << 1))
+	{
+		buffer = MCP2515_RX_BUF_1;
+	}
+	else
+	{
+		return 0;
+	}
+
+	mcp2515_read_rx_buf (buffer, (mcp2515_can_frame_t *) frame);
+
+	// Clear interrupt
+	if(buffer == MCP2515_RXB0CTRL) {
+		mcp2515_bit_modify (MCP2515_CANINTF, MCP2515_CANINTF_RX0IF, 0);
+		return 1;
+	}
+	else if(buffer == MCP2515_RXB1CTRL) {
+		mcp2515_bit_modify (MCP2515_CANINTF, MCP2515_CANINTF_RX1IF, 0);
+		return 1;
+	}
+	
+	return 0;
 }
 
 void can_transmit ( can_frame_t *frame )
 {
-	mcp2515_load_tx_buf(MCP2515_TX_BUF_0, (mcp2515_can_frame_t *) frame);
-	mcp2515_rts (MCP2515_TX_BUF_0);
+	uint8_t status;
+	mcp2515_read_rxtx_status (&status);
+	
+	uint8_t buffer = 0;
+	
+	if ((status & (1 << 2)) == 0)
+	{
+		buffer = MCP2515_TX_BUF_0;
+	}
+	else if ((status & (1 << 4)) == 0)
+	{
+		buffer = MCP2515_TX_BUF_1;
+	}
+	else if((status & (1 << 6)) == 0)
+	{
+		buffer = MCP2515_TX_BUF_2;
+	}
+	else
+	{
+		return 0;
+	}
+
+	mcp2515_load_tx_buf(buffer, (mcp2515_can_frame_t *) frame);
+	mcp2515_rts (buffer);
+	
+	return 1;
 }
 
 void can_write ( unsigned char addr, unsigned char val )

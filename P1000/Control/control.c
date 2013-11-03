@@ -27,9 +27,9 @@
 void vControl ( void *pvParameters )
 {
 	portTickType xLastWakeTime;
-	can_frame_t frame_out = { 1, {'m', 'o', 'r', 't', 0, 0, 0, 0}, 8 };
-	can_frame_t frame_in;
+	can_frame_t frame;
 	signed char valx, valy;
+	signed char ls, rs, lb, rb;
 	
 	xLastWakeTime = xTaskGetTickCount ();
 	
@@ -46,16 +46,24 @@ void vControl ( void *pvParameters )
 	{
 		vTaskDelayUntil ( &xLastWakeTime, ctrlTASK_FREQUENCY );
 
-		vSerialPutString( NULL, "ctrl\n", 5 );
-		can_transmit ( &frame_out );
-		
-		//vSerialPutString ( NULL, frame_in.data, 3 );
-		//vSerialPutString ( NULL, "\n", 1 );
-		
 		if ( adc_take_semaphore () == pdTRUE )
 		{
 			adc_get_value ( &valx, 0 );
 			adc_get_value ( &valy, 0 );
+			touch_measure ( &ls, &rs, &lb, &rb );
+			
+			frame.id = 1;
+			frame.data[0] = 0;
+			frame.data[1] = valx;
+			frame.data[2] = valy;
+			frame.data[3] = 0;
+			frame.data[4] = ls;
+			frame.data[5] = rs;
+			frame.data[6] = lb;
+			frame.data[7] = rb;
+			frame.dlc = 3;
+			
+			can_transmit ( &frame );
 			
 			adc_start_conversion ();
 		}
