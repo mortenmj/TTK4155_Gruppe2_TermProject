@@ -16,7 +16,7 @@
     <Name>Node2</Name>
     <RootNamespace>Node2</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
-    <AsfVersion>3.5.1</AsfVersion>
+    <AsfVersion>2.9.0</AsfVersion>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <OverrideVtorValue />
@@ -74,6 +74,12 @@
     <Compile Include="config.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="IRsensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IRsensor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -87,6 +93,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ring_buffer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="servo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="servo.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="spi.c">

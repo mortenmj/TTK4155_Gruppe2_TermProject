@@ -13,6 +13,7 @@
 
 #include "adc.h"
 #include "serial.h"
+#include "touch.h"
 
 #include "can.h"
 #include "MCP2515define.h"
@@ -37,6 +38,9 @@ void vControl ( void *pvParameters )
 	
 	/* ADC init */
 	adc_init ( ctrlNUM_ADC_VALUES );
+	
+	/* Touch init */
+	touch_init ( 30, 30, 30, 30 );
 	
 	while (1)
 	{

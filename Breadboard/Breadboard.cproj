@@ -16,7 +16,7 @@
     <Name>Breadboard</Name>
     <RootNamespace>Breadboard</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
-    <AsfVersion>3.5.1</AsfVersion>
+    <AsfVersion>2.9.0</AsfVersion>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <OverrideVtorValue />
