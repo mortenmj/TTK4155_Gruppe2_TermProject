@@ -12,7 +12,7 @@
 #include "display.h"
 
 /* Task frequency */
-#define dispTASK_FREQUENCY		( ( const portTickType ) 200 )
+#define dispTASK_FREQUENCY		( ( const portTickType ) 20 )
 
 /* Delay needed before initializing display */
 #define dispINIT_DELAY			1000

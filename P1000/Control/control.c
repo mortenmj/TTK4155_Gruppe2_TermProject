@@ -19,7 +19,7 @@
 #include "MCP2515define.h"
 
 /* Task frequency */
-#define ctrlTASK_FREQUENCY				( ( const portTickType ) 500 )
+#define ctrlTASK_FREQUENCY				( ( const portTickType ) 5 )
 
 /* Number of ADC values to queue */
 #define ctrlNUM_ADC_VALUES				( 2 )
