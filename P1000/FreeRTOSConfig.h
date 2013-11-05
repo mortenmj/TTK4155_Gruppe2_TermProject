@@ -94,6 +94,7 @@
 #define configUSE_16_BIT_TICKS		1
 #define configIDLE_SHOULD_YIELD		1
 #define configQUEUE_REGISTRY_SIZE	0
+#define configUSE_MUTEXES			1
 
 /* Hook function related definitions */
 #define configUSE_IDLE_HOOK				1
