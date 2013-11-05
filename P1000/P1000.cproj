@@ -168,6 +168,12 @@
     <Compile Include="Display\display.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Display\menu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\menu.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Display\u8glib\m2icon5.c">
       <SubType>compile</SubType>
     </Compile>
