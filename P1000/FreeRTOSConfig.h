@@ -81,6 +81,19 @@
 
 #define F_CPU 16000000UL
 
+/* Definitions for P1000 LEDs and switches */
+#define LEDPORT PORTD
+#define LED0 PD0
+#define LED1 PD2
+#define LED2 PD4
+#define LED3 PD6
+
+#define SWPORT PORTD
+#define SW0 PD1
+#define SW1 PD3
+#define SW2 PD5
+#define SW3 PD7
+
 #define configUSE_PREEMPTION		1
 #define configCPU_CLOCK_HZ          ( ( unsigned long ) F_CPU )
 #define configTICK_RATE_HZ			( ( portTickType ) 100 )
