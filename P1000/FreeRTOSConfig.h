@@ -83,7 +83,7 @@
 
 #define configUSE_PREEMPTION		1
 #define configCPU_CLOCK_HZ          ( ( unsigned long ) F_CPU )
-#define configTICK_RATE_HZ			( ( portTickType ) 1000 )
+#define configTICK_RATE_HZ			( ( portTickType ) 100 )
 #define configMAX_PRIORITIES		( ( unsigned portBASE_TYPE ) 4 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 100 )
 #define configCONTROL_STACK_SIZE	( ( unsigned short ) 500 )
