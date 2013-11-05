@@ -16,17 +16,6 @@
 #include "Control/control.h"
 #include "Display/display.h"
 
-/* Definitions for our LEDs and switches */
-#define LED0 PD0
-#define LED1 PD2
-#define LED2 PD4
-#define LED3 PD6
-
-#define SW0 PD1
-#define SW1 PD3
-#define SW2 PD5
-#define SW3 PD7
-
 /* Priority definitions for our tasks. */
 #define mainCONTROL_TASK_PRIORITY		( tskIDLE_PRIORITY + 3 )
 #define mainDISPLAY_TASK_PRIORITY		( tskIDLE_PRIORITY + 1 )
@@ -69,6 +58,9 @@ int main( void )
 {	
 	/* SPI init */
 	spi_init ();
+	
+	/* LED init */
+	LEDPORT |= (1 << LED0) | (1 << LED1) | (1 << LED2) | (1 << LED3);
 	
 	/* UART init */
 	xSerialPortInitMinimal ( mainCOM_BAUD_RATE, 100 );
