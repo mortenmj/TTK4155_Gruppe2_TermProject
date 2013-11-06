@@ -19,6 +19,7 @@
 #include "spi.h"
 #include "servo.h"
 #include "ir_sensor.h"
+#include "motor.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
@@ -26,13 +27,14 @@ can_frame_t frame;
 ir_state_t ir;
 
 int main(void)
-{	
+{
 	uart_init ();
 	spi_init ();
 	can_init ();
 	servo_init ();
 	ir_sensor_init ();
-	
+	motor_init ();
+		
 	sei();
 		
 	stdout = &uart_stdout;
@@ -49,11 +51,14 @@ int main(void)
 	char rs[4];
 	char lb[4];
 	char rb[4];
+	char motor[8];
+	uint16_t motorval;
 	
 	while(1)
 	{
 		can_receive (&frame);
 
+/*
 		utoa (frame.data[0], msgtype, 10);
 		utoa (frame.data[1], joy_x, 10);
 		utoa (frame.data[2], joy_y, 10);
@@ -63,19 +68,19 @@ int main(void)
 		utoa (frame.data[5], rs, 10);
 		utoa (frame.data[6], lb, 10);
 		utoa (frame.data[7], rb, 10);
-				
+*/	
+/*
 		printf("message type: %s\n", msgtype);
 		printf("joystick: ");
 		printf("x=%s\t", joy_x);
 		printf("y=%s\n", joy_y);
 		
-
 		printf("touch: ");
 		printf("ls=%s\t", ls);
 		printf("rs=%s\t", rs);
 		printf("lb=%s\t", lb);
 		printf("rb=%s\n", rb);
-		printf("\n\n");
+		printf("\n\n");*/
 		
 		if (ir.low && ir.changed)
 		{
@@ -88,15 +93,18 @@ int main(void)
 			ir.changed = false;
 			printf("new game\n");
 			// new game
-		}			
+		}
 		
-		_delay_ms (100);
+		motor_write (frame.data[1]);
+		motorval = motor_read ();
+		ltoa (motorval, motor, 10);
+		printf("motor: %s\n", motor);
 	}
 }
 
 ISR (TIMER1_OVF_vect)
 {
-	OCR1B = servo_val (frame.data[1]);
+	OCR1B = servo_val (frame.data[2]);
 }
 
 ISR (ADC_vect)
