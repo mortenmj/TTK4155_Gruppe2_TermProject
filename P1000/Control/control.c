@@ -61,7 +61,7 @@ void vControl ( void *pvParameters )
 			frame.data[5] = rs;
 			frame.data[6] = lb;
 			frame.data[7] = rb;
-			frame.dlc = 3;
+			frame.dlc = 8;
 			
 			can_transmit ( &frame );
 			
