@@ -52,30 +52,30 @@ int main(void)
 	
 	while(1)
 	{
-//		can_receive (&frame);
+		can_receive (&frame);
 
-/*
 		utoa (frame.data[0], msgtype, 10);
 		utoa (frame.data[1], joy_x, 10);
 		utoa (frame.data[2], joy_y, 10);
+
 		utoa (frame.data[3], joy_btn, 10);
 		utoa (frame.data[4], ls, 10);
 		utoa (frame.data[5], rs, 10);
 		utoa (frame.data[6], lb, 10);
-		utoa (frame.data[7], rb, 10);*/
-/*
+		utoa (frame.data[7], rb, 10);
 				
 		printf("message type: %s\n", msgtype);
 		printf("joystick: ");
 		printf("x=%s\t", joy_x);
 		printf("y=%s\n", joy_y);
 		
+
 		printf("touch: ");
 		printf("ls=%s\t", ls);
 		printf("rs=%s\t", rs);
 		printf("lb=%s\t", lb);
 		printf("rb=%s\n", rb);
-		printf("\n\n");*/
+		printf("\n\n");
 		
 		if (ir.low && ir.changed)
 		{
