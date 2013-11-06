@@ -66,17 +66,18 @@ void vDisplay ( void *pvParameters )
 	
 	menu_init ();
 	
+/*
 	portENTER_CRITICAL();
 	{
-		/* Initialize timer to debounce input buttons */
+		/ * Compare at 250 gives a timer freq of 1Khz * /
+		OCR0A = 250;
+		/ * Initialize timer to debounce input buttons * /
 		TCCR0A |= dispTIMER_ENABLE_CTC;
 		TCCR0B |= dispTIMER_64_PRESCALE;
 		TIMSK0 |= dispTIMER_ENABLE_COMPA;
-		
-		/* Compare at 250 gives a timer freq of 1Khz */
-		OCR0A = 250;
 	}
-	portEXIT_CRITICAL();		
+	portEXIT_CRITICAL();
+*/
 	
 	/* Display requires a short wait before initialization */
 	vTaskDelay ( dispINIT_DELAY / portTICK_RATE_MS );
@@ -87,8 +88,6 @@ void vDisplay ( void *pvParameters )
 	{
 		vTaskDelayUntil ( &xLastWakeTime, dispTASK_FREQUENCY );
 		
-		vDebounceButtons ();
-		
 		u8g_FirstPage(&u8g);
 		do
 		{
@@ -97,8 +96,10 @@ void vDisplay ( void *pvParameters )
 	}
 }
 
+
 ISR (TIMER0_OVF_vect)
 {
+	return 0;
 	//vDebounceButtons ();
-	vSerialPutString(NULL, "isr\n", 4);
+	//vSerialPutStringFromISR (NULL, "isr\n", 4);
 }
