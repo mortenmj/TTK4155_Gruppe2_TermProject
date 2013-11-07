@@ -93,7 +93,7 @@ void adc_init ( unsigned char queue_length )
 		ADCSRA |= adc_ENABLE;
 			
 		ENABLE_INTERRUPT();
-		adc_start_conversion ();
+		adc_conversion_start ();
 	}
 	portEXIT_CRITICAL();
 }
@@ -108,14 +108,14 @@ signed char adc_get_value ( signed char *val, portTickType block_time )
 	return pdPASS;
 }
 
-void adc_start_conversion ( void )
+void adc_conversion_start ( void )
 {
 	ADCSRA |= adc_START_CONVERSION;
 }
 
-unsigned char adc_take_semaphore ( void )
+unsigned char adc_conversion_complete ( void )
 {
-	return xSemaphoreTake ( adc_sem, 0 );
+	return xSemaphoreTake ( adc_sem, portMAX_DELAY );
 }
 
 void adc_close ( void )
@@ -154,7 +154,7 @@ const char port = adc_get_port ();
 		adc_set_port ( adcPORT1 );
 		
 		/* After one conversion, we immediately start the second. */
-		adc_start_conversion ();
+		adc_conversion_start ();
 	} else
 	{
 		adc_set_port ( adcPORT0 );

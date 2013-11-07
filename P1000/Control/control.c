@@ -46,7 +46,7 @@ void vControl ( void *pvParameters )
 	{
 		vTaskDelayUntil ( &xLastWakeTime, ctrlTASK_FREQUENCY );
 
-		if ( adc_take_semaphore () == pdTRUE )
+		if ( adc_conversion_complete () == pdTRUE )
 		{
 			adc_get_value ( &valx, 0 );
 			adc_get_value ( &valy, 0 );
@@ -65,7 +65,7 @@ void vControl ( void *pvParameters )
 			
 			can_transmit ( &frame );
 			
-			adc_start_conversion ();
+			adc_conversion_start ();
 		}
 	}
 }

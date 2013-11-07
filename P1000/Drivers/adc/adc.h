@@ -50,17 +50,17 @@ void adc_init ( unsigned char queue_length );
 signed char adc_get_value ( signed char *val, portTickType block_time );
 
 /**
+ * @brief Blocks until all ADC conversions are finished.
+ */
+unsigned char adc_conversion_complete ( void );
+
+/**
  * @brief Start a new round of conversions.
  *
  * The ADC interrupt will iterate through all available ADC channels and queue the results. Once the process is complete, the interrupt will give
  * a semaphore which can be claimed with adc_take_semaphore () so that the queued values may be retrieved with adc_get_value ().
  */
-void adc_start_conversion ( void );
-
-/**
- * @brief Takes the semaphore that locks the ADC converted values queue.
- */
-unsigned char adc_take_semaphore ( void );
+void adc_conversion_start ( void );
 
 void adc_close ( void );
 
