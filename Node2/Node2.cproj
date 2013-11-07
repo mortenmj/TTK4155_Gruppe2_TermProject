@@ -92,6 +92,12 @@
     <Compile Include="MCP2515define.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ring_buffer.h">
       <SubType>compile</SubType>
     </Compile>
