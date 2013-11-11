@@ -96,9 +96,6 @@ int main(void)
 		}
 		
 		motor_write (frame.data[1]);
-		motorval = motor_read ();
-		ltoa (motorval, motor, 10);
-		printf("motor: %s\n", motor);
 	}
 }
 

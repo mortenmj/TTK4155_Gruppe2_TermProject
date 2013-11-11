@@ -22,8 +22,10 @@
 #define MOTOR_DIR				PA3
 
 #define MOTOR_DATA				PINC
+#define MOTOR_TRESHOLD			3
 
-uint8_t input;
+uint8_t setpoint;
+unsigned char messageBuf[3];
 
 void motor_init (void)
 {
@@ -44,6 +46,13 @@ void motor_init (void)
 
 	/* Set TWI pins to output and initialize */
 	DDRD |= (1 << PD0) | (1 << PD1);
+	
+	/* Address */
+	messageBuf[0] = 0x50;
+
+	/* Command */
+	messageBuf[1] = 0x00;
+	
 	TWI_Master_Initialise ();
 	
 	motor_reset ();
@@ -77,7 +86,7 @@ int16_t motor_read (void)
 
 void motor_write (uint8_t val)
 {
-	input = val;
+	setpoint = val;
 }
 
 void motor_reset (void)
@@ -87,38 +96,51 @@ void motor_reset (void)
 	MOTOR_PORT |= (1 << MOTOR_RESET);
 }
 
+void motor_update (uint8_t output)
+{
+	messageBuf[2] = output;
+	TWI_Start_Transceiver_With_Data (messageBuf, 3);
+}
+
 ISR (TIMER3_COMPA_vect)
 {
-	unsigned char messageBuf[3];
-	uint8_t val = input;
-
-	if (val < 117)
+	
+	uint16_t travel = motor_read ();
+	uint8_t val = setpoint;
+	uint16_t err;
+	uint8_t output;
+	
+	if (val < (128 - MOTOR_TRESHOLD))
 	{
 		/* Set direction left */
 		MOTOR_PORT &= ~(1 << MOTOR_DIR);
 	}
-	else if (val > 137)
+	else if (val > (128 + MOTOR_TRESHOLD))
 	{
 		/* Set direction right */
 		MOTOR_PORT |= (1 << MOTOR_DIR);
 	}
 	else
 	{
+		motor_update (0);
 		return;
 	}
 		
 	/* Data should be 0 for val = 128 and 255 for val = 0 or 255 */
 	val = abs(val - 128) * 2 - 1;
-		
-	/* Address */
-	messageBuf[0] = 0x50;
-		
-	/* Command */
-	messageBuf[1] = 0x00;
-		
-	/* Data */
-	messageBuf[2] = val;
-	TWI_Start_Transceiver_With_Data (messageBuf, 3);
-		
+	
+	if (val < 10)
+	{
+		val = 0;
+	}
+	
+	/* P-reg */
+	err = (val << 8) - travel;
+	output = (err >> 8);
+	output = output * 0.65;
+
+	printf ("%d\n", output);
+	motor_update (output);
+
 	return;
 }
