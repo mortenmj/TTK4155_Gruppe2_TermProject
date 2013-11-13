@@ -20,11 +20,13 @@
 #include "servo.h"
 #include "ir_sensor.h"
 #include "motor.h"
+#include "solenoid.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
 can_frame_t frame;
 ir_state_t ir;
+uint8_t joy_x, joy_y, ls, rs, lb, rb;
 
 int main(void)
 {
@@ -34,6 +36,7 @@ int main(void)
 	servo_init ();
 	ir_sensor_init ();
 	motor_init ();
+	solenoid_init ();
 		
 	sei();
 		
@@ -43,44 +46,39 @@ int main(void)
 	
 	printf ("Initialized\n");
 
-	char msgtype[4];
-	char joy_x[4];
-	char joy_y[4];
-	char joy_btn[4];
-	char ls[4];
-	char rs[4];
-	char lb[4];
-	char rb[4];
+	char cjoy_x[4];
+	char cjoy_y[4];
+	char cls[4];
+	char crs[4];
+	char clb[4];
+	char crb[4];
 	char motor[8];
 	uint16_t motorval;
 	
 	while(1)
 	{
 		can_receive (&frame);
+		joy_x = frame.data[0];
+		joy_y = frame.data[1];
+		ls = frame.data[2];
+		rs = frame.data[3];
+		lb = frame.data[4];
+		rb = frame.data[5];
 
-/*
-		utoa (frame.data[0], msgtype, 10);
-		utoa (frame.data[1], joy_x, 10);
-		utoa (frame.data[2], joy_y, 10);
+		utoa (joy_x, cjoy_x, 10);
+		utoa (joy_y, cjoy_y, 10);
+		utoa (ls, cls, 10);
+		utoa (rs, crs, 10);
+		utoa (lb, clb, 10);
+		utoa (rb, crb, 10);
 
-		utoa (frame.data[3], joy_btn, 10);
-		utoa (frame.data[4], ls, 10);
-		utoa (frame.data[5], rs, 10);
-		utoa (frame.data[6], lb, 10);
-		utoa (frame.data[7], rb, 10);
-*/	
-/*
-		printf("message type: %s\n", msgtype);
-		printf("joystick: ");
-		printf("x=%s\t", joy_x);
-		printf("y=%s\n", joy_y);
-		
-		printf("touch: ");
-		printf("ls=%s\t", ls);
-		printf("rs=%s\t", rs);
-		printf("lb=%s\t", lb);
-		printf("rb=%s\n", rb);
-		printf("\n\n");*/
+		printf("x=%s\t", cjoy_x);
+		printf("y=%s\n", cjoy_y);
+		printf("ls=%s\t", cls);
+		printf("rs=%s\t", crs);
+		printf("lb=%s\t", clb);
+		printf("rb=%s\n", crb);
+		printf("\n\n");
 		
 		if (ir.low && ir.changed)
 		{
@@ -95,13 +93,22 @@ int main(void)
 			// new game
 		}
 		
-		motor_write (frame.data[1]);
+		if (rb)
+		{
+			solenoid_fire ();
+		}
+		else
+		{
+			solenoid_unfire ();
+		}
+		
+		motor_write (joy_x);
 	}
 }
 
 ISR (TIMER1_OVF_vect)
 {
-	OCR1B = servo_val (frame.data[2]);
+	OCR1B = servo_val (255-rs);
 }
 
 ISR (ADC_vect)
