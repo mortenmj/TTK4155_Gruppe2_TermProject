@@ -89,8 +89,7 @@ void adc_init ( unsigned char queue_length )
 		/* Set reference voltage to AVCC and left shift result */
 		ADMUX = ( adc_AVCC | adc_ADLAR );
 	
-		/* Enable ADC */
-		ADCSRA |= adc_ENABLE;
+		adc_enable ();
 			
 		ENABLE_INTERRUPT();
 		adc_conversion_start ();
@@ -118,7 +117,21 @@ unsigned char adc_conversion_complete ( void )
 	return xSemaphoreTake ( adc_sem, portMAX_DELAY );
 }
 
-void adc_close ( void )
+void adc_enable ( void )
+{
+	unsigned char ucByte;
+	
+	portENTER_CRITICAL();
+	{
+		ENABLE_INTERRUPT();
+		ucByte = ADCSRA;
+		ucByte |= adc_ENABLE;
+		ADCSRA = ucByte;
+	}
+	portEXIT_CRITICAL();
+}
+
+void adc_disable ( void )
 {
 unsigned char ucByte;
 	

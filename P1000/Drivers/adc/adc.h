@@ -62,6 +62,7 @@ unsigned char adc_conversion_complete ( void );
  */
 void adc_conversion_start ( void );
 
-void adc_close ( void );
+void adc_enable ( void );
+void adc_disable ( void );
 
 #endif /* ADC_H_ */
