@@ -7,6 +7,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Breadboard", "Breadboard\Br
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Node2", "Node2\Node2.cproj", "{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "xmega-a1", "xmega-a1\xmega-a1.cproj", "{F2A4610B-AECE-4C6E-9E60-A5175C4DB024}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -24,6 +26,10 @@ Global
 		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Debug|AVR.Build.0 = Debug|AVR
 		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Release|AVR.ActiveCfg = Release|AVR
 		{9508FFEC-6D4D-46A6-8AB0-C56B4F8793DC}.Release|AVR.Build.0 = Release|AVR
+		{F2A4610B-AECE-4C6E-9E60-A5175C4DB024}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F2A4610B-AECE-4C6E-9E60-A5175C4DB024}.Debug|AVR.Build.0 = Debug|AVR
+		{F2A4610B-AECE-4C6E-9E60-A5175C4DB024}.Release|AVR.ActiveCfg = Release|AVR
+		{F2A4610B-AECE-4C6E-9E60-A5175C4DB024}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
