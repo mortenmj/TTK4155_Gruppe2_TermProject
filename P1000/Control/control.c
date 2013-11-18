@@ -42,11 +42,6 @@ void vControl ( void *pvParameters )
 	/* Touch init */
 	touch_init ( 30, 30, 30, 30 );
 	
-	char cls[6];
-	char crs[6];
-	char clb[4];
-	char crb[4];
-	
 	while (1)
 	{
 		vTaskDelayUntil ( &xLastWakeTime, ctrlTASK_FREQUENCY );
@@ -58,20 +53,6 @@ void vControl ( void *pvParameters )
 			adc_get_value ( &valy, 0 );
 			touch_measure ( &ls, &rs, &lb, &rb );
 			
-			utoa (ls, cls, 10);
-			utoa (rs, crs, 10);
-			utoa (lb, clb, 10);
-			utoa (rb, crb, 10);
-			
-			vSerialPutString (NULL, cls, 6);
-			vSerialPutString (NULL, "\t", 1);
-			vSerialPutString (NULL, crs, 6);
-			vSerialPutString (NULL, "\t", 1);
-			vSerialPutString (NULL, clb, 4);
-			vSerialPutString (NULL, "\t", 1);
-			vSerialPutString (NULL, crb, 4);
-			vSerialPutString (NULL, "\n", 1);
-
 			frame.id = 1;
 			frame.data[0] = valx;
 			frame.data[1] = valy;
