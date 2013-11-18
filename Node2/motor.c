@@ -139,7 +139,6 @@ ISR (TIMER3_COMPA_vect)
 	output = (err >> 8);
 	output = output * 0.65;
 
-	printf ("%d\n", output);
 	motor_update (output);
 
 	return;

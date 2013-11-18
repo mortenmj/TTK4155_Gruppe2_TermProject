@@ -21,6 +21,8 @@
 #include "ir_sensor.h"
 #include "motor.h"
 #include "solenoid.h"
+#include "wl_module.h"
+#include "nRF24L01.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
@@ -39,6 +41,8 @@ int main(void)
 	ir_sensor_init ();
 	motor_init ();
 	solenoid_init ();
+	wl_module_init();
+	wl_module_tx_config (wl_module_TX_NR_0);
 		
 	sei();
 		
@@ -55,14 +59,33 @@ int main(void)
 	char clb[4];
 	char crb[4];
 	char motor[8];
+	char wifi[4];
 	uint16_t motorval;
+	
+	uint8_t payload[wl_module_PAYLOAD];
+	uint8_t nRF_status;	
+	uint8_t test;
+	
+	payload[0] = 10;
+	payload[1] = 10;
+	payload[2] = 20;
+	payload[3] = 30;
+	payload[4] = 40;
+	payload[5] = 50;
 	
 	out_frame.id = 2;
 	out_frame.dlc = 1;
 	
 	while(1)
 	{
-		can_receive (&in_frame);
+		//while (!wl_module_data_ready());			//waits for RX_DR Flag in STATUS
+		//nRF_status = wl_module_get_data(payload);	//reads the incomming Data to Array payload
+		wl_module_send (payload, wl_module_PAYLOAD);
+		_delay_ms (20);
+		wl_module_config_register(STATUS, (1<<TX_DS));
+		
+		
+		//can_receive (&in_frame);
 		joy_x = in_frame.data[0];
 		joy_y = in_frame.data[1];
 		ls = in_frame.data[2];
@@ -76,7 +99,9 @@ int main(void)
 		utoa (rs, crs, 10);
 		utoa (lb, clb, 10);
 		utoa (rb, crb, 10);
+		utoa(test, wifi, 10);
 
+/*
 		printf("x=%s\t", cjoy_x);
 		printf("y=%s\n", cjoy_y);
 		printf("ls=%s\t", cls);
@@ -84,22 +109,24 @@ int main(void)
 		printf("lb=%s\t", clb);
 		printf("rb=%s\n", crb);
 		printf("\n\n");
+*/
+
+		//printf("wifi = %s\n", wifi);
 		
 		if (ir.low && ir.changed)
 		{
+			/* Game over */
 			ir.changed = false;
 			out_frame.data[0] = 1;
-			can_transmit(&out_frame);
-			printf("game over\n");
-			// game over
+			//can_transmit(&out_frame);
+			
 		}
 		else if (!ir.low && ir.changed)
 		{
+			/* New game */
 			ir.changed = false;
 			out_frame.data[0] = 2;
-			can_transmit (&out_frame);
-			printf("new game\n");
-			// new game
+			//can_transmit (&out_frame);
 		}
 		
 		if (rb)
