@@ -24,12 +24,14 @@
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
-can_frame_t frame;
 ir_state_t ir;
 uint8_t joy_x, joy_y, ls, rs, lb, rb;
 
 int main(void)
 {
+	can_frame_t in_frame;
+	can_frame_t out_frame;
+	
 	uart_init ();
 	spi_init ();
 	can_init ();
@@ -55,15 +57,18 @@ int main(void)
 	char motor[8];
 	uint16_t motorval;
 	
+	out_frame.id = 2;
+	out_frame.dlc = 1;
+	
 	while(1)
 	{
-		can_receive (&frame);
-		joy_x = frame.data[0];
-		joy_y = frame.data[1];
-		ls = frame.data[2];
-		rs = frame.data[3];
-		lb = frame.data[4];
-		rb = frame.data[5];
+		can_receive (&in_frame);
+		joy_x = in_frame.data[0];
+		joy_y = in_frame.data[1];
+		ls = in_frame.data[2];
+		rs = in_frame.data[3];
+		lb = in_frame.data[4];
+		rb = in_frame.data[5];
 
 		utoa (joy_x, cjoy_x, 10);
 		utoa (joy_y, cjoy_y, 10);
@@ -83,12 +88,16 @@ int main(void)
 		if (ir.low && ir.changed)
 		{
 			ir.changed = false;
+			out_frame.data[0] = 1;
+			can_transmit(&out_frame);
 			printf("game over\n");
 			// game over
 		}
 		else if (!ir.low && ir.changed)
 		{
 			ir.changed = false;
+			out_frame.data[0] = 2;
+			can_transmit (&out_frame);
 			printf("new game\n");
 			// new game
 		}

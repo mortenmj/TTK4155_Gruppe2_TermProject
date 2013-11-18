@@ -23,7 +23,7 @@
 #include "MCP2515define.h"
 #include "can.h"
 
-void can_init ( void )
+void can_init (void)
 {
 	unsigned char canstat = 0;
 	
