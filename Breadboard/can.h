@@ -17,12 +17,11 @@ typedef struct {
 	uint16_t identifier;
 	uint8_t size;
 	uint8_t data[8];
-	} can_frame_t;
+} can_frame_t;
 
 
 void can_init(uint16_t listenAddress);
 uint8_t can_send_frame(can_frame_t* frame);
-
 uint8_t can_recieve_frame(can_frame_t* frame);
 
 
