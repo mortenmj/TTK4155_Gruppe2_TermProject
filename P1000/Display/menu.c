@@ -14,24 +14,27 @@
 #include <string.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-//#include "joystick.h"
-//#include "oled.h"
 
 #include "serial.h"
 
 struct menu_item *current_menu;
 unsigned char sub_selected;
-State_t current_state;
-//direction_t current_direction;
 uint8_t button_flag;
 
-void kuk_copy(char *str1, char *str2, uint8_t len) {
-	for (uint8_t i = 0; i < len; i++) {
-		str1[i] = str2[i];
-	}
-	str1[len+1] = '\0';
+static void test1 (void)
+{
+	vSerialPutString(NULL, "hello\n", 6);
 }
 
+static void test2 (void)
+{
+	vSerialPutString(NULL, "morten er best\n", 15);
+}
+
+static void test3 (void)
+{
+	vSerialPutString(NULL, "hurra\n", 6);
+}
 void menu_init (void)
 {
 	vSerialPutString( NULL, "menu_init()\n", 12);
@@ -40,24 +43,47 @@ void menu_init (void)
 	struct menu_item *sub0 = pvPortMalloc (sizeof (struct menu_item));
 	struct menu_item *sub1 = pvPortMalloc (sizeof (struct menu_item));
 	struct menu_item *sub2 = pvPortMalloc (sizeof (struct menu_item));
+	struct menu_item *sub3 = pvPortMalloc (sizeof (struct menu_item));
+	
+	struct menu_item *sub21 = pvPortMalloc (sizeof (struct menu_item));
+	struct menu_item *sub22 = pvPortMalloc (sizeof (struct menu_item));
 	
 	root->num_submenus = 4;
 	root->children[0] = sub0;
 	root->children[1] = sub1;
 	root->children[2] = sub2;
+	root->children[3] = sub3;
 	root->parent = root;
 	
-	strcpy (sub0->title, "Submenu 0");
+	strcpy (sub0->title, "Start");
 	sub0->num_submenus = 0;
 	sub0->parent = root;
+	sub0->command = test1;
 	
-	strcpy (sub1->title, "Submenu 1");
+	strcpy (sub1->title, "Stop");
 	sub1->num_submenus = 0;
 	sub1->parent = root;
+	sub1->command = test2;
 	
-	strcpy (sub2->title, "Submenu 2");;
-	sub2->num_submenus = 0;
+	strcpy (sub2->title, "Reset");;
+	sub2->num_submenus = 2;
 	sub2->parent = root;
+	
+	strcpy (sub3->title, "Test");;
+	sub3->num_submenus = 0;
+	sub3->parent = root;
+	
+	sub2->children[0] = sub21;
+	sub2->children[1] = sub22;
+	
+	strcpy (sub21->title, "Submenu 2-1");;
+	sub21->num_submenus = 0;
+	sub21->parent = sub2;
+
+	strcpy (sub22->title, "Submenu 2-2");;
+	sub22->num_submenus = 0;
+	sub22->parent = sub2;
+	sub22->command = test3;
 
 	current_menu = root;
 	sub_selected = 0;
@@ -67,19 +93,23 @@ void menu_display (u8g_t *u8g)
 {
 	uint8_t i, h;
 	u8g_uint_t w, d;
-	u8g_SetFont (u8g, u8g_font_5x8);
+	u8g_uint_t arrow_pos;
+	char arrow[2] = ">";
+	
+	u8g_SetFont (u8g, u8g_font_9x18);
 	u8g_SetFontRefHeightText(u8g);
 	u8g_SetFontPosTop(u8g);
 	
 	h = u8g_GetFontAscent(u8g) - u8g_GetFontDescent(u8g);
 	w = u8g_GetWidth(u8g);
+	arrow_pos = u8g_GetWidth(u8g) - u8g_GetStrWidth(u8g, arrow);;
 	
-	for (uint8_t i = 0; i < 3; i++)
+	for (uint8_t i = 0; i < current_menu->num_submenus; i++)
 	{
 		/* draw all menu items */
 		d = (w - u8g_GetStrWidth(u8g, current_menu->children[i]->title)) / 2;
 		u8g_SetDefaultForegroundColor(u8g);
-
+	
 		if ( sub_selected == i )
 		{
 			/* Highlight current selected menu item */
@@ -87,90 +117,68 @@ void menu_display (u8g_t *u8g)
 			u8g_SetDefaultBackgroundColor(u8g);
 		}
 
+		if (current_menu->children[i]->num_submenus > 0)
+		{
+			u8g_DrawStr(u8g, arrow_pos, i*h, arrow);
+		}
+
 		u8g_DrawStr(u8g, d, i*h, current_menu->children[i]->title);
+
 	 }
 }
 
-/* TODO: FIX joystick timer  */
-/*
-void menu_update()
-{	
-	if(!button_flag)	// if pushed (active low)
-	{
-		if (current_menu.children[current_menu.child_selected]->num_submenus == 0)
-		{
-			/ * Execute menu command * /
-			current_menu.children[current_menu.child_selected]->command();
-		}
-		current_menu = *current_menu.children[current_menu.child_selected];	
-		button_flag = 1;
-	}
-	
-	switch(current_direction)
+void menu_update (uint8_t event)
+{
+	switch (event)
 	{
 		case LEFT:
-			current_menu = *current_menu.parent;
+			if (current_menu != current_menu->parent)
+			{
+				current_menu = current_menu->parent;
+				sub_selected = 0;
+			}				
 			break;
 		case RIGHT:
-			if (current_menu.children[current_menu.child_selected]->num_submenus == 0)
+			/* Attempt to execute menu function */
+			if (current_menu->children[sub_selected]->num_submenus == 0 && current_menu->children[sub_selected]->command > 0)
 			{
-				/ * Execute menu command * /
-				current_menu.children[current_menu.child_selected]->command();
+				/* Execute menu command */
+				current_menu->children[sub_selected]->command();
+				break;				
 			}
-			current_menu = *current_menu.children[current_menu.child_selected];
+			
+			/* Attempt to navigate to submenu */
+			if (current_menu->children[sub_selected]->num_submenus != 0)
+			{
+				current_menu = current_menu->children[sub_selected];
+				sub_selected = 0;
+			}
+
 			break;
 		case UP:
-			if(current_menu.child_selected == 0)
-			{	
-				current_menu.child_selected = current_menu.num_submenus; 
-				break;
+			if (sub_selected == 0)
+			{
+				sub_selected = (current_menu->num_submenus - 1);
 			}
 			else
-			{ 
-				current_menu.child_selected--; 
-				break;
+			{
+				sub_selected--;
 			}
+			break;
+
 		case DOWN:
-			if(current_menu.child_selected == current_menu.num_submenus)
-			{	
-				current_menu.child_selected = 0; 
-				break;
+			if (sub_selected == (current_menu->num_submenus - 1))
+			{
+				sub_selected = 0;
+				
 			}
 			else
 			{ 
-				current_menu.child_selected++; 
-				break;
+				sub_selected++; 
 			}
+			break;
+			
 		default:
 			break;
 	}
 }
-
-void menu_update_fsm(direction_t joystick){
-	current_direction = joystick;
-	if (current_state.direction == current_direction)
-	{
-		//do nothing
-	}
-	else
-	{
-		if (current_direction == CENTER)
-		{
-			current_state.direction = current_direction;
-			current_state.state = IDLE;
-		}
-		else
-		{
-			//set_timer()
-			current_state.direction = current_direction;
-			current_state.state = EXCITED;
-			menu_update();
-		}
-	}
-}
-
-ISR (TIMER3_COMPA_vect)
-{
-	current_state.direction = CENTER;
-	current_state.state = IDLE;
-}*/

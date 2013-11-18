@@ -81,16 +81,11 @@
 
 #define F_CPU 16000000UL
 
-/* Definitions for P1000 LEDs and switches */
-#define LEDPORT PORTD
-#define LED0 PD0
-#define LED1 PD2
-#define LED2 PD4
-#define LED3 PD6
-
+/* Definitions for P1000 switches */
 #define SWPORT PORTD
-#define SW0 PD1
-#define SW1 PD3
+#define SWPIN PIND
+#define SW0 PD4
+#define SW1 PD6
 #define SW2 PD5
 #define SW3 PD7
 

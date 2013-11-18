@@ -58,10 +58,7 @@ int main( void )
 {	
 	/* SPI init */
 	spi_init ();
-	
-	/* LED init */
-	LEDPORT |= (1 << LED0) | (1 << LED1) | (1 << LED2) | (1 << LED3);
-	
+
 	/* UART init */
 	xSerialPortInitMinimal ( mainCOM_BAUD_RATE, 100 );
 	vSerialPutString ( NULL, (signed char *) "init\n", 5 );

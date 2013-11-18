@@ -24,24 +24,18 @@ struct menu_item
 	struct menu_item *children[MAX_SUBMENUS];
 };
 
-
-typedef enum
+enum menu_event
 {
-	IDLE,
-	EXCITED,
-	N_STATES
-} state_t;
-
-typedef struct state_item
-{
-	state_t state;
-	//direction_t direction;
-} State_t;
+	UP = 3,
+	DOWN = 2,
+	LEFT = 0,
+	RIGHT = 1,
+	N_EVENTS
+};
 
 void menu_init (void);
 void menu_destroy (void);
 void menu_display (u8g_t *u8g);
-void menu_update (void);
-//void menu_update_fsm(direction_t joystick);
+void menu_update (uint8_t event);
 
 #endif /* MENU_H_ */

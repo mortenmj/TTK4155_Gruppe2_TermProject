@@ -9,15 +9,6 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
-#define dispMAX_CHECKS 5
-
-struct xInputState
-{
-	unsigned char ucState;
-	unsigned char ucValues[dispMAX_CHECKS];
-	unsigned char ucIndex;
-};
-
 void vDisplay ( void *pvParameters );
 
 
