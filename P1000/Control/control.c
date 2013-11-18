@@ -27,9 +27,13 @@
 void vControl ( void *pvParameters )
 {
 	portTickType xLastWakeTime;
-	can_frame_t frame;
 	signed char valx, valy;
 	unsigned char ls, rs, lb, rb;
+	
+	can_frame_t out_frame;
+	can_frame_t in_frame;
+	out_frame.id = 1;
+	out_frame.dlc = 6;
 	
 	xLastWakeTime = xTaskGetTickCount ();
 	
@@ -53,15 +57,26 @@ void vControl ( void *pvParameters )
 			adc_get_value ( &valy, 0 );
 			touch_measure ( &ls, &rs, &lb, &rb );
 			
-			frame.id = 1;
-			frame.data[0] = valx;
-			frame.data[1] = valy;
-			frame.data[2] = ls;
-			frame.data[3] = rs;
-			frame.data[4] = lb;
-			frame.data[5] = rb;
-			frame.dlc = 6;
-			can_transmit ( &frame );
+			out_frame.data[0] = valx;
+			out_frame.data[1] = valy;
+			out_frame.data[2] = ls;
+			out_frame.data[3] = rs;
+			out_frame.data[4] = lb;
+			out_frame.data[5] = rb;
+			
+			can_transmit (&out_frame);
+			can_receive (&in_frame, 0);
+			
+			if (in_frame.data[0] == 1)
+			{
+				vSerialPutString (NULL, "game over\n", 10);
+				in_frame.data[0] = 0;
+			}
+			else if (in_frame.data[0] == 2)
+			{
+				vSerialPutString (NULL, "new game\n", 9);
+				in_frame.data[0] = 0;
+			}
 			
 			adc_enable ();
 			adc_conversion_start ();

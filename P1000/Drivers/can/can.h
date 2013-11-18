@@ -66,9 +66,10 @@ void can_read ( unsigned char addr, unsigned char *val );
  * @brief Receive a packet from the CAN bus
  *
  * @param[out] in_frame Packet to write to
+ * @param block Block on receive or not
  *
  */
-void can_receive ( can_frame_t *frame );
+void can_receive ( can_frame_t *frame, uint8_t block );
 
 /**
  * @brief Transmit a packet on the CAN bus

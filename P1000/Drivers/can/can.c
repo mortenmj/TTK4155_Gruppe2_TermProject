@@ -67,18 +67,21 @@ void can_read ( unsigned char addr, unsigned char *val )
 	mcp2515_read ( (uint8_t) addr, (uint8_t *) val );
 }
 
-void can_receive ( can_frame_t *frame )
+void can_receive ( can_frame_t *frame, uint8_t block )
 {
 	uint8_t status;
 	
-	while(1)
+	if (block)
 	{
-		mcp2515_read_rxtx_status (&status);
-		if (status & 3)
+		while(1)
 		{
-			break;
+			mcp2515_read_rxtx_status (&status);
+			if (status & 3)
+			{
+				break;
+			}
 		}
-	}
+	}		
 
 	uint8_t buffer = 0;
 	if (status & (1 << 0))
