@@ -42,7 +42,6 @@ local.properties
 *.o
 *.srec
 *.mk
-*.S
 Makefile
 TcfTransactionLog.csv
 
