@@ -93,7 +93,7 @@
 #define configCPU_CLOCK_HZ          ( ( unsigned long ) F_CPU )
 #define configTICK_RATE_HZ			( ( portTickType ) 100 )
 #define configMAX_PRIORITIES		( ( unsigned portBASE_TYPE ) 4 )
-#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 100 )
+#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 200 )
 #define configCONTROL_STACK_SIZE	( ( unsigned short ) 500 )
 #define configDISPLAY_STACK_SIZE	( ( unsigned short ) 1200 )
 #define configTOTAL_HEAP_SIZE		( (size_t ) ( 4000 ) )
@@ -103,6 +103,13 @@
 #define configIDLE_SHOULD_YIELD		1
 #define configQUEUE_REGISTRY_SIZE	0
 #define configUSE_MUTEXES			1
+
+/* Timer defines */
+#define configUSE_TIMERS				1
+#define configTIMER_TASK_PRIORITY		tskIDLE_PRIORITY + 2
+#define configTIMER_QUEUE_LENGTH		1
+#define configTIMER_TASK_STACK_DEPTH	configMINIMAL_STACK_SIZE
+
 
 /* Hook function related definitions */
 #define configUSE_IDLE_HOOK				1

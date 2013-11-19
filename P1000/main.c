@@ -13,6 +13,7 @@
 #include "croutine.h"
 
 /* Includes for our tasks */
+#include "event.h"
 #include "Control/control.h"
 #include "Display/display.h"
 
@@ -55,7 +56,10 @@ void vApplicationTickHook ( void );
 /*-----------------------------------------------------------*/
 
 int main( void )
-{	
+{
+	/* Event init */
+	event_init ();
+	
 	/* SPI init */
 	spi_init ();
 

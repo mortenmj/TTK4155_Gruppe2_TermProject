@@ -183,16 +183,16 @@
     <Folder Include="Source\portable\MemMang\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\buttons.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Control\buttons.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Control\control.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Control\control.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Display\buttons.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Display\buttons.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Display\display.c">
@@ -205,6 +205,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Display\menu.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\score.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\score.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Display\u8glib\m2icon5.c">
@@ -336,7 +342,16 @@
     <Compile Include="Drivers\touch\touch_qm_config.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="event.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="event.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="FreeRTOSConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="game.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

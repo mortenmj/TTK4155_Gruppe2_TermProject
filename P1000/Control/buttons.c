@@ -13,6 +13,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#include "event.h"
 #include "buttons.h"
 #include "serial.h"
 
@@ -34,8 +35,6 @@ volatile uint8_t prev_debounced_state;
 uint8_t state[MAX_CHECKS];
 uint8_t index;
 
-static xQueueHandle button_events;
-
 static inline uint8_t buttons_raw_state (void)
 {
 	/* Only select switches from the port */
@@ -55,13 +54,14 @@ static inline void buttons_debounce (void)
 	if (index>=MAX_CHECKS) index=0;
 }
 
-static inline void buttons_update (uint8_t button, uint8_t value)
+static void buttons_update (uint8_t button, uint8_t val)
 {
 	signed char xHigherPriorityTaskWoken = pdFALSE;
 	
 	if ((debounced_state & (1 << button)) && (~prev_debounced_state & (1 << button)))
 	{
-		xQueueSendFromISR ( button_events, &value, &xHigherPriorityTaskWoken );
+		event_t evnt = {EVENT_BUTTON, val};
+		event_put_from_isr (&evnt);
 		
 		if( xHigherPriorityTaskWoken != pdFALSE )
 		{
@@ -72,13 +72,11 @@ static inline void buttons_update (uint8_t button, uint8_t value)
 
 void buttons_init (void)
 {
-	/* Set pull-ups */
-	SWPORT |= (1 << SW0) | (1 << SW1) | (1 << SW2) | (1 << SW3);
-	
-	button_events = xQueueCreate( BUTTON_QUEUE_LENGTH, ( unsigned char ) sizeof( unsigned char ) );
-	
 	portENTER_CRITICAL();
 	{
+		/* Set pull-ups */
+		SWPORT |= (1 << SW0) | (1 << SW1) | (1 << SW2) | (1 << SW3);
+			
 		/* Initialize timer to debounce input buttons */
 		TCCR0A |= dispTIMER_ENABLE_CTC;
 		TCCR0B |= dispTIMER_64_PRESCALE;
@@ -88,16 +86,6 @@ void buttons_init (void)
 		OCR0A = 250;
 	}
 	portEXIT_CRITICAL();
-}
-
-uint8_t buttons_get (uint8_t *button, portTickType block_time)
-{
-	if (xQueueReceive (button_events, button, block_time) != pdPASS)
-	{
-		return pdFAIL;
-	}
-	
-	return pdPASS;
 }
 
 ISR (TIMER0_COMPA_vect)

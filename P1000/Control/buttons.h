@@ -9,9 +9,6 @@
 #ifndef BUTTONS_H_
 #define BUTTONS_H_
 
-
-
 void buttons_init (void);
-uint8_t buttons_get (uint8_t *button, portTickType block_time);
 
 #endif /* BUTTONS_H_ */

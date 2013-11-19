@@ -15,26 +15,37 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#include "event.h"
+#include "game.h"
+#include "u8glib/u8g.h"
 #include "serial.h"
 
 struct menu_item *current_menu;
 unsigned char sub_selected;
 uint8_t button_flag;
 
-static void test1 (void)
+static void menu_func_play (void)
 {
-	vSerialPutString(NULL, "hello\n", 6);
+	event_t evnt = {EVENT_GAME, GAME_START};
+	event_put (&evnt, portMAX_DELAY);
+	vSerialPutString(NULL, "Play\n", 5);
 }
 
-static void test2 (void)
+static void menu_func_hiscore (void)
 {
-	vSerialPutString(NULL, "morten er best\n", 15);
+	vSerialPutString(NULL, "Hiscore\n", 8);
 }
 
-static void test3 (void)
+static void menu_func_clear (void)
 {
-	vSerialPutString(NULL, "hurra\n", 6);
+	vSerialPutString(NULL, "Clear\n", 6);
 }
+
+static void menu_func_about (void)
+{
+	vSerialPutString(NULL, "About\n", 6);
+}
+
 void menu_init (void)
 {
 	vSerialPutString( NULL, "menu_init()\n", 12);
@@ -45,9 +56,6 @@ void menu_init (void)
 	struct menu_item *sub2 = pvPortMalloc (sizeof (struct menu_item));
 	struct menu_item *sub3 = pvPortMalloc (sizeof (struct menu_item));
 	
-	struct menu_item *sub21 = pvPortMalloc (sizeof (struct menu_item));
-	struct menu_item *sub22 = pvPortMalloc (sizeof (struct menu_item));
-	
 	root->num_submenus = 4;
 	root->children[0] = sub0;
 	root->children[1] = sub1;
@@ -55,35 +63,25 @@ void menu_init (void)
 	root->children[3] = sub3;
 	root->parent = root;
 	
-	strcpy (sub0->title, "Start");
+	strcpy (sub0->title, "Play");
 	sub0->num_submenus = 0;
 	sub0->parent = root;
-	sub0->command = test1;
+	sub0->command = menu_func_play;
 	
-	strcpy (sub1->title, "Stop");
+	strcpy (sub1->title, "Highscore");
 	sub1->num_submenus = 0;
 	sub1->parent = root;
-	sub1->command = test2;
+	sub1->command = menu_func_hiscore;
 	
-	strcpy (sub2->title, "Reset");;
-	sub2->num_submenus = 2;
+	strcpy (sub2->title, "Clear");
+	sub2->num_submenus = 0;
 	sub2->parent = root;
+	sub2->command = menu_func_clear;
 	
-	strcpy (sub3->title, "Test");;
+	strcpy (sub3->title, "About");
 	sub3->num_submenus = 0;
 	sub3->parent = root;
-	
-	sub2->children[0] = sub21;
-	sub2->children[1] = sub22;
-	
-	strcpy (sub21->title, "Submenu 2-1");;
-	sub21->num_submenus = 0;
-	sub21->parent = sub2;
-
-	strcpy (sub22->title, "Submenu 2-2");;
-	sub22->num_submenus = 0;
-	sub22->parent = sub2;
-	sub22->command = test3;
+	sub3->command = menu_func_about;
 
 	current_menu = root;
 	sub_selected = 0;
@@ -123,7 +121,6 @@ void menu_display (u8g_t *u8g)
 		}
 
 		u8g_DrawStr(u8g, d, i*h, current_menu->children[i]->title);
-
 	 }
 }
 

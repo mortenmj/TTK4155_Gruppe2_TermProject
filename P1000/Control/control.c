@@ -11,6 +11,9 @@
 #include "task.h"
 #include "control.h"
 
+#include "event.h"
+#include "game.h"
+#include "buttons.h"
 #include "adc.h"
 #include "serial.h"
 #include "touch.h"
@@ -35,7 +38,12 @@ void vControl ( void *pvParameters )
 	out_frame.id = 1;
 	out_frame.dlc = 6;
 	
+	event_t evnt = {EVENT_GAME, 0};
+	
 	xLastWakeTime = xTaskGetTickCount ();
+	
+	/* Button init */
+	buttons_init ();
 	
 	/* CAN init */
 	can_init ();
@@ -67,14 +75,18 @@ void vControl ( void *pvParameters )
 			can_transmit (&out_frame);
 			can_receive (&in_frame, 0);
 			
-			if (in_frame.data[0] == 1)
+			if (in_frame.data[0] == GAME_SENSOR_TRIGGERED)
 			{
-				vSerialPutString (NULL, "game over\n", 10);
+				evnt.val = GAME_SENSOR_TRIGGERED;
+				vSerialPutString(NULL, "trig\n", 5);
+				event_put (&evnt, 0);
 				in_frame.data[0] = 0;
 			}
-			else if (in_frame.data[0] == 2)
+			else if (in_frame.data[0] == GAME_SENSOR_CLEARED)
 			{
-				vSerialPutString (NULL, "new game\n", 9);
+				evnt.val = GAME_SENSOR_CLEARED;
+				vSerialPutString(NULL, "clear\n", 6);
+				event_put (&evnt, 0);
 				in_frame.data[0] = 0;
 			}
 			
