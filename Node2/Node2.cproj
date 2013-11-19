@@ -104,6 +104,9 @@
     <Compile Include="config.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="game.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ir_sensor.c">
       <SubType>compile</SubType>
     </Compile>
