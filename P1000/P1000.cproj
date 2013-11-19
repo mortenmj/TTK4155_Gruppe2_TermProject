@@ -195,6 +195,9 @@
     <Compile Include="Control\control.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Control\game.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Display\display.c">
       <SubType>compile</SubType>
     </Compile>
@@ -253,6 +256,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Display\u8glib\u8g_font_5x8.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\u8glib\u8g_font_6x10.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Display\u8glib\u8g_font_9x18.c">
@@ -342,16 +348,13 @@
     <Compile Include="Drivers\touch\touch_qm_config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="event.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="event.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="FreeRTOSConfig.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="game.h">
+    <Compile Include="fsm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fsm.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -402,7 +405,7 @@
     <Compile Include="Source\portable\GCC\AT90USB1287\portmacro.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Source\portable\MemMang\heap_1.c">
+    <Compile Include="Source\portable\MemMang\heap_4.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Source\queue.c">

@@ -4,7 +4,7 @@
 
 #ifdef GCC_MEGA_AVR
 	/* EEPROM routines used only with the WinAVR compiler. */
-	#include <avr/eeprom.h> 
+	#include <avr/eeprom.h>
 #endif
 
 /* Scheduler include files. */
@@ -12,8 +12,10 @@
 #include "task.h"
 #include "croutine.h"
 
+#include "serial.h"
+#include "spi.h"
+
 /* Includes for our tasks */
-#include "event.h"
 #include "Control/control.h"
 #include "Display/display.h"
 
@@ -57,23 +59,26 @@ void vApplicationTickHook ( void );
 
 int main( void )
 {
-	/* Event init */
-	event_init ();
-	
 	/* SPI init */
 	spi_init ();
 
 	/* UART init */
 	xSerialPortInitMinimal ( mainCOM_BAUD_RATE, 100 );
 	vSerialPutString ( NULL, (signed char *) "init\n", 5 );
-	
+
 	/* Create tasks */
-	xTaskCreate ( vDisplay, (signed char * ) "Display", configDISPLAY_STACK_SIZE, NULL, mainDISPLAY_TASK_PRIORITY, NULL );
-	xTaskCreate ( vControl, (signed char * ) "Control", configCONTROL_STACK_SIZE, NULL, mainCONTROL_TASK_PRIORITY, NULL );
+    xTaskHandle disp_handle;
+    xTaskHandle ctrl_handle;
+
+	xTaskCreate ( vDisplay, (signed char * ) "Display", configDISPLAY_STACK_SIZE, NULL, mainDISPLAY_TASK_PRIORITY, &disp_handle );
+    vDisplaySetHandle (disp_handle);
+
+	xTaskCreate ( vControl, (signed char * ) "Control", configCONTROL_STACK_SIZE, NULL, mainCONTROL_TASK_PRIORITY, &ctrl_handle );
+    vControlSetHandle (ctrl_handle);
 
 	/* Start scheduler */
 	vTaskStartScheduler();
-	
+
 	return 0;
 }
 /*-----------------------------------------------------------*/

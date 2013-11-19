@@ -27,17 +27,17 @@
 void can_init ( void )
 {
 	portENTER_CRITICAL();
-	{		
+	{
 		unsigned char canstat = 0;
-		
+
 		mcp2515_spi_port_init ();
 		mcp2515_reset ();
-		
+
 		do
 		{
 			mcp2515_read (MCP2515_CANSTAT, &canstat);
 		} while ((canstat & 0xE0) != MCP2515_MODE_CONFIG);
-	
+
 		/* Enable pin change interrupt on PB4 */
 		/*
 		DDRB |= PCINT4;
@@ -47,7 +47,7 @@ void can_init ( void )
 
 		/* Enable interrupts on MCP2515 */
 		//mcp2515_write ( MCP2515_CANINTE, 0xFF );
-		
+
 		/* Set one-shot mode */
 		mcp2515_bit_modify ( MCP2515_CANCTRL, MCP2515_MODE_ONESHOT, MCP2515_MODE_ONESHOT );
 
@@ -57,7 +57,7 @@ void can_init ( void )
 		{
 			mcp2515_read (MCP2515_CANSTAT, &canstat);
 		} while ((canstat & 0xE0) != MCP2515_MODE_NORMAL);
-	}		
+	}
 	portEXIT_CRITICAL();
 }
 
@@ -70,7 +70,7 @@ void can_read ( unsigned char addr, unsigned char *val )
 void can_receive ( can_frame_t *frame, uint8_t block )
 {
 	uint8_t status;
-	
+
 	if (block)
 	{
 		while(1)
@@ -81,7 +81,7 @@ void can_receive ( can_frame_t *frame, uint8_t block )
 				break;
 			}
 		}
-	}		
+	}
 
 	uint8_t buffer = 0;
 	if (status & (1 << 0))
@@ -94,7 +94,7 @@ void can_receive ( can_frame_t *frame, uint8_t block )
 	}
 	else
 	{
-		return 0;
+		return;
 	}
 
 	mcp2515_read_rx_buf (buffer, (mcp2515_can_frame_t *) frame);
@@ -102,23 +102,23 @@ void can_receive ( can_frame_t *frame, uint8_t block )
 	// Clear interrupt
 	if(buffer == MCP2515_RXB0CTRL) {
 		mcp2515_bit_modify (MCP2515_CANINTF, MCP2515_CANINTF_RX0IF, 0);
-		return 1;
+		return;
 	}
 	else if(buffer == MCP2515_RXB1CTRL) {
 		mcp2515_bit_modify (MCP2515_CANINTF, MCP2515_CANINTF_RX1IF, 0);
-		return 1;
+		return;
 	}
-	
-	return 0;
+
+	return;
 }
 
 void can_transmit ( can_frame_t *frame )
 {
 	uint8_t status;
 	mcp2515_read_rxtx_status (&status);
-	
+
 	uint8_t buffer = 0;
-	
+
 	if ((status & (1 << 2)) == 0)
 	{
 		buffer = MCP2515_TX_BUF_0;
@@ -133,13 +133,13 @@ void can_transmit ( can_frame_t *frame )
 	}
 	else
 	{
-		return 0;
+		return;
 	}
 
 	mcp2515_load_tx_buf(buffer, (mcp2515_can_frame_t *) frame);
 	mcp2515_rts (buffer);
-	
-	return 1;
+
+	return;
 }
 
 void can_write ( unsigned char addr, unsigned char val )

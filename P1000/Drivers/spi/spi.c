@@ -11,7 +11,9 @@
  *
  * Created: 30.09.2013 20:08:29
  *  Author: mortenmj
- */ 
+ */
+
+#include "FreeRTOS.h"
 
 #include <stdlib.h>
 #include <avr/interrupt.h>
@@ -33,7 +35,7 @@
 #define spiMOSI							( ( unsigned char ) ( 1 << PB2 ) )
 #define spiMISO							( ( unsigned char ) ( 1 << PB3 ) )
 #define spiINT							( ( unsigned char ) ( 1 << PB4 ) )
-											
+
 /*-----------------------------------------------------------*/
 
 void spi_init (void)
@@ -42,12 +44,12 @@ void spi_init (void)
 	{
 		/* SS, SLCK & MOSI as output */
 		DDRB |= ( spiSLCK | spiMOSI );
-	
+
 		/* MISO and PCINT4 input */
 		DDRB &= ~( spiMISO );
-	
+
 		SPCR |= ( spiENABLE | spiMASTER_MODE );
-	}	
+	}
 	portEXIT_CRITICAL();
 }
 

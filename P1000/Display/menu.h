@@ -3,17 +3,17 @@
  *
  * Created: 25.09.2013 21:11:36
  *  Author: mortenmj & magnealv
- */ 
+ */
 
 #ifndef MENU_H_
 #define MENU_H_
 
 #include <stdint.h>
 #include "u8glib/u8g.h"
-//#include "joystick.h"
 
 #define MAX_TITLE 14
 #define MAX_SUBMENUS 16
+#define MENU_EVENT_QUEUE_LEN 10
 
 struct menu_item
 {
@@ -24,18 +24,23 @@ struct menu_item
 	struct menu_item *children[MAX_SUBMENUS];
 };
 
-enum menu_event
+typedef enum
 {
-	UP = 3,
-	DOWN = 2,
+	UP = 2,
+	DOWN = 3,
 	LEFT = 0,
 	RIGHT = 1,
-	N_EVENTS
-};
+	N_MENU_EVENTS
+} menu_event_t;
 
 void menu_init (void);
-void menu_destroy (void);
+void menu_update (void);
+
+portBASE_TYPE menu_event_put (menu_event_t event, portTickType block_time);
+void menu_event_put_from_isr (menu_event_t event);
+
 void menu_display (u8g_t *u8g);
-void menu_update (uint8_t event);
+void menu_hiscore_display (u8g_t *u8g);
+void menu_about_display (u8g_t *u8g);
 
 #endif /* MENU_H_ */

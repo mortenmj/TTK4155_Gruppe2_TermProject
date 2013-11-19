@@ -3,25 +3,17 @@
  *
  * Created: 02.10.2013 23:45:00
  *  Author: mortenmj
- */ 
+ */
 
 
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
-typedef enum
-{
-	DISPLAY_MENU,
-	DISPLAY_GAME,
-	N_DISPLAY_MODES
-} display_mode_t;
-
-typedef struct display_struct
-{
-	display_mode_t mode;
-	uint8_t alive;
-};
+#include "u8glib/u8g.h"
 
 void vDisplay ( void *pvParameters );
+xTaskHandle xDisplayGetHandle (void);
+void vDisplaySetHandle (xTaskHandle handle);
+void vDisplaySetDisplayFunc (void (*func)(u8g_t *u8g));
 
 #endif /* DISPLAY_H_ */

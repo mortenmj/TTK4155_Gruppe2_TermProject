@@ -11,8 +11,12 @@
 
 void score_init (void);
 void score_display (u8g_t *u8g);
-void score_lock (void);
+void score_hiscore_display (u8g_t *u8g);
+
+void score_start (void);
 void score_reset (void);
-void score_unlock (void);
+
+void score_save (void);
+void score_clear (void);
 
 #endif /* SCORE_H_ */
