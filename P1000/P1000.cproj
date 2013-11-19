@@ -172,7 +172,6 @@
     <Folder Include="Drivers" />
     <Folder Include="Drivers\adc\" />
     <Folder Include="Drivers\can\" />
-    <Folder Include="Drivers\nrf24l01" />
     <Folder Include="Drivers\serial\" />
     <Folder Include="Drivers\spi\" />
     <Folder Include="Drivers\touch\" />
@@ -308,15 +307,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Drivers\can\MCP2515define.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\nrf24l01\nRF24L01.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\nrf24l01\wl_module.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\nrf24l01\wl_module.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Drivers\serial\serial.c">
