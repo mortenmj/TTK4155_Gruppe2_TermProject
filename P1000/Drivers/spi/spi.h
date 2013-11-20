@@ -20,7 +20,7 @@
 /**
  * @defgroup SPI SPI API
  *
- * @ingroup Devices
+ * @ingroup Drivers
  *
  * @brief Provides functions for communicating over the SPI interface
  *
