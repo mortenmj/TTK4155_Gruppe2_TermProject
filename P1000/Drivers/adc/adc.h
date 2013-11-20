@@ -11,17 +11,17 @@
  *
  * Created: 05.09.2013 15:03:02
  *  Author: mortenmj
- */ 
+ */
 
 #ifndef ADC_H_
 #define ADC_H_
 
 /**
- * @defgroup ADC ADC API
+ * @defgroup ADC ADC driver
  *
- * @ingroup Control
+ * @ingroup Drivers
  *
- * @brief Provides functions for the ADC
+ * @brief High-level ADC driver
  *
  * @{
  */
@@ -35,9 +35,12 @@ typedef enum
 	adcPORT4,
 	adcPORT5,
 	adcPORT6,
-	adcPORT7		
+	adcPORT7
 } eADCPort;
 
+/**
+ * @brief Initialize ADC
+ */
 void adc_init ( unsigned char queue_length );
 
 /**
@@ -62,7 +65,16 @@ unsigned char adc_conversion_complete ( void );
  */
 void adc_conversion_start ( void );
 
+/**
+ * @brief Enable the ADC.
+ */
 void adc_enable ( void );
+
+/**
+ * @brief Disable the ADC.
+ */
 void adc_disable ( void );
+
+/** @} */
 
 #endif /* ADC_H_ */

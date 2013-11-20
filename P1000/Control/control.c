@@ -14,7 +14,6 @@
 #include "fsm.h"
 
 #include "buttons.h"
-#include "game.h"
 #include "adc.h"
 #include "serial.h"
 #include "touch.h"

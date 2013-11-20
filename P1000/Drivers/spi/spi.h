@@ -3,7 +3,7 @@
  *
  * @ingroup SPI
  *
- * @brief SPI API
+ * @brief SPI driver
  */
 
 /*
@@ -11,18 +11,18 @@
  *
  * Created: 30.09.2013 20:08:38
  *  Author: mortenmj
- */ 
+ */
 
 
 #ifndef SPI_H_
 #define SPI_H_
 
 /**
- * @defgroup SPI SPI API
+ * @defgroup SPI SPI driver
  *
- * @ingroup Devices
+ * @ingroup Drivers
  *
- * @brief Provides functions for communicating over the SPI interface
+ * @brief Simple SPI driver
  *
  * @{
  */

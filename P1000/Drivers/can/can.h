@@ -3,7 +3,7 @@
  *
  * @ingroup CAN
  *
- * @brief High-level CAN API
+ * @brief High-level CAN driver
  */
 
 /*
@@ -17,11 +17,11 @@
 #define CAN_H_
 
 /**
- * @defgroup CAN CAN API
+ * @defgroup CAN CAN driver
  *
- * @ingroup Control
+ * @ingroup Drivers
  *
- * @brief Provides functions for communicating with the CAN controller
+ * @brief High-level CAN driver
  *
  * @{
  */
@@ -36,13 +36,13 @@ typedef struct CanFrame {
 	 * @brief Message ID
 	 */
 	uint32_t id;
-	
+
 	/**
 	 * @brief Message data, up to 8 bytes
 	 */
 	uint8_t data[8];
-	
-	/** 
+
+	/**
 	 * @brief Length of data
 	 */
 	uint8_t dlc;
