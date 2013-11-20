@@ -39,6 +39,13 @@
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\can\MCP2515.h</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\can\MCP2515define.h</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\can\README</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\libavr51g2_16qm_8x_2y_krs_2rs.a</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\qm_asm_tiny_mega.S</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\ReadMe.txt</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\touch.c</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\touch.h</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\touch_api.h</Excluded>
+  <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Drivers\touch\touch_qm_config.h</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Source\include\croutine.h</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Source\include\FreeRTOS.h</Excluded>
   <Excluded>C:\Users\mortenmj\Documents\GitHub\Byggern\P1000\Source\include\list.h</Excluded>
