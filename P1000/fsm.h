@@ -112,6 +112,13 @@ portBASE_TYPE fsm_event_put (fsm_event_t *event, portTickType block_time);
  */
 void fsm_event_put_from_isr (fsm_event_t *event);
 
+/**
+ * @brief Get FSM state
+ *
+ * @return The state
+ */
+portBASE_TYPE fsm_get_state (void);
+
 /** @} */
 
 #endif /* FSM_H_ */

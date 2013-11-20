@@ -202,3 +202,8 @@ void fsm_event_put_from_isr (fsm_event_t *event)
 		taskYIELD ();
 	}
 }
+
+portBASE_TYPE fsm_get_state (void)
+{
+	return state;
+}

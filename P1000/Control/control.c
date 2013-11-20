@@ -85,7 +85,11 @@ void vControl ( void *pvParameters )
 			out_frame.data[4] = lb;
 			out_frame.data[5] = rb;
 
-			can_transmit (&out_frame);
+			if (fsm_get_state() == ST_PLAY)
+			{
+				can_transmit (&out_frame);
+			}
+						
 			can_receive (&in_frame, 0);
 
 			if (in_frame.data[0] == GAME_SENSOR_TRIGGERED)
