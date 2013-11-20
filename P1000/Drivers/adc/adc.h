@@ -19,7 +19,7 @@
 /**
  * @defgroup ADC ADC API
  *
- * @ingroup Control
+ * @ingroup Drivers
  *
  * @brief Provides functions for the ADC
  *
@@ -38,6 +38,9 @@ typedef enum
 	adcPORT7		
 } eADCPort;
 
+/**
+ * @brief Initialize ADC
+ */
 void adc_init ( unsigned char queue_length );
 
 /**
@@ -62,7 +65,16 @@ unsigned char adc_conversion_complete ( void );
  */
 void adc_conversion_start ( void );
 
+/**
+ * @brief Enable the ADC.
+ */
 void adc_enable ( void );
+
+/**
+ * @brief Disable the ADC.
+ */
 void adc_disable ( void );
+
+/** @} */
 
 #endif /* ADC_H_ */
