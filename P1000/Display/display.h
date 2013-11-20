@@ -17,6 +17,16 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
+/**
+ * @defgroup Display Display module
+ *
+ * @ingroup Display
+ *
+ * @brief Provides functions for creating and updating the menu
+ *
+ * @{
+ */
+
 #include "u8glib/u8g.h"
 
 /**
