@@ -19,7 +19,7 @@
 /**
  * @defgroup CAN CAN API
  *
- * @ingroup Control
+ * @ingroup Drivers
  *
  * @brief Provides functions for communicating with the CAN controller
  *
