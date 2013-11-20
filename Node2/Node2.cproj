@@ -131,9 +131,6 @@
     <Compile Include="motor.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="nRF24L01.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="ring_buffer.h">
       <SubType>compile</SubType>
     </Compile>
@@ -165,12 +162,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="wl_module.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="wl_module.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
