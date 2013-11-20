@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @ingroup Display
+ *
+ * @brief Display module
+ */
+
 /*
  * display.h
  *
