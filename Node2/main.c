@@ -22,8 +22,6 @@
 #include "ir_sensor.h"
 #include "motor.h"
 #include "solenoid.h"
-#include "wl_module.h"
-#include "nRF24L01.h"
 
 static FILE uart_stdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
@@ -41,10 +39,7 @@ int main(void)
 	servo_init ();
 	ir_sensor_init ();
 	motor_init ();
-	solenoid_init ();
-	wl_module_init();
-	wl_module_tx_config (wl_module_TX_NR_0);
-		
+	solenoid_init ();		
 	sei();
 		
 	stdout = &uart_stdout;
