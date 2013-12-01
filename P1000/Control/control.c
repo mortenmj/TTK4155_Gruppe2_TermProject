@@ -45,11 +45,6 @@ void vControl ( void *pvParameters )
 	signed char valx, valy;
 	unsigned char ls, rs, lb, rb;
 
-	can_frame_t out_frame;
-	can_frame_t in_frame;
-	out_frame.id = 1;
-	out_frame.dlc = 6;
-
 	xLastWakeTime = xTaskGetTickCount ();
 
 	/* Button init */
@@ -78,33 +73,37 @@ void vControl ( void *pvParameters )
 			adc_get_value ( &valy, 0 );
 			touch_measure ( &ls, &rs, &lb, &rb );
 
-			out_frame.data[0] = valx;
-			out_frame.data[1] = valy;
-			out_frame.data[2] = ls;
-			out_frame.data[3] = rs;
-			out_frame.data[4] = lb;
-			out_frame.data[5] = rb;
+			can_frame_t *out_frame = can_frame_acquire ();
+			out_frame->packet.id = 1;
+			out_frame->packet.dlc = 6;
+			out_frame->packet.data[0] = valx;
+			out_frame->packet.data[1] = valy;
+			out_frame->packet.data[2] = ls;
+			out_frame->packet.data[3] = rs;
+			out_frame->packet.data[4] = lb;
+			out_frame->packet.data[5] = rb;
 
 			if (fsm_get_state() == ST_PLAY)
 			{
-				can_transmit (&out_frame);
+				can_transmit (out_frame, portMAX_DELAY);
 			}
-						
-			can_receive (&in_frame, 0);
+			
+			can_frame_t *in_frame = can_frame_acquire ();
+			can_receive (in_frame, 0);
 
-			if (in_frame.data[0] == GAME_SENSOR_TRIGGERED)
+			if (in_frame->packet.data[0] == GAME_SENSOR_TRIGGERED)
 			{
 				// TODO: set triggered state
 				fsm_event_t *event = pvPortMalloc (sizeof (fsm_event_t));
 				event->type = EV_STOP;
 				event->ptr = NULL;
 				fsm_event_put (event, portMAX_DELAY);
-				in_frame.data[0] = 0;
+				in_frame->packet.data[0] = 0;
 			}
-			else if (in_frame.data[0] == GAME_SENSOR_CLEARED)
+			else if (in_frame->packet.data[0] == GAME_SENSOR_CLEARED)
 			{
 				// TODO: set cleared state
-				in_frame.data[0] = 0;
+				in_frame->packet.data[0] = 0;
 			}
 
 			adc_enable ();
